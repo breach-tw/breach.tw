@@ -36,7 +36,7 @@
             <p>未在資料庫中找到，已新增訂閱資訊至系統，未來發現大規模個資外洩時會即時通知您。</p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" action="javascript:subscribe(this)">
+            <form class="ts form" onsubmit="subscribe(this); return false;">
                 <div class="two fields">
                     <div class="field">
                         <label>姓名<span style="color:red;">*</span></label>
@@ -88,7 +88,6 @@
                         }
                     });
                 }
-                return 0;
             }
         </script>
     </section>

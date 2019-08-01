@@ -29,7 +29,7 @@
             <p>您的個資目前未在大規模洩漏中找到，不過可能只是未被本網站發現<br>再接再厲，繼續保持。</p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" action="javascript:one_step(this)">
+            <form class="ts form" onsubmit="one_step(this); return false;">
                 <div class="two fields">
                     <div class="field">
                         <label>姓名<span style="color:red;">*</span></label>
@@ -55,7 +55,6 @@
                 }else{
                     search(sha1(form.fullname.value+form.nid.value));
                 }
-                return 0;
             }
             function search(hash){
                 $('#nobreach').hide();

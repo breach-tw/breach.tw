@@ -24,7 +24,7 @@
             <p id="real_res"></p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" action="javascript:gen_sha1(this)">
+            <form class="ts form" onsubmit="gen_sha1(this); return false;">
                 <div class="two fields">
                     <div class="field">
                         <label>姓名<span style="color:red;">*</span></label>
@@ -49,7 +49,6 @@
                     $('#real_res').text(sha1(form.fullname.value+form.nid.value));
                     $('#hash_res').show();
                 }
-                return 0;
             }
         </script>
     </section>
@@ -74,7 +73,7 @@
             <p>您的個資目前未在大規模洩漏中找到，不過可能只是未被本網站發現<br>再接再厲，繼續保持。</p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" action="javascript:search(this)">
+            <form class="ts form" onsubmit="search(this); return false;">
                 <div class="one fields">
                     <div class="field">
                         <label>雜湊代碼<span style="color:red;">*</span></label>

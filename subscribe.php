@@ -36,7 +36,7 @@
             <p>未在資料庫中找到，已新增訂閱資訊至系統，未來發現大規模個資外洩時會即時通知您。</p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" onsubmit="subscribe(this); return false;">
+            <form class="ts form" onsubmit="subscribe_func(this); return false;">
                 <div class="two fields">
                     <div class="field">
                         <label>姓名<span style="color:red;">*</span></label>
@@ -58,7 +58,7 @@
         </div>
         <script>
             let pre_defined_items = {'fb_id': 'Facebook ID', 'birth': '生日', 'address': '地址', 'phone': '電話', 'email': 'E-mail', 'name': '姓名', 'social_id': '身分證字號'};
-            function subscribe(form){
+            function subscribe_func(form){
                 $('#missingkeyword1').hide();
                 $('#missingkeyword2').hide();
                 $('#missingkeyword3').hide();

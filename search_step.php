@@ -63,6 +63,10 @@
             <div class="header">輸入錯誤</div>
             <p>雜湊代碼格式錯誤</p>
         </div>
+        <div class="ts negative message" id="backenderr" style="display: none;">
+            <div class="header">後端錯誤</div>
+            <p id="backenderr_text"></p>
+        </div>
         <div class="ts negative message" id="breach" style="display: none;">
             <div class="header">真是太糟糕了</div>
             <p>發現個資洩漏情形<br>
@@ -90,6 +94,7 @@
             $('#breach').hide();
             $('#missingkeyword3').hide();
             $('#missingkeyword4').hide();
+            $('#backenderr').hide();
             $('#search').attr('disabled', true);
             $.getJSON('/api/search.php?hash=' + form.hash.value, function(res){
                 $('#search').attr('disabled', false);
@@ -103,6 +108,9 @@
                     }else{
                         $('#nobreach').show();
                     }
+                }else{
+                    $('#backenderr_text')[0].innerText = res.error;
+                    $('#backenderr').show();
                 }
             });
         }

@@ -19,6 +19,10 @@
             <div class="header">缺少身分證字號</div>
             <p>請輸入身分證字號</p>
         </div>
+        <div class="ts negative message" id="backenderr" style="display: none;">
+            <div class="header">後端錯誤</div>
+            <p id="backenderr_text"></p>
+        </div>
         <div class="ts negative message" id="breach" style="display: none;">
             <div class="header">真是太糟糕了</div>
             <p>發現個資洩漏情形<br>
@@ -48,6 +52,7 @@
             function one_step(form){
                 $('#missingkeyword1').hide();
                 $('#missingkeyword2').hide();
+                $('#backenderr').hide();
                 if (form.fullname.value == ''){
                     $('#missingkeyword1').show();
                 }else if (form.nid.value == ''){
@@ -72,6 +77,9 @@
                         }else{
                             $('#nobreach').show();
                         }
+                    }else{
+                        $('#backenderr_text')[0].innerText = res.error;
+                        $('#backenderr').show();
                     }
                 });
             }

@@ -10,7 +10,7 @@
     <section class="ts narrow container">
         <h3 class="ts left aligned header">服務內容</h3>
         <div class="ts very padded segment">
-            <p>本產品提供台灣（中華民國）之個資外洩事件查詢以及個資外洩追蹤服務。</p>
+            <p>本產品提供台灣（中華民國）之個資外洩事件查詢及追蹤服務。</p>
         </div>
     </section>
 
@@ -25,7 +25,7 @@
     <section class="ts narrow container" style="padding-bottom: 60px;">
         <h3 class="ts left aligned header">技術細節</h3>
         <div class="ts very padded segment">
-            <p>根據<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021">台灣個資法</a>規定之個資搜集方法過於複雜，故使用 SHA-1 雜湊函數將姓名以及身分證字號去識別化後回傳主機，同時也可避免開發者暗中搜集使用者個資，增加使用者信任度。</p>
+            <p>由於依據<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021">我國個人資料保護法</a>所規定之個資搜集方法過於繁雜，故使用 SHA-1 雜湊函數將姓名及身分證字號去識別化後回傳主機，亦可避免開發者暗中搜集使用者個資，提升使用者對本產品的信任。</p>
         </div>
     </section>
 

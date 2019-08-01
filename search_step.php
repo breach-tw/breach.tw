@@ -73,7 +73,7 @@
             <p>您的個資目前未在大規模洩漏中找到，不過可能只是未被本網站發現<br>再接再厲，繼續保持。</p>
         </div>
         <div class="ts very padded segment">
-            <form class="ts form" onsubmit="search(this); return false;">
+            <form class="ts form" onsubmit="search_func(this); return false;">
                 <div class="one fields">
                     <div class="field">
                         <label>雜湊代碼<span style="color:red;">*</span></label>
@@ -85,7 +85,7 @@
         </div>
         <script>
         let pre_defined_items = {'fb_id': 'Facebook ID', 'birth': '生日', 'address': '地址', 'phone': '電話', 'email': 'E-mail', 'name': '姓名', 'social_id': '身分證字號'};
-        function search(form){
+        function search_func(form){
             $('#nobreach').hide();
             $('#breach').hide();
             $('#missingkeyword3').hide();

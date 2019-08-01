@@ -25,7 +25,7 @@
     <section class="ts narrow container" style="padding-bottom: 60px;">
         <h3 class="ts left aligned header">技術細節</h3>
         <div class="ts very padded segment">
-            <p>根據<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021">台灣個資法</a>規定之個資搜集方法過於複雜，故使用 SHA-1 雜湊函數將姓名以及身分證字號去識別化後回傳主機，同時也可避免開發者偷偷搜集使用者個資，增加使用者信任度。</p>
+            <p>根據<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021">台灣個資法</a>規定之個資搜集方法過於複雜，故使用 SHA-1 雜湊函數將姓名以及身分證字號去識別化後回傳主機，同時也可避免開發者暗中搜集使用者個資，增加使用者信任度。</p>
         </div>
     </section>
 

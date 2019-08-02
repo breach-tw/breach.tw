@@ -88,7 +88,13 @@
             </form>
         </div>
         <script>
-        let pre_defined_items = {'fb_id': 'Facebook ID', 'birth': '生日', 'address': '地址', 'phone': '電話', 'email': 'E-mail', 'name': '姓名', 'social_id': '身分證字號'};
+        Object.size = function(obj) {
+            var size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
         function search_func(form){
             $('#nobreach').hide();
             $('#breach').hide();
@@ -99,10 +105,10 @@
             $.getJSON('/api/search.php?hash=' + form.hash.value, function(res){
                 $('#search').attr('disabled', false);
                 if (res.status == 0){
-                    if (res.result.fields.length > 0){
+                    if (Object.size(res.result) > 0){
                         $('#breach_list').innerHTML = '';
-                        for (item of res.result.fields){
-                            $('#breach_list').append('<li>' + pre_defined_items[item] + '</li>');
+                        for (source in res.result){
+                            $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
                         }
                         $('#breach').show();
                     }else{

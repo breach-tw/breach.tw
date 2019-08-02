@@ -65,19 +65,46 @@ function is_account_exist($email){
     }
 }
 
+function reduce_items($items){
+    $res = [];
+    foreach($items as $key => $val){
+        array_push($res, $val['name']);
+    }
+    return $res;
+}
+
 function search($hash){
     $res = [];
+    $res['status'] = '0';
+    $res['result'] = [];
 
     global $db;
-    $stmt = $db->prepare("SELECT `name`, `birth`, `address`, `social_id`, `email`, `phone`, `fb_id` FROM `taiwan_social`.`person` WHERE `name_sid_sha1`=:hash");
+    $stmt = $db->prepare("SELECT `source` FROM `breach_log` WHERE `hash`=:hash");
     $stmt->execute([
         'hash' => $_GET['hash']
     ]);
 
-    $res['status'] = '0';
-    $res['result']['fields'] = array_remove_null_return_keys($stmt->fetchall(PDO::FETCH_ASSOC));
+    $sources = $stmt->fetchall(PDO::FETCH_ASSOC);
+    
+    foreach($sources as $_ => $val){
+        $stmt = $db->prepare("SELECT `name` FROM `breach_source` WHERE `id`=:source_id");
+        $stmt->execute([
+            'source_id' => $val['source']
+        ]);
+        $source_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    search_log($_GET['hash'], $res['result']['fields']);
+        $stmt = $db->prepare("SELECT `name` FROM `source_item` INNER JOIN `breach_item` `s` on `s`.`id` = `source_item`.`item` WHERE `source`=:source_id");
+        $stmt->execute([
+            'source_id' => $val['source']
+        ]);
+        $items = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $items = reduce_items($items);
+
+        $res['result'][$source_info['name']] = $items;
+        
+    }
+
+    #search_log($_GET['hash'], $res['result']['fields']);
     
     return $res;
 }

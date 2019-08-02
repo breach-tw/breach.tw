@@ -41,7 +41,7 @@
                     </div>
                     <div class="field">
                         <label>身分證字號<span style="color:red;">*</span></label>
-                        <input id="nid"></input>
+                        <input id="nid" maxlength="10"></input>
                     </div>
                 </div>
                 <button class="ts primary button" type="submit" id="search">搜尋</button>
@@ -64,7 +64,7 @@
                 }else if (form.nid.value == ''){
                     $('#missingkeyword2').show();
                 }else{
-                    search(sha1(form.fullname.value+form.nid.value));
+                    search(sha1(form.fullname.value+form.nid.value.toUpperCase()));
                 }
             }
             function search(hash){

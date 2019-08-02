@@ -32,7 +32,7 @@
                     </div>
                     <div class="field">
                         <label>身分證字號<span style="color:red;">*</span></label>
-                        <input id="nid"></input>
+                        <input id="nid" maxlength="10"></input>
                     </div>
                 </div>
                 <button class="ts primary button" type="submit">產生</button>
@@ -46,7 +46,7 @@
                 }else if (form.nid.value == ''){
                     $('#missingkeyword2').show();
                 }else{
-                    $('#real_res').text(sha1(form.fullname.value+form.nid.value));
+                    $('#real_res').text(sha1(form.fullname.value+form.nid.value.toUpperCase()));
                     $('#hash_res').show();
                 }
             }

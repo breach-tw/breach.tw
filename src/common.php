@@ -104,7 +104,7 @@ function search($hash){
         
     }
 
-    #search_log($_GET['hash'], $res['result']['fields']);
+    search_log($_GET['hash'], $res['result']['fields']);
     
     return $res;
 }

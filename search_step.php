@@ -88,38 +88,38 @@
             </form>
         </div>
         <script>
-        Object.size = function(obj) {
-            var size = 0, key;
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-        };
-        function search_func(form){
-            $('#nobreach').hide();
-            $('#breach').hide();
-            $('#missingkeyword3').hide();
-            $('#missingkeyword4').hide();
-            $('#backenderr').hide();
-            $('#search').attr('disabled', true);
-            $.getJSON('/api/search.php?hash=' + form.hash.value, function(res){
-                $('#search').attr('disabled', false);
-                if (res.status == 0){
-                    if (Object.size(res.result) > 0){
-                        $('#breach_list').innerHTML = '';
-                        for (source in res.result){
-                            $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
-                        }
-                        $('#breach').show();
-                    }else{
-                        $('#nobreach').show();
-                    }
-                }else{
-                    $('#backenderr_text')[0].innerText = res.error;
-                    $('#backenderr').show();
+            Object.size = function(obj) {
+                var size = 0, key;
+                for (key in obj) {
+                    if (obj.hasOwnProperty(key)) size++;
                 }
-            });
-        }
+                return size;
+            };
+            function search_func(form){
+                $('#nobreach').hide();
+                $('#breach').hide();
+                $('#missingkeyword3').hide();
+                $('#missingkeyword4').hide();
+                $('#backenderr').hide();
+                $('#search').attr('disabled', true);
+                $.getJSON('/api/search.php?hash=' + form.hash.value, function(res){
+                    $('#search').attr('disabled', false);
+                    if (res.status == 0){
+                        if (Object.size(res.result) > 0){
+                            $('#breach_list').innerHTML = '';
+                            for (source in res.result){
+                                $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
+                            }
+                            $('#breach').show();
+                        }else{
+                            $('#nobreach').show();
+                        }
+                    }else{
+                        $('#backenderr_text')[0].innerText = res.error;
+                        $('#backenderr').show();
+                    }
+                });
+            }
         </script>
     </section>
 

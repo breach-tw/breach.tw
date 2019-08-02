@@ -106,7 +106,7 @@
                     $('#search').attr('disabled', false);
                     if (res.status == 0){
                         if (Object.size(res.result) > 0){
-                            $('#breach_list').innerHTML = '';
+                            $('#breach_list')[0].innerHTML = '';
                             for (source in res.result){
                                 $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
                             }

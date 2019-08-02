@@ -1,6 +1,7 @@
+<meta name="description" content="本服務為針對台灣所設計的個資外洩追縱及查詢系統，可有效的查詢出個資外洩途徑。" />
 <meta property="og:title" content="台灣抓漏小天使" />
 <meta property="og:type" content="website" />
-<meta property="og:description" content="個資外洩追蹤系統" />
+<meta property="og:description" content="本服務為針對台灣所設計的個資外洩追縱及查詢系統，可有效的查詢出個資外洩途徑。" />
 <meta property="og:image" content="https://breach.tw/images/logo.png" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112153772-2"></script>

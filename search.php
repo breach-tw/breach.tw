@@ -27,10 +27,12 @@
             <div class="header">真是太糟糕了</div>
             <p>發現個資洩漏情形<br>
             已發現項目：<ul id="breach_list"></ul></p>
+            <p><button class="ts button secondary right" onclick="window.location='subscribe.php';">訂閱外洩事件</button></p>
         </div>
         <div class="ts positive message" id="nobreach" style="display: none;">
             <div class="header">搜索完畢</div>
             <p>您的個資目前未在大規模洩漏中找到，不過可能只是未被本網站發現<br>再接再厲，繼續保持。</p>
+            <p><button class="ts button secondary right" onclick="window.location='subscribe.php';">訂閱外洩事件</button></p>
         </div>
         <div class="ts very padded segment">
             <form class="ts form" onsubmit="one_step(this); return false;">

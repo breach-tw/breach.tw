@@ -61,6 +61,8 @@
                 $('#missingkeyword1').hide();
                 $('#missingkeyword2').hide();
                 $('#backenderr').hide();
+                $('#breach').hide();
+                $('#nobreach').hide();
                 if (form.fullname.value == ''){
                     $('#missingkeyword1').show();
                 }else if (form.nid.value == ''){

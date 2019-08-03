@@ -41,6 +41,8 @@
         <script>
             function gen_sha1(form){
                 $('#hash_res').hide();
+                $('#missingkeyword1').hide();
+                $('#missingkeyword2').hide();
                 if (form.fullname.value == ''){
                     $('#missingkeyword1').show();
                 }else if (form.nid.value == ''){

@@ -109,18 +109,32 @@ function search($hash){
     return $res;
 }
 
+function get_account($email, $hash){
+    global $db;
+    $stmt = $db->prepare("SELECT `name` FROM `subscribers` WHERE `email`=:email AND `hash`=:hash AND `disable`=0");
+	$stmt->execute([
+        'email' => $email,
+        'hash' => $hash
+	]);
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $res;
+}
+
 function subscribe($name, $email, $hash){
     $res = [];
 
     if (is_account_exist($email)){
         $res['status'] = '1';
         if (is_account_verify($email)){
-            $res['error'] = '此 E-mail 已訂閱過洩漏訊息，將會發測試信給您。';
             $content = EMAIL_TEST_CONTENT;
-            $content = str_replace("§name§", $name, $content);
-            $content = str_replace("§hash§", $hash, $content);
-            $content = str_replace("§code§", $code, $content);
-            simple_email($email, $name, EMAIL_TEST_SUBJECT, $content, $code);
+            $account = get_account($email, $hash);
+            if($account['name']){
+                $res['error'] = '此 E-mail 已訂閱過洩漏訊息，將會發測試信給您。';
+                $content = str_replace("§name§", $name, $content);
+                simple_email($email, $name, EMAIL_TEST_SUBJECT, $content, $code);
+            }else{
+                $res['error'] = '與本來資料不符';
+            }
         }else{
             $res['error'] = '此 E-mail 已訂閱過洩漏訊息，但尚未驗證 E-mail，請前往您的電子郵箱確認。';
         }

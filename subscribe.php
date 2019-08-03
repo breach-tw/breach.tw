@@ -56,6 +56,7 @@
                 <button class="ts primary button" type="submit" id="subscribe">訂閱</button>
             </form>
         </div>
+        <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
         <script>
             function subscribe_func(form){
                 $('#missingkeyword1').hide();
@@ -73,18 +74,20 @@
                     $('#missingkeyword3').show();
                 }else{
                     let hash = sha1(form.fullname.value+form.nid.value);
-                    $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value, function(res){
-                        $('#subscribe').attr('disabled', false);
-                        if (res.status == 0){
-                            if (res.result.length > 0){
-                                $('#sub_breach').show();
+                    grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'subscribe'}).then(function(token) {
+                        $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token, function(res){
+                            $('#subscribe').attr('disabled', false);
+                            if (res.status == 0){
+                                if (res.result.length > 0){
+                                    $('#sub_breach').show();
+                                }else{
+                                    $('#sub_nobreach').show();
+                                }
                             }else{
-                                $('#sub_nobreach').show();
+                                $('#backenderr_text')[0].innerText = res.error;
+                                $('#backenderr').show();
                             }
-                        }else{
-                            $('#backenderr_text')[0].innerText = res.error;
-                            $('#backenderr').show();
-                        }
+                        });
                     });
                 }
             }

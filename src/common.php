@@ -206,4 +206,23 @@ function array_remove_null_return_keys($array)
 
     return array_unique($keys);
 }
+
+function recaptcha_verify($token){
+    $post_data = http_build_query([
+            'secret' => RECAPTCHA_SECRET_KEY,
+            'response' => $token,
+            'remoteip' => get_ip()
+    ]);
+    $opts = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $post_data
+        )
+    );
+    $context  = stream_context_create($opts);
+    $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+    $result = json_decode($response);
+    return $result;
+}
 ?>

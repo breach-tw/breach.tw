@@ -57,7 +57,6 @@
             </form>
         </div>
         <script>
-            let pre_defined_items = {'fb_id': 'Facebook ID', 'birth': '生日', 'address': '地址', 'phone': '電話', 'email': 'E-mail', 'name': '姓名', 'social_id': '身分證字號'};
             function subscribe_func(form){
                 $('#missingkeyword1').hide();
                 $('#missingkeyword2').hide();
@@ -77,7 +76,7 @@
                     $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value, function(res){
                         $('#subscribe').attr('disabled', false);
                         if (res.status == 0){
-                            if (res.result.fields.length > 0){
+                            if (res.result.length > 0){
                                 $('#sub_breach').show();
                             }else{
                                 $('#sub_nobreach').show();

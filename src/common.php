@@ -116,7 +116,11 @@ function subscribe($name, $email, $hash){
         $res['status'] = '1';
         if (is_account_verify($email)){
             $res['error'] = '此 E-mail 已訂閱過洩漏訊息，將會發測試信給您。';
-            // TODO: Send test mail
+            $content = EMAIL_TEST_CONTENT;
+            $content = str_replace("§name§", $name, $content);
+            $content = str_replace("§hash§", $hash, $content);
+            $content = str_replace("§code§", $code, $content);
+            simple_email($email, $name, EMAIL_TEST_SUBJECT, $content, $code);
         }else{
             $res['error'] = '此 E-mail 已訂閱過洩漏訊息，但尚未驗證 E-mail，請前往您的電子郵箱確認。';
         }

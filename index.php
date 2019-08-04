@@ -66,7 +66,7 @@ h1
                 <div class="sub header">
 					<p class="mobile">個資外洩追蹤系統</p>
                 </div>
-            </h3>
+            </h1>
 
             <a href="search.php" class="ts inverted small basic button">開始使用</a>
         </div>

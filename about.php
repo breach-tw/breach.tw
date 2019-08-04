@@ -10,7 +10,7 @@
     <section class="ts narrow container">
         <h3 class="ts left aligned header">服務內容</h3>
         <div class="ts very padded segment">
-            <p>本產品提供台灣（中華民國）之個資外洩事件查詢及追蹤服務。</p>
+            <p>本產品提供台灣（中華民國）之個資外洩事件查詢及追蹤服務。<br>讓使用者了解自己是否存在於重大資安外洩事件清單中，且增加使用者之資訊安全素養。</p>
         </div>
     </section>
 

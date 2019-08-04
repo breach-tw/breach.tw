@@ -24,7 +24,9 @@
     <section class="ts narrow container" style="padding-bottom: 60px;">
         <h3 class="ts left aligned header">資料來源 & 聲明</h3>
         <div class="ts very padded segment">
+            <p>本網頁僅顯示五千筆以上之外洩事件</p>
             <p>本網站資料來源皆為匿名人士提供，且本網站並不保存其原始資料，只保存雜湊值以便查詢洩漏情況。<br>攻擊本網站並無法獲得資料，且本網站保留法律追訴權。</p>
+            <p>若想匿名提供資源，可聯絡 <a href="mailto:admin@breach.tw">admin@breach.tw</a>，建議可加上PGP Key <a href="https://pgp.key-server.io/pks/lookup?op=get&fingerprint=on&search=0xF85EC40BC49D4040">C49D4040</a></p>
         </div>
     </section>
 

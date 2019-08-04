@@ -39,11 +39,11 @@
                 <div class="two fields">
                     <div class="field">
                         <label>姓名<span style="color:red;">*</span></label>
-                        <input id="fullname"></input>
+                        <input id="fullname" />
                     </div>
                     <div class="field">
                         <label>身分證字號<span style="color:red;">*</span></label>
-                        <input id="nid" maxlength="10"></input>
+                        <input id="nid" maxlength="10" />
                     </div>
                 </div>
                 <button class="ts primary button" type="submit" id="search">搜尋</button>

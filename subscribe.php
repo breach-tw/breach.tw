@@ -10,7 +10,7 @@
 
     <section class="ts narrow container">
         <h3 class="ts left aligned header">訂閱表單</h3>
-        <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。</p>
+        <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。<br>訂閱後若發現大規模個資外洩時，且您在外洩清單內將會即時通知您。</p>
         <div class="ts negative message" id="missingkeyword1" style="display: none;">
             <div class="header">缺少姓名</div>
             <p>請輸入姓名</p>

@@ -49,6 +49,7 @@
                 <button class="ts primary button" type="submit" id="search">搜尋</button>
             </form>
         </div>
+        <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
         <script>
             Object.size = function(obj) {
                 var size = 0, key;
@@ -75,22 +76,24 @@
                 $('#nobreach').hide();
                 $('#breach').hide();
                 $('#search').attr('disabled', true);
-                $.getJSON('/api/search.php?hash=' + hash, function(res){
-                    $('#search').attr('disabled', false);
-                    if (res.status == 0){
-                        if (Object.size(res.result) > 0){
-                            $('#breach_list')[0].innerHTML = '';
-                            for (source in res.result){
-                                $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
+                grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
+                    $.getJSON('/api/search.php?hash=' + hash + '&token=' + token, function(res){
+                        $('#search').attr('disabled', false);
+                        if (res.status == 0){
+                            if (Object.size(res.result) > 0){
+                                $('#breach_list')[0].innerHTML = '';
+                                for (source in res.result){
+                                    $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
+                                }
+                                $('#breach').show();
+                            }else{
+                                $('#nobreach').show();
                             }
-                            $('#breach').show();
                         }else{
-                            $('#nobreach').show();
+                            $('#backenderr_text')[0].innerText = res.error;
+                            $('#backenderr').show();
                         }
-                    }else{
-                        $('#backenderr_text')[0].innerText = res.error;
-                        $('#backenderr').show();
-                    }
+                    });
                 });
             }
         </script>

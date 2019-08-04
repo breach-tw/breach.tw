@@ -7,7 +7,7 @@ function get_ip(){
 
 function get_breaches(){
     global $db;
-    $stmt = $db->prepare("SELECT `name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `time` DESC");
+    $stmt = $db->prepare("SELECT `name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `round_k` DESC");
 	$stmt->execute();
     $res = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $res;

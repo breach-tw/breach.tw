@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -10,32 +9,37 @@
 
 <url>
   <loc>https://breach.tw/</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://breach.tw/search.php</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://breach.tw/about.php</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://breach.tw/index.php</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/subscribe.php</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://breach.tw/breaches.php</loc>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/search_step.php</loc>
-  <lastmod>2019-08-01T17:54:08+00:00</lastmod>
+  <lastmod>2019-08-04T06:49:10+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 

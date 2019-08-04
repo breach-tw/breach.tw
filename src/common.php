@@ -170,20 +170,25 @@ function subscribe($name, $email, $hash){
 
 function verify_code($code){    
     global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE `email_verify_code`=:code AND `email_verify`=0");
+    $stmt = $db->prepare("SELECT `id`,`email_verify` FROM `subscribers` WHERE `email_verify_code`=:code");
     $stmt->execute([
         'code' => $code
     ]);
-    $id = $stmt->fetch(PDO::FETCH_ASSOC)["id"];
-    if ($id != ""){
-        $stmt = $db->prepare("UPDATE `subscribers` SET `email_verify`=1, `email_verify_time`=NOW(),`email_verify_ip`=:ip WHERE `id`=:id");
-        $stmt->execute([
-            'id' => $id,
-            'ip' => get_ip()
-        ]);
-        return 1;
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $data['id'];
+    if ($id != ''){;
+        if ($data['email_verify'] != "1"){
+            $stmt = $db->prepare("UPDATE `subscribers` SET `email_verify`=1, `email_verify_time`=NOW(),`email_verify_ip`=:ip WHERE `id`=:id");
+            $stmt->execute([
+                'id' => $id,
+                'ip' => get_ip()
+            ]);
+            return 1; // 驗證完成
+        }else{
+            return 0; // 驗證過了
+        }
     }else{
-        return 0;
+        return -1; // 沒這code
     }
 }
 

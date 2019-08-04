@@ -5,6 +5,14 @@ function get_ip(){
     return $_SERVER['HTTP_CF_CONNECTING_IP'] ?: $_SERVER['REMOTE_ADDR'];
 }
 
+function get_breaches(){
+    global $db;
+    $stmt = $db->prepare("SELECT `name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `time` DESC");
+	$stmt->execute();
+    $res = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $res;
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

@@ -214,6 +214,7 @@ th, td
 
             <a class="item" href="search.php">搜尋洩露紀錄</a>
             <a class="item" href="subscribe.php">訂閱外洩事件</a>
+            <a class="item" href="breaches.php">重大外洩事件</a>
             <a class="item" href="about.php">關於本服務</a>
 
             <a class="close item" onclick="collapseMenu()"><i class="close icon"></i>Close</a>

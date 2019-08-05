@@ -10,7 +10,8 @@
     --white-darker-text: #ddd;
     --dark-text: #111;
     --gray-text: #aaa;
-    --navbar-color: #4A5086;
+    --gray-darker-text: #757575;
+    --navbar-color: #222D69;
 }
 
 /* Desktop-specfic CSS */
@@ -27,20 +28,21 @@
     }
 }
 
-/* Text */
-
 /* Navbar */
-.navbar {
-    background-color: var(--navbar-color);
-}
 
-.btn.btn-link {
+.navbar * .btn.btn-link {
     color: var(--white-text);
+    margin: 0 1em;
 }
 
 .btn.btn-link:hover,
-.navbar-brand:hover {
+.btn.btn-link:active,
+.btn.btn-link:focus,
+.navbar-brand:hover,
+.navbar-brand:active,
+.navbar-brand:focus {
     color: var(--white-darker-text);
+    border-bottom: 2px solid #fff;
 }
 
 .navbar-brand {
@@ -54,17 +56,62 @@ form * .btn {
 }
 
 /* Banner */
+
+@-webkit-keyframes banner-animation {
+    0% {
+        background-position: 0% 97%
+    }
+
+    50% {
+        background-position: 100% 4%
+    }
+
+    100% {
+        background-position: 0% 97%
+    }
+}
+
+@keyframes banner-animation {
+    0% {
+        background-position: 0% 97%
+    }
+
+    50% {
+        background-position: 100% 4%
+    }
+
+    100% {
+        background-position: 0% 97%
+    }
+}
+
 .banner {
-    background: no-repeat url(../images/jumbotron.jpg);
-    background-size: cover;
-    border: 1px solid #C5A6BD;
+    background: linear-gradient(225deg, rgb(63, 15, 36), rgb(119, 24, 32), rgb(56, 27, 109));
+    background-size: 300% 450%;
+
+    -webkit-animation: banner-animation 60s ease-in-out infinite;
+    animation: banner-animation 60s ease-in-out infinite;
+
     color: var(--white-text);
     text-align: center;
-    padding: calc(var(--header-size)*.75);
+    position: relative;
 }
 
 .banner .title {
     font-weight: 700;
+    padding: 2em 0;
+}
+
+#banner-particle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* Card*/
@@ -135,7 +182,7 @@ footer .copyright-info .subtitle {
     height: 2.75em;
 }
 
-.main-page .btn:hover{
+.main-page .btn:hover {
     transition: all .3s ease-in-out;
     background-color: var(--white-text);
     color: var(--dark-text);

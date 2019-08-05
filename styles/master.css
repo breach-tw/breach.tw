@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/earlyaccess/notosanstc.css');
+
+* {
+    font-family: 'Noto Sans TC', 'Segoe UI', Tahoma, Geneva, Verdana, 'Microsoft YaHei', 'Microsoft Jhenghei', sans-serif;
+}
+
+:root {
+    --white-brighter-text: #fff;
+    --white-text: #eee;
+    --white-darker-text: #ddd;
+    --dark-text: #111;
+    --gray-text: #aaa;
+    --navbar-color: #4A5086;
+}
+
+/* Desktop-specfic CSS */
+@media (min-width: 1000px) {
+    :root {
+        --header-size: 5em;
+    }
+}
+
+/* Mobile-specific CSS */
+@media (max-width: 1000px) {
+    :root {
+        --header-size: 7vw;
+    }
+}
+
+/* Text */
+
+/* Navbar */
+.navbar {
+    background-color: var(--navbar-color);
+}
+
+.btn.btn-link {
+    color: var(--white-text);
+}
+
+.btn.btn-link:hover,
+.navbar-brand:hover {
+    color: var(--white-darker-text);
+}
+
+.navbar-brand {
+    color: var(--white-brighter-text);
+}
+
+/* Buttons */
+
+form * .btn {
+    padding: 0 2em;
+}
+
+/* Banner */
+.banner {
+    background: no-repeat url(../images/jumbotron.jpg);
+    background-size: cover;
+    border: 1px solid #C5A6BD;
+    color: var(--white-text);
+    text-align: center;
+    padding: calc(var(--header-size)*.75);
+}
+
+.banner .title {
+    font-weight: 700;
+}
+
+/* Card*/
+.card {
+    box-shadow: 0 .25rem 1rem rgba(48, 55, 66, .15);
+    padding: 1.25em;
+    margin: 1.5em 0;
+}
+
+/* Input */
+
+/* Footer */
+footer {
+    background-color: #616161;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    width: 100vw;
+    color: white;
+    position: absolute;
+    bottom: 0px;
+}
+
+footer .copyright-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer .copyright-info .title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+footer .copyright-info .subtitle {
+    font-size: 12px;
+    font-weight: 350;
+    color: var(--gray-text);
+}
+
+/* Homepage */
+.main-page {
+    background: url('../images/main.jpg') no-repeat center center fixed;
+    height: 100%;
+    overflow: hidden;
+    background-size: cover;
+}
+
+.main-page .body-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.65) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.main-page .btn {
+    font-weight: bold;
+    border: solid .05rem #fff;
+    color: var(--white-text);
+    background: transparent;
+    padding: .45rem .8rem;
+    margin: 0 .25em;
+    height: 2.75em;
+}
+
+.main-page .btn:hover{
+    transition: all .3s ease-in-out;
+    background-color: var(--white-text);
+    color: var(--dark-text);
+}
+
+.main-page .title {
+    font-size: var(--header-size);
+    font-weight: 800;
+    margin-bottom: .05em;
+}
+
+.main-page .subtitle {
+    font-size: calc(var(--header-size)/2.5);
+    font-weight: var(--gray-text);
+}

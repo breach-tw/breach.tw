@@ -5,11 +5,7 @@ require 'src/main.head.php';
 ?>
 
 <body>
-    <?php require 'src/main.navbar.php' ?>
-
-    <header class="banner">
-        <h1 class="title"><?= $title ?></h1>
-    </header>
+    <?php require 'src/main.banner.php' ?>
 
     <div class="container grid-xl">
         <section class="card">

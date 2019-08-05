@@ -19,12 +19,20 @@
     :root {
         --header-size: 5em;
     }
+
+    .columns{
+        flex-direction: row;
+    }
 }
 
 /* Mobile-specific CSS */
 @media (max-width: 1000px) {
     :root {
         --header-size: 7vw;
+    }
+
+    .columns{
+        flex-direction: column;
     }
 }
 
@@ -114,7 +122,13 @@ form * .btn {
     pointer-events: none;
 }
 
-/* Card*/
+/* Input */
+
+.columns .field {
+    width: 100vw;
+}
+
+/* Card */
 .card {
     box-shadow: 0 .25rem 1rem rgba(48, 55, 66, .15);
     padding: 1.25em;
@@ -124,7 +138,7 @@ form * .btn {
 /* Content */
 
 body .content {
-    min-height: calc(100vh - 30px);
+    min-height: 90vh;
 }
 
 /* Footer */

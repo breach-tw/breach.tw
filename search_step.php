@@ -11,7 +11,7 @@ require 'src/main.head.php';
         <section class="card" id="generator-card">
             <div class="card-header">
                 <h3 class="card-title">雜湊產生器</h3>
-                <div class="card-subtitle">此方法可避免將個人資料直接回傳給我們<br>產生後請貼上到下方表單進行追蹤或搜尋<br>雜湊值產生方法為：<code>sha1(姓名+身分證)</code></div>
+                <div class="card-subtitle">此方法可避免將個人資料直接回傳給我們。<br>產生後請貼上到下方表單進行追蹤或搜尋，雜湊值產生方法為：<code>sha1(姓名+身分證)</code></div>
             </div>
             <div class="card-body">
                 <div class="ts negative message" id="missingkeyword1" style="display: none;">
@@ -30,17 +30,17 @@ require 'src/main.head.php';
                 <form class="form form-group" onsubmit="gen_sha1(this); return false;">
                     <div class="container">
                         <div class="columns">
-                            <div class="field column col-6">
+                            <div class="field column">
                                 <label class="form-label">姓名<span style="color:red;">*</span></label>
                                 <input class="form-input" id="fullname" />
                             </div>
-                            <div class="field column col-6">
+                            <div class="field column">
                                 <label class="form-label">身分證字號<span style="color:red;">*</span></label>
                                 <input class="form-input" id="nid" maxlength="10" />
                             </div>
-                            <div class="column p-2">
-                                <button class="btn" type="submit">產生</button>
-                            </div>
+                        </div>
+                        <div class="column p-2">
+                            <button class="btn" type="submit">產生</button>
                         </div>
                     </div>
                 </form>
@@ -94,13 +94,13 @@ require 'src/main.head.php';
                 <form class="form form-group" onsubmit="search_func(this); return false;">
                     <div class="container">
                         <div class="columns">
-                            <div class="field column col-12">
+                            <div class="field column">
                                 <label class="form-label">雜湊代碼<span style="color:red;">*</span></label>
                                 <input class="form-input" id="hash" maxlength="40" />
                             </div>
-                            <div class="column p-2">
-                                <button class="btn" type="submit" id="search">搜尋</button>
-                            </div>
+                        </div>
+                        <div class="column p-2">
+                            <button class="btn" type="submit" id="search">搜尋</button>
                         </div>
                     </div>
                 </form>

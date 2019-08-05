@@ -41,17 +41,17 @@ require 'src/main.head.php';
                 <form class="form form-group" onsubmit="one_step(this); return false;">
                     <div class="container">
                         <div class="columns">
-                            <div class="field column col-6">
+                            <div class="field column">
                                 <label class="form-label">姓名<span style="color:red;">*</span></label>
                                 <input class="form-input" id="fullname" />
                             </div>
-                            <div class="field column col-6">
+                            <div class="field column">
                                 <label class="form-label">身分證字號<span style="color:red;">*</span></label>
                                 <input class="form-input" id="nid" maxlength="10" />
                             </div>
-                            <div class="column p-2">
-                                <button class="btn" type="submit" id="search">搜尋</button>
-                            </div>
+                        </div>
+                        <div class="p-2">
+                            <button class="btn" type="submit" id="search">搜尋</button>
                         </div>
                     </div>
                 </form>

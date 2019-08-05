@@ -7,7 +7,7 @@ require 'src/main.head.php';
 <body>
     <?php require 'src/main.banner.php' ?>
 
-    <div class="container grid-xl">
+    <div class="container grid-xl content">
         <?php
         foreach (get_breaches() as $_ => $val) {
             ?>

@@ -7,7 +7,7 @@ require 'src/main.head.php';
 <body>
     <?php require 'src/main.banner.php' ?>
 
-    <div class="container grid-xl">
+    <div class="container grid-xl content">
         <section class="card" id="search-card">
             <div class="card-header">
                 <h3 class="card-title">搜尋表單</h3>

@@ -121,7 +121,11 @@ form * .btn {
     margin: 1.5em 0;
 }
 
-/* Input */
+/* Content */
+
+body .content {
+    min-height: calc(100vh - 30px);
+}
 
 /* Footer */
 footer {
@@ -130,8 +134,6 @@ footer {
     padding-bottom: 2em;
     width: 100vw;
     color: white;
-    position: absolute;
-    bottom: 0px;
 }
 
 footer .copyright-info {

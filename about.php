@@ -7,7 +7,7 @@ require 'src/main.head.php';
 <body>
     <?php require 'src/main.banner.php' ?>
 
-    <div class="container grid-xl">
+    <div class="container grid-xl content">
         <section class="card">
             <h3 class="card-title">服務內容</h3>
             <div class="card-body">本產品提供台灣（中華民國）之個資外洩事件查詢及追蹤服務。<br>讓使用者了解自己是否存在於重大資安外洩事件清單中，且增加使用者之資訊安全素養。</div>

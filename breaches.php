@@ -14,6 +14,7 @@
         <h3 class="ts left aligned header"><?=$val['name']?></h3>
         <div class="ts very padded segment">
             <h4>外洩數量級：<?=number_format($val['round_k']*1000)?> 筆</h4>
+            <h4>洩漏項目：<?=join('、', get_leaked_items($val['id']))?></h4>
             <p>敘述：<?=$val['description']?></p>
         </div>
     </section>

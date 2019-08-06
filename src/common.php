@@ -7,10 +7,21 @@ function get_ip(){
 
 function get_breaches(){
     global $db;
-    $stmt = $db->prepare("SELECT `name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `round_k` DESC");
+    $stmt = $db->prepare("SELECT `id`,`name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `round_k` DESC");
 	$stmt->execute();
     $res = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $res;
+}
+
+function get_leaked_items($source){
+    global $db;
+    $stmt = $db->prepare("SELECT `name` FROM `source_item` INNER JOIN `breach_item` `s` on `s`.`id` = `source_item`.`item` WHERE `source`=:source_id");
+    $stmt->execute([
+        'source_id' => $source
+    ]);
+    $items = $stmt->fetchall(PDO::FETCH_ASSOC);
+    $items = reduce_items($items);
+    return $items;
 }
 
 use PHPMailer\PHPMailer\PHPMailer;

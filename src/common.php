@@ -5,6 +5,16 @@ function get_ip(){
     return $_SERVER['HTTP_CF_CONNECTING_IP'] ?: $_SERVER['REMOTE_ADDR'];
 }
 
+function get_breach_type_count($major){
+    global $db;
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM `breach_source` WHERE `major`=:major");
+    $stmt->execute([
+        'major' => $major ? 1 : 0
+    ]);
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $res['count'];
+}
+
 function get_breaches(){
     global $db;
     $stmt = $db->prepare("SELECT `id`,`name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `round_k` DESC");

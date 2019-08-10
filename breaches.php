@@ -5,6 +5,7 @@
 
     <header class="ts borderless extra padded massive center aligned fluid jumbotron">
         <h1 class="ts header"><?=$title?></h1>
+        <p style="color: white">本網站目前共收錄 <?=get_breach_type_count(1)?> 筆重大外洩事件、<?=get_breach_type_count(0)?> 筆較小外洩事件</p>
     </header>
 
     <?php

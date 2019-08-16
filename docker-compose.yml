@@ -1,0 +1,45 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        depends_on:
+            - "php"
+        volumes:
+            - "$PWD/docker/conf.d:/etc/nginx/conf.d"
+            - "$PWD/docker/html:/usr/share/nginx/html"
+        networks:
+            - breach_tw
+        container_name: "compose-nginx"
+    php:
+        build: ./docker/php-mysqli
+        image: php:7.3-fpm-mysqli
+        ports:
+            - "9000:9000"
+        volumes:
+            - "$PWD/docker/html:/var/www/html"
+        networks:
+            - breach_tw
+        container_name: "compose-php"
+    mysql:
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD: secret
+            - MYSQL_DATABASE: name_db
+            - MYSQL_USER: user
+            - MYSQL_PASSWORD: password
+        volumes:
+            - "$PWD/docker/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+        networks:
+            breach_tw:
+                ipv4_address: 10.1.0.1
+        container_name: "compose-mysql"
+networks:
+    breach_tw:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 10.1.0.0/16

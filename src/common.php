@@ -267,6 +267,7 @@ function site_stat(){
     $stmt = $db->prepare("SELECT * FROM `stat` ORDER BY `id` DESC LIMIT 1");
     $stmt->execute();
     $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    $out['cache_gen_time'] = $res['time'];
     $out['unique_hash'] = intval($res['unique_hash']);
     $out['total_pop'] = intval($res['total_pop']);
     $out['cover_rate'] = $res['unique_hash'] / $res['total_pop'];

@@ -9,7 +9,7 @@
     </header>
 
     <?php
-        foreach(get_breaches() as $_ => $val){
+        foreach(get_major_breaches() as $_ => $val){
     ?>
     <section class="ts narrow container">
         <h3 class="ts left aligned header"><?=$val['name']?></h3>

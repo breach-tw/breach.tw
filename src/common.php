@@ -15,7 +15,7 @@ function get_breach_type_count($major){
     return $res['count'];
 }
 
-function get_breaches(){
+function get_major_breaches(){
     global $db;
     $stmt = $db->prepare("SELECT `id`,`name`,`description`,`round_k` FROM `breach_source` WHERE `major`=1 ORDER BY `round_k` DESC");
 	$stmt->execute();
@@ -258,5 +258,47 @@ function recaptcha_verify($token){
     $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
     $result = json_decode($response);
     return $result;
+}
+
+function site_stat(){
+    $out = [];
+
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `stat` ORDER BY `id` DESC LIMIT 1");
+    $stmt->execute();
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    $out['unique_hash'] = intval($res['unique_hash']);
+    $out['total_pop'] = intval($res['total_pop']);
+    $out['cover_rate'] = $res['unique_hash'] / $res['total_pop'];
+    $out['total_pop_month'] = intval($res['total_pop_month']);
+    $out['hit'] = intval($res['hit']);
+    $out['no_hit'] = intval($res['no_hit']);
+    $out['total_unique_search'] = $res['hit'] + $res['no_hit'];
+    $out['hit_rate'] = $res['hit'] / $out['total_unique_search'];
+
+    $out['source'] = [];
+
+    $stmt = $db->prepare("SELECT type, count(*) as `count` FROM `breach_source` WHERE major=1 GROUP BY `type`");
+    $stmt->execute();
+    $res = $stmt->fetchall(PDO::FETCH_ASSOC);
+    $out['source']['major'] = $res;
+
+    $stmt = $db->prepare("SELECT type, count(*) as `count` FROM `breach_source` WHERE major=0 GROUP BY `type`");
+    $stmt->execute();
+    $res = $stmt->fetchall(PDO::FETCH_ASSOC);
+    $out['source']['minor'] = $res;
+
+    $stmt = $db->prepare("SELECT type, count(*) as `count` FROM `breach_source` GROUP BY `type`");
+    $stmt->execute();
+    $res = $stmt->fetchall(PDO::FETCH_ASSOC);
+    $out['source']['total'] = $res;
+
+    foreach($out['source'] as $key1 => $val1){
+        foreach($out['source'][$key1] as $key2 => $val2){
+            $out['source'][$key1][$key2]['count'] = intval($out['source'][$key1][$key2]['count']);
+        }
+    }
+
+    return $out;
 }
 ?>

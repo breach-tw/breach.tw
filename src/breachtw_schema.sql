@@ -2,8 +2,8 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 02, 2019 at 08:32 PM
+-- Host: 192.168.2.248
+-- Generation Time: Aug 16, 2019 at 04:20 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -34,6 +34,25 @@ CREATE TABLE `breach_item` (
   `abbr` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `breach_item`
+--
+
+INSERT INTO `breach_item` (`id`, `name`, `abbr`) VALUES
+(1, 'Facebook ID', 'fb_id'),
+(2, '生日', 'birth'),
+(3, '地址', 'address'),
+(4, '電話', 'phone'),
+(5, 'E-mail', 'email'),
+(6, '姓名', 'name'),
+(7, '身分證字號', 'social_id'),
+(8, '服務單位', 'dep'),
+(9, '職位', 'job'),
+(10, '學校', 'school'),
+(11, '系所', 'school_dep'),
+(12, '密碼明碼', 'password'),
+(13, '雜湊密碼', 'pw_hash');
+
 -- --------------------------------------------------------
 
 --
@@ -56,8 +75,12 @@ CREATE TABLE `breach_source` (
   `id` int(11) NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `round_k` int(11) NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `time` date NOT NULL,
-  `major` tinyint(1) NOT NULL DEFAULT '0'
+  `major` tinyint(1) NOT NULL DEFAULT '0',
+  `file` tinyint(1) NOT NULL DEFAULT '0',
+  `type` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -84,6 +107,22 @@ CREATE TABLE `source_item` (
   `id` int(11) NOT NULL,
   `source` int(11) NOT NULL,
   `item` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stat`
+--
+
+CREATE TABLE `stat` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `unique_hash` int(11) NOT NULL,
+  `total_pop` int(11) NOT NULL,
+  `total_pop_month` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hit` int(11) NOT NULL,
+  `no_hit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -145,6 +184,12 @@ ALTER TABLE `source_item`
   ADD KEY `source` (`source`);
 
 --
+-- Indexes for table `stat`
+--
+ALTER TABLE `stat`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `subscribers`
 --
 ALTER TABLE `subscribers`
@@ -159,7 +204,7 @@ ALTER TABLE `subscribers`
 -- AUTO_INCREMENT for table `breach_item`
 --
 ALTER TABLE `breach_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `breach_log`
@@ -183,6 +228,12 @@ ALTER TABLE `search_log`
 -- AUTO_INCREMENT for table `source_item`
 --
 ALTER TABLE `source_item`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stat`
+--
+ALTER TABLE `stat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

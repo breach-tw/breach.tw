@@ -31,11 +31,35 @@
         </div>
     </section>
 
+    <?php
+        // Trash Code, Need someone to fix
+        $predef_type = ['政府單位', '教育機構', '民間企業', '其他'];
+    ?>
     <section class="ts narrow container">
         <h3 class="ts left aligned header">數據來源統計</h3>
         <div class="ts very padded segment">
             <table class="ts striped celled table">
-                <tr><td>TBD</td></tr>
+                <tr>
+                    <td>數據類別</td>
+                    <td>大型洩漏</td>
+                    <td>小型洩漏</td>
+                    <td>總計</td>
+                </tr>
+                <?php
+                    foreach($predef_type as $tp){
+                        echo '<tr><td>' . $tp . '</td>';
+                        foreach($stat['source'] as $source){
+                            $match = 0;
+                            foreach($source as $data){
+                                if ($data['type'] == $tp){
+                                    $match = $data['count'];
+                                }
+                            }
+                            echo '<td>' . $match . '</td>';
+                        }
+                        echo '</tr>';
+                    }
+                ?>
             </table>
         </div>
     </section>

@@ -23,4 +23,5 @@ if($res['status'] != '1'){
     $res = subscribe($_GET['name'], $_GET['email'], $_GET['hash']);
 }
 
+header('Content-Type: application/json');
 echo json_encode($res);

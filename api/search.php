@@ -18,4 +18,5 @@ if($res['status'] != '1'){
     $res = search($_GET['hash']);
 }
 
+header('Content-Type: application/json');
 echo json_encode($res);

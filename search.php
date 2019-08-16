@@ -27,7 +27,10 @@
             <div class="header">真是太糟糕了</div>
             <p>發現個資洩漏情形<br>
             已發現項目：<ul id="breach_list"></ul></p>
-            <p><button class="ts button secondary right" onclick="window.location='subscribe.php';">訂閱外洩事件</button></p>
+            <p>
+                <button class="ts button secondary right" onclick="window.location='subscribe.php';">訂閱外洩事件</button>
+                <button class="ts button secondary right" onclick="window.location='breaches.php';">外洩事件列表&amp;解釋</button>
+            </p>
         </div>
         <div class="ts positive message" id="nobreach" style="display: none;">
             <div class="header">搜索完畢</div>

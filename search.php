@@ -10,7 +10,7 @@
 
     <section class="ts narrow container">
         <h3 class="ts left aligned header">搜尋表單</h3>
-        <p>輸入姓名及身分證字號，網頁會將去識別化的運算結果回傳，不會將資料本身傳送給我們。<br>還是不放心嗎？<a href="search_step.php">這裡有分次操作的版本</a></p>
+        <p>輸入姓名及身分證字號，網頁會將去識別化的運算結果回傳，不會將資料本身傳送給我們。<br>還是不放心嗎？<a href="search_step.php">這裡有分次操作的版本</a><br><span style="color: red;">使用前，請確認網址為 breach.tw，若還是有疑慮，請勿使用。</span></p>
         <div class="ts negative message" id="missingkeyword1" style="display: none;">
             <div class="header">缺少姓名</div>
             <p>請輸入姓名</p>

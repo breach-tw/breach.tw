@@ -1,45 +1,33 @@
 version: '3'
 services:
-    nginx:
-        image: nginx:latest
-        ports:
-            - "80:80"
-        depends_on:
-            - "php"
-        volumes:
-            - "$PWD/docker/conf.d:/etc/nginx/conf.d"
-            - "$PWD/docker/html:/usr/share/nginx/html"
-        networks:
-            - breach_tw
-        container_name: "compose-nginx"
     php:
-        build: ./docker/php-mysqli
-        image: php:7.3-fpm-mysqli
+        build: ./docker/php-pdo
+        image: php:7.3-fpm-pdo
+        depends_on:
+            - "mysql"
         ports:
-            - "9000:9000"
+            - "80:8080"
         volumes:
-            - "$PWD/docker/html:/var/www/html"
+            - "./:/var/www/html"
+            - "./docker/config.php:/var/www/html/src/config.php"
         networks:
             - breach_tw
-        container_name: "compose-php"
     mysql:
-        image: mysql:latest
-        ports:
-            - "3306:3306"
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
         environment:
-            - MYSQL_ROOT_PASSWORD: secret
-            - MYSQL_DATABASE: name_db
-            - MYSQL_USER: user
-            - MYSQL_PASSWORD: password
+            - MYSQL_ROOT_PASSWORD=secret_root_password
+            - MYSQL_DATABASE=breachtw
+            - MYSQL_USER=breachtw
+            - MYSQL_PASSWORD=breachtw
         volumes:
-            - "$PWD/docker/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+            - "./src/breachtw_schema.sql:/docker-entrypoint-initdb.d/dump.sql"
         networks:
             breach_tw:
-                ipv4_address: 10.1.0.1
-        container_name: "compose-mysql"
+                ipv4_address: 10.1.10.1
 networks:
     breach_tw:
         driver: bridge
         ipam:
             config:
-                - subnet: 10.1.0.0/16
+                - subnet: 10.1.10.0/16

@@ -38,6 +38,3 @@ services:
 networks:
     breach_tw:
         driver: bridge
-        ipam:
-            config:
-                - subnet: 10.1.10.0/16

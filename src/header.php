@@ -232,6 +232,12 @@ th, td
     </nav>
 
     <script>
+        function hideElementById(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        function showElementById(id) {
+            document.getElementById(id).style.display = '';
+        }
         function expandMenu()
         {
             $('#largeMainNav').addClass('stackable');

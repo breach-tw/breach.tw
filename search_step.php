@@ -40,16 +40,16 @@
         </div>
         <script>
             function gen_sha1(form){
-                $('#hash_res').hide();
-                $('#missingkeyword1').hide();
-                $('#missingkeyword2').hide();
+                hideElementById('hash_res');
+                hideElementById('missingkeyword1');
+                hideElementById('missingkeyword2');
                 if (form.fullname.value == ''){
-                    $('#missingkeyword1').show();
+                    showElementById('missingkeyword1');
                 }else if (form.nid.value == ''){
-                    $('#missingkeyword2').show();
+                    showElementById('missingkeyword2');
                 }else{
                     $('#real_res').text(sha1(form.fullname.value+form.nid.value.toUpperCase()));
-                    $('#hash_res').show();
+                    showElementById('hash_res');
                 }
             }
         </script>
@@ -104,28 +104,28 @@
                 return size;
             };
             function search_func(form){
-                $('#nobreach').hide();
-                $('#breach').hide();
-                $('#missingkeyword3').hide();
-                $('#missingkeyword4').hide();
-                $('#backenderr').hide();
+                hideElementById('nobreach');
+                hideElementById('breach');
+                hideElementById('missingkeyword3');
+                hideElementById('missingkeyword4');
+                hideElementById('backenderr');
                 $('#search').attr('disabled', true);
                 grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
                     $.getJSON('/api/search.php?hash=' + form.hash.value + '&token=' + token, function(res){
                         $('#search').attr('disabled', false);
                         if (res.status == 0){
                             if (Object.size(res.result) > 0){
-                                $('#breach_list')[0].innerHTML = '';
+                                document.getElementById('breach_list').innerHTML = '';
                                 for (source in res.result){
                                     $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
                                 }
-                                $('#breach').show();
+                                showElementById('breach');
                             }else{
-                                $('#nobreach').show();
+                                showElementById('nobreach');
                             }
                         }else{
-                            $('#backenderr_text')[0].innerText = res.error;
-                            $('#backenderr').show();
+                            document.getElementById('backenderr_text').innerText = res.error;
+                            showElementById('backenderr');
                         }
                     });
                 });

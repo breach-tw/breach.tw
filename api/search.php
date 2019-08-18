@@ -17,7 +17,7 @@ if($_GET['mode'] == 'recaptcha'){
 }else if($_GET['mode'] == 'pow'){
     if (substr(sha1($_GET['hash'] . $_GET['nonce']), 0, POW_DIFF) != str_repeat('a', POW_DIFF)){
         $res['status'] = '1';
-        $res['error'] = 'Nonce 錯誤：Nonce 必須滿足 sha1(requrest_hash + nonce) 的前 ' . POW_DIFF . ' 位等於 ' . str_repeat('a', POW_DIFF); 
+        $res['error'] = 'Nonce 錯誤：Nonce 必須滿足 sha1(request_hash + nonce) 的前 ' . POW_DIFF . ' 位等於 ' . str_repeat('a', POW_DIFF); 
     }
 }else{
     $res['status'] = '1';

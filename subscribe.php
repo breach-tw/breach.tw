@@ -65,7 +65,7 @@
                 hideElementById('backenderr');
                 hideElementById('sub_nobreach');
                 hideElementById('sub_breach');
-                $('#subscribe').attr('disabled', true);
+                document.getElementById('subscribe').setAttribute('disabled', true);
                 if (form.fullname.value == ''){
                     showElementById('missingkeyword1');
                 }else if (form.nid.value == ''){
@@ -76,7 +76,7 @@
                     let hash = sha1(form.fullname.value+form.nid.value);
                     grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'subscribe'}).then(function(token) {
                         $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token, function(res){
-                            $('#subscribe').attr('disabled', false);
+                            document.getElementById('#subscribe').setAttribute('disabled', false);
                             if (res.status == 0){
                                 if (res.result.length > 0){
                                     showElementById('sub_breach');

@@ -111,7 +111,11 @@
                 hideElementById('backenderr');
                 document.getElementById('search').setAttribute('disabled', true);
                 grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
-                    $.getJSON('/api/search.php?hash=' + form.hash.value + '&token=' + token, function(res){
+                    fetch('/api/search.php?hash=' + form.hash.value + '&token=' + token)
+                      .then(function(response){
+                        return response.json();
+                      })
+                      .then(function(res){
                         document.getElementById('search').setAttribute('disabled', false);
                         if (res.status == 0){
                             if (Object.size(res.result) > 0){

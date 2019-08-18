@@ -75,7 +75,11 @@
                 }else{
                     let hash = sha1(form.fullname.value+form.nid.value);
                     grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'subscribe'}).then(function(token) {
-                        $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token, function(res){
+                        fetch('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token)
+                          .then(function(response){
+                            return response.json();
+                          })
+                          .then(function(res){
                             document.getElementById('#subscribe').setAttribute('disabled', false);
                             if (res.status == 0){
                                 if (res.result.length > 0){

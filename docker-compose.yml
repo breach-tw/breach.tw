@@ -6,7 +6,7 @@ services:
         depends_on:
             - "mysql"
         ports:
-            - "80:8080"
+            - "8080:8080"
         volumes:
             - "./:/var/www/html"
             - "./docker/config.php:/var/www/html/src/config.php"
@@ -23,8 +23,18 @@ services:
         volumes:
             - "./src/breachtw_schema.sql:/docker-entrypoint-initdb.d/dump.sql"
         networks:
-            breach_tw:
-                ipv4_address: 10.1.10.1
+            - breach_tw
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        links:
+            - mysql:db
+        restart: always
+        depends_on:
+            - mysql
+        networks:
+            - breach_tw
 networks:
     breach_tw:
         driver: bridge

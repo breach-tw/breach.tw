@@ -1,5 +1,5 @@
 <?php
-define('DB_HOST', '10.1.10.1');
+define('DB_HOST', 'mysql');
 define('DB_NAME', 'breachtw');
 define('DB_USER', 'breachtw');
 define('DB_PASS', 'breachtw');

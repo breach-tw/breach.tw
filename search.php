@@ -86,7 +86,9 @@
                             if (Object.size(res.result) > 0){
                                 document.getElementById('breach_list').innerHTML = '';
                                 for (source in res.result){
-                                    $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
+                                    let breach_element = document.createElement('li');
+                                    breach_element.innerText = source + ':' + res.result[source].join('、');
+                                    document.getElementById('breach_list').appendChild(breach_element);
                                 }
                                 showElementById('breach');
                             }else{

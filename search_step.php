@@ -48,7 +48,7 @@
                 }else if (form.nid.value == ''){
                     showElementById('missingkeyword2');
                 }else{
-                    $('#real_res').text(sha1(form.fullname.value+form.nid.value.toUpperCase()));
+                    document.getElementById('real_res').textContent = sha1(form.fullname.value+form.nid.value.toUpperCase());
                     showElementById('hash_res');
                 }
             }

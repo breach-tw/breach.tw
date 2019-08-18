@@ -1,0 +1,40 @@
+version: '3'
+services:
+    php:
+        build: ./php-pdo
+        image: php:7.3-fpm-pdo
+        depends_on:
+            - "mysql"
+        ports:
+            - "8080:8080"
+        volumes:
+            - "../:/var/www/html"
+            - "./config.php:/var/www/html/src/config.php"
+        networks:
+            - breach_tw
+    mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            - MYSQL_ROOT_PASSWORD=secret_root_password
+            - MYSQL_DATABASE=breachtw
+            - MYSQL_USER=breachtw
+            - MYSQL_PASSWORD=breachtw
+        volumes:
+            - "../src/breachtw_schema.sql:/docker-entrypoint-initdb.d/dump.sql"
+        networks:
+            - breach_tw
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        links:
+            - mysql:db
+        restart: always
+        depends_on:
+            - mysql
+        networks:
+            - breach_tw
+networks:
+    breach_tw:
+        driver: bridge

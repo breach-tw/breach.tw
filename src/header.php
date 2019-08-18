@@ -7,7 +7,6 @@ require 'config.php';
 <title><?= $title.' │ 台灣抓漏小天使'?></title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="//fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/styles/tocas.css">
 <link rel="stylesheet" type="text/css" href="/styles/simplemde.min.css">
@@ -232,15 +231,21 @@ th, td
     </nav>
 
     <script>
+        function hideElementById(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        function showElementById(id) {
+            document.getElementById(id).style.display = '';
+        }
         function expandMenu()
         {
-            $('#largeMainNav').addClass('stackable');
-            $('#mobileMainNav').addClass('hidden');
+            document.getElementById('largeMainNav').classList.add('stackable');
+            document.getElementById('mobileMainNav').classList.add('hidden');
         }
 
         function collapseMenu()
         {
-            $('#largeMainNav').removeClass('stackable');
-            $('#mobileMainNav').removeClass('hidden');
+            document.getElementById('largeMainNav').classList.remove('stackable');
+            document.getElementById('mobileMainNav').classList.remove('hidden');
         }
     </script>

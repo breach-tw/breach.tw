@@ -62,39 +62,45 @@
                 return size;
             };
             function one_step(form){
-                $('#missingkeyword1').hide();
-                $('#missingkeyword2').hide();
-                $('#backenderr').hide();
-                $('#breach').hide();
-                $('#nobreach').hide();
+                hideElementById('missingkeyword1');
+                hideElementById('missingkeyword2');
+                hideElementById('backenderr');
+                hideElementById('breach');
+                hideElementById('nobreach');
                 if (form.fullname.value == ''){
-                    $('#missingkeyword1').show();
+                    showElementById('missingkeyword1');
                 }else if (form.nid.value == ''){
-                    $('#missingkeyword2').show();
+                    showElementById('#missingkeyword2');
                 }else{
                     search(sha1(form.fullname.value+form.nid.value.toUpperCase()));
                 }
             }
             function search(hash){
-                $('#nobreach').hide();
-                $('#breach').hide();
-                $('#search').attr('disabled', true);
+                hideElementById('nobreach');
+                hideElementById('breach');
+                document.getElementById('search').setAttribute('disabled', true);
                 grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
-                    $.getJSON('/api/search.php?hash=' + hash + '&token=' + token, function(res){
-                        $('#search').attr('disabled', false);
+                    fetch('/api/search.php?hash=' + hash + '&token=' + token)
+                      .then(function(response){
+                        return response.json();
+                      })
+                      .then(function(res){
+                        document.getElementById('search').setAttribute('disabled', false);
                         if (res.status == 0){
                             if (Object.size(res.result) > 0){
-                                $('#breach_list')[0].innerHTML = '';
+                                document.getElementById('breach_list').innerHTML = '';
                                 for (source in res.result){
-                                    $('#breach_list').append('<li>' + source + '：' + res.result[source].join('、') + '</li>');
+                                    let breach_element = document.createElement('li');
+                                    breach_element.innerText = source + ':' + res.result[source].join('、');
+                                    document.getElementById('breach_list').appendChild(breach_element);
                                 }
-                                $('#breach').show();
+                                showElementById('breach');
                             }else{
-                                $('#nobreach').show();
+                                showElementById('nobreach');
                             }
                         }else{
-                            $('#backenderr_text')[0].innerText = res.error;
-                            $('#backenderr').show();
+                            document.getElementById('backenderr_text').innerText = res.error;
+                            showElementById('backenderr');
                         }
                     });
                 });

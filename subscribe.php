@@ -59,33 +59,37 @@
         <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
         <script>
             function subscribe_func(form){
-                $('#missingkeyword1').hide();
-                $('#missingkeyword2').hide();
-                $('#missingkeyword3').hide();
-                $('#backenderr').hide();
-                $('#sub_nobreach').hide();
-                $('#sub_breach').hide();
-                $('#subscribe').attr('disabled', true);
+                hideElementById('missingkeyword1');
+                hideElementById('missingkeyword2');
+                hideElementById('missingkeyword3');
+                hideElementById('backenderr');
+                hideElementById('sub_nobreach');
+                hideElementById('sub_breach');
+                document.getElementById('subscribe').setAttribute('disabled', true);
                 if (form.fullname.value == ''){
-                    $('#missingkeyword1').show();
+                    showElementById('missingkeyword1');
                 }else if (form.nid.value == ''){
-                    $('#missingkeyword2').show();
+                    showElementById('missingkeyword2');
                 }else if (form.email.value == ''){
-                    $('#missingkeyword3').show();
+                    showElementById('missingkeyword3');
                 }else{
                     let hash = sha1(form.fullname.value+form.nid.value);
                     grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'subscribe'}).then(function(token) {
-                        $.getJSON('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token, function(res){
-                            $('#subscribe').attr('disabled', false);
+                        fetch('/api/subscribe.php?hash=' + hash + '&email=' + form.email.value + '&name=' + form.fullname.value + '&token=' + token)
+                          .then(function(response){
+                            return response.json();
+                          })
+                          .then(function(res){
+                            document.getElementById('#subscribe').setAttribute('disabled', false);
                             if (res.status == 0){
                                 if (res.result.length > 0){
-                                    $('#sub_breach').show();
+                                    showElementById('sub_breach');
                                 }else{
-                                    $('#sub_nobreach').show();
+                                    showElementById('sub_nobreach');
                                 }
                             }else{
-                                $('#backenderr_text')[0].innerText = res.error;
-                                $('#backenderr').show();
+                                document.getElementById('backenderr_text').innerText = res.error;
+                                showElementById('backenderr');
                             }
                         });
                     });

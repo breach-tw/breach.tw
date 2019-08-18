@@ -80,7 +80,7 @@
                 hideElementById('breach');
                 document.getElementById('search').setAttribute('disabled', true);
                 grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
-                    fetch('/api/search.php?hash=' + hash + '&token=' + token)
+                    fetch('/api/search.php?mode=recaptcha&hash=' + hash + '&token=' + token)
                       .then(function(response){
                         return response.json();
                       })

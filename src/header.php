@@ -7,7 +7,6 @@ require 'config.php';
 <title><?= $title.' │ 台灣抓漏小天使'?></title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="//fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/styles/tocas.css">
 <link rel="stylesheet" type="text/css" href="/styles/simplemde.min.css">

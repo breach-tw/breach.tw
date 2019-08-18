@@ -240,13 +240,13 @@ th, td
         }
         function expandMenu()
         {
-            $('#largeMainNav').addClass('stackable');
-            $('#mobileMainNav').addClass('hidden');
+            document.getElementById('largeMainNav').classList.add('stackable');
+            document.getElementById('mobileMainNav').classList.add('hidden');
         }
 
         function collapseMenu()
         {
-            $('#largeMainNav').removeClass('stackable');
-            $('#mobileMainNav').removeClass('hidden');
+            document.getElementById('largeMainNav').classList.remove('stackable');
+            document.getElementById('mobileMainNav').classList.remove('hidden');
         }
     </script>

@@ -42,14 +42,19 @@ class PoW{
 function main(){
     const questions = [{
         type: 'input',
-        name: 'input',
-        message: "Input the request string: ",
+        name: 'name',
+        message: "Please input your name: ",
+      }, {
+        type: 'input',
+        name: 'id',
+        message: "Please input your National ID: ",
       }]
     
     inquirer.prompt(questions)
         .then(answers => {
-            const test = new PoW(crypto.createHash("sha1").update(answers.input, "binary").digest("hex"))
-            console.log("Original data: ", answers.input)
+            const input = answers.name + answers.id
+            const test = new PoW(crypto.createHash("sha1").update(input, "binary").digest("hex"))
+            console.log("Original data: ", input)
             console.log("data: ", test.data)
             console.log("nonce: ", test.nonce)
             console.log("hash: ", test.resultHash);

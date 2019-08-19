@@ -43,5 +43,5 @@ if __name__ == "__main__":
     print("nonce: ", test.nonce)
     print("hash: ", test.result_hash)
 
-    r = requests.get(f'https://breach.tw/api/search.php?mode=pow&hash={test.data}&nonce={test.nonce}')
-    print("\nresult: ", r.text)
+    r = requests.get('https://breach.tw/api/search.php?mode=pow&hash={}&nonce={}'.format(test.data, test.nonce))
+    print("\nresult: ", r.json())

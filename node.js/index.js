@@ -53,7 +53,7 @@ function main(){
     inquirer.prompt(questions)
         .then(answers => {
             const input = answers.name + answers.id
-            const test = new PoW(crypto.createHash("sha1").update(input, "binary").digest("hex"))
+            const test = new PoW(crypto.createHash("sha1").update(input, "utf8").digest("hex"))
             console.log("Original data: ", input)
             console.log("data: ", test.data)
             console.log("nonce: ", test.nonce)

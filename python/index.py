@@ -1,5 +1,14 @@
 import hashlib
 import requests
+import sys
+
+
+if (sys.version_info > (3, 0)):
+    pass
+else:
+     # Python 2 code in this block
+     def input(x):
+         return raw_input(x)
 
 sha1 = lambda x: hashlib.sha1(x.encode("utf-8")).hexdigest()
 

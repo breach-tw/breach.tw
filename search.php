@@ -70,7 +70,7 @@
                 if (form.fullname.value == ''){
                     showElementById('missingkeyword1');
                 }else if (form.nid.value == ''){
-                    showElementById('#missingkeyword2');
+                    showElementById('missingkeyword2');
                 }else{
                     search(sha1(form.fullname.value+form.nid.value.toUpperCase()));
                 }

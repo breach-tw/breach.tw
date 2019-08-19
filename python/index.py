@@ -34,7 +34,8 @@ class PoW():
         return self._sha1(self._data + str(self._nonce["data"]))
 
 if __name__ == "__main__":
-    org_input = input("Please input the request string: ")
+
+    org_input = input("Please input your name: ") + input("Please input your National ID: ")
 
     test = PoW(sha1(org_input))
     print("Original data: ", org_input)

@@ -85,7 +85,7 @@
                         return response.json();
                       })
                       .then(function(res){
-                        document.getElementById('search').setAttribute('disabled', false);
+                        document.getElementById('search').removeAttribute('disabled');
                         if (res.status == 0){
                             if (Object.size(res.result) > 0){
                                 document.getElementById('breach_list').innerHTML = '';

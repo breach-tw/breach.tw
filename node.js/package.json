@@ -10,7 +10,6 @@
   "author": "Leko (@rexx0520)",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
-    "inquirer": "^6.5.1"
+    "axios": "^0.19.0"
   }
 }

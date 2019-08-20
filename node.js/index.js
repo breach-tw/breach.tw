@@ -1,6 +1,13 @@
 const crypto = require("crypto");
 const axios = require('axios');
-const inquirer = require('inquirer')
+const readline = require('readline')
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const question = x => new Promise((resolve, reject) => rl.question(x, resolve))
 
 class PoW{
     constructor(data, bit = "a", diff = 5){
@@ -39,7 +46,7 @@ class PoW{
 
 }
 
-function main(){
+async function main(){
     const questions = [{
         type: 'input',
         name: 'name',
@@ -49,22 +56,20 @@ function main(){
         name: 'id',
         message: "Please input your National ID: ",
       }]
-    
-    inquirer.prompt(questions)
-        .then(answers => {
-            const input = answers.name + answers.id
-            const test = new PoW(crypto.createHash("sha1").update(input, "utf8").digest("hex"))
-            console.log("Original data: ", input)
-            console.log("data: ", test.data)
-            console.log("nonce: ", test.nonce)
-            console.log("hash: ", test.resultHash);
-            return test
-      })
-        .then(pow => axios.get(`https://breach.tw/api/search.php?mode=pow&hash=${pow.data}&nonce=${pow.nonce}`))
-        .then(data => {
-            console.log("\n")
-            console.log("result: ", data.data)
-        })
+    const name = await question("Please input your name: ");
+    const id = await question("Please input your National ID: ");
+
+    const input = name + id
+    const test = new PoW(crypto.createHash("sha1").update(input, "utf8").digest("hex"))
+    console.log("Original data: ", input)
+    console.log("data: ", test.data)
+    console.log("nonce: ", test.nonce)
+    console.log("hash: ", test.resultHash);
+
+    const data = await axios.get(`https://breach.tw/api/search.php?mode=pow&hash=${test.data}&nonce=${test.nonce}`);
+    console.log("\n")
+    console.log("result: ", data.data)
+    process.exit()
 }
 
 main();

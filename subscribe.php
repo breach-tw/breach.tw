@@ -80,7 +80,7 @@
                             return response.json();
                           })
                           .then(function(res){
-                            document.getElementById('subscribe').setAttribute('disabled', false);
+                            document.getElementById('subscribe').removeAttribute('disabled');
                             if (res.status == 0){
                                 if (res.result.length > 0){
                                     showElementById('sub_breach');

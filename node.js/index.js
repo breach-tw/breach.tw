@@ -7,11 +7,11 @@ class PoW{
         this.data = data;
         this.bit = bit;
         this.diff = diff;
-    }
 
-    __nonce = {
-        valid: false,
-        data: 0
+        this.__nonce = {
+            valid: false,
+            data: 0
+        }
     }
 
     __sha1(data) {

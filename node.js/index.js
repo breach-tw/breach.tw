@@ -47,15 +47,6 @@ class PoW{
 }
 
 async function main(){
-    const questions = [{
-        type: 'input',
-        name: 'name',
-        message: "Please input your name: ",
-      }, {
-        type: 'input',
-        name: 'id',
-        message: "Please input your National ID: ",
-      }]
     const name = await question("Please input your name: ");
     const id = await question("Please input your National ID: ");
 
@@ -67,8 +58,9 @@ async function main(){
     console.log("hash: ", test.resultHash);
 
     const data = await axios.get(`https://breach.tw/api/search.php?mode=pow&hash=${test.data}&nonce=${test.nonce}`);
+    const result = data.data;
     console.log("\n")
-    console.log("result: ", data.data)
+    console.log("result: ", result)
     process.exit()
 }
 

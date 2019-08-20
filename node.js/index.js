@@ -15,7 +15,7 @@ class PoW{
     }
 
     __sha1(data) {
-        return crypto.createHash("sha1").update(data, "binary").digest("hex");
+        return crypto.createHash("sha1").update(data, "utf8").digest("hex");
     }
     
 

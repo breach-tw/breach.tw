@@ -10,7 +10,7 @@
 
     <section class="ts narrow container">
         <h3 class="ts left aligned header">雜湊產生器</h3>
-        <p>此方法可避免將個人資料直接回傳給我們<br>產生後請貼上到下方表單進行追蹤或搜尋<br>雜湊值產生方法為：<code>sha1(姓名+身分證)</code></p>
+        <p>此方法可避免將個人資料直接回傳給我們<br>產生後請貼上到下方表單進行追蹤或搜尋<br>雜湊值產生方法為：<code>sha1(姓名+身分證後六碼)</code></p>
         <div class="ts negative message" id="missingkeyword1" style="display: none;">
             <div class="header">缺少姓名</div>
             <p>請輸入姓名</p>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="field">
                         <label>身分證字號後六碼<span style="color:red;">*</span></label>
-                        <input id="nid" maxlength="10" />
+                        <input id="nid" maxlength="6" />
                     </div>
                 </div>
                 <button class="ts primary button" type="submit">產生</button>

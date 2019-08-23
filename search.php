@@ -46,7 +46,7 @@
                     </div>
                     <div class="field">
                         <label>身分證字號後六碼<span style="color:red;">*</span></label>
-                        <input id="nid" maxlength="10" />
+                        <input id="nid" maxlength="6" />
                     </div>
                 </div>
                 <button class="ts primary button" type="submit" id="search">搜尋</button>

@@ -17,7 +17,7 @@
         </div>
         <div class="ts negative message" id="missingkeyword2" style="display: none;">
             <div class="header">缺少身分證字號</div>
-            <p>請輸入身分證字號</p>
+            <p>請輸入身分證字號後六碼</p>
         </div>
         <div class="ts negative message" id="missingkeyword3" style="display: none;">
             <div class="header">缺少 E-mail 位置</div>
@@ -43,7 +43,7 @@
                         <input id="fullname" />
                     </div>
                     <div class="field">
-                        <label>身分證字號<span style="color:red;">*</span></label>
+                        <label>身分證字號後六碼<span style="color:red;">*</span></label>
                         <input id="nid" />
                     </div>
                 </div>

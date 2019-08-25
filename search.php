@@ -91,7 +91,7 @@
                                 document.getElementById('breach_list').innerHTML = '';
                                 for (source in res.result){
                                     let breach_element = document.createElement('li');
-                                    breach_element.innerText = source + ':' + res.result[source].join('、');
+                                    breach_element.innerText = source + '：' + res.result[source].join('、');
                                     document.getElementById('breach_list').appendChild(breach_element);
                                 }
                                 showElementById('breach');

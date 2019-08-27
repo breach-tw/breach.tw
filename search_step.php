@@ -76,6 +76,7 @@
             <p>
                 <button class="ts button secondary right" onclick="window.location='subscribe.php';">訂閱外洩事件</button>
                 <button class="ts button secondary right" onclick="window.location='breaches.php';">外洩事件列表&amp;解釋</button>
+                <button class="ts button secondary right" onclick="window.location='faq.php#section1';">我應該怎麼做？</button>
             </p>
         </div>
         <div class="ts positive message" id="nobreach" style="display: none;">

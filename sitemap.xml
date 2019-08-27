@@ -10,42 +10,47 @@
 
 <url>
   <loc>https://breach.tw/</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://breach.tw/search.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://breach.tw/about.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://breach.tw/index.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/subscribe.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/breaches.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/stat.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://breach.tw/faq.php</loc>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://breach.tw/search_step.php</loc>
-  <lastmod>2019-08-16T05:08:25+00:00</lastmod>
+  <lastmod>2019-08-27T00:42:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 

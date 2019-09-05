@@ -1,6 +1,5 @@
     <?php $title = '搜尋洩漏紀錄';
         require 'src/header.php';
-        require 'src/common.php';
     ?>
 
 

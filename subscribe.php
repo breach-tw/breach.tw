@@ -1,6 +1,5 @@
     <?php $title = '訂閱外洩事件';
         require 'src/header.php';
-        require 'src/common.php';
     ?>
 
 

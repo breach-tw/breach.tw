@@ -1,6 +1,5 @@
     <?php $title = '常見問題';
         require 'src/header.php';
-        require 'src/common.php';
     ?>
 
     <header class="ts borderless extra padded massive center aligned fluid jumbotron">

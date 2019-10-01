@@ -50,7 +50,6 @@
                     </div>
                 </div>
                 <button class="ts primary button" type="submit" id="search">搜尋</button>
-                <input id="hash" type="hidden">
             </form>
         </div>
         <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>

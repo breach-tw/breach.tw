@@ -10,7 +10,6 @@ require 'config.php';
 <link href="//fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/styles/tocas.css">
 <link rel="stylesheet" type="text/css" href="/styles/simplemde.min.css">
-<script src="/js/simplemde.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha1/build/sha1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php include 'src/og.php'; ?>
@@ -232,12 +231,6 @@ th, td
     </nav>
 
     <script>
-        function hideElementById(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-        function showElementById(id) {
-            document.getElementById(id).style.display = '';
-        }
         function expandMenu()
         {
             document.getElementById('largeMainNav').classList.add('stackable');

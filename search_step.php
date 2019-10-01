@@ -37,21 +37,6 @@
                 <button class="ts primary button" type="submit">產生</button>
             </form>
         </div>
-        <script>
-            function gen_sha1(form){
-                hideElementById('hash_res');
-                hideElementById('missingkeyword1');
-                hideElementById('missingkeyword2');
-                if (form.fullname.value == ''){
-                    showElementById('missingkeyword1');
-                }else if (form.nid.value == ''){
-                    showElementById('missingkeyword2');
-                }else{
-                    document.getElementById('real_res').textContent = sha1(form.fullname.value+form.nid.value);
-                    showElementById('hash_res');
-                }
-            }
-        </script>
     </section>
     <section class="ts narrow container">
         <h3 class="ts left aligned header">搜尋表單</h3>
@@ -95,48 +80,8 @@
             </form>
         </div>
         <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
-        <script>
-            Object.size = function(obj) {
-                var size = 0, key;
-                for (key in obj) {
-                    if (obj.hasOwnProperty(key)) size++;
-                }
-                return size;
-            };
-            function search_func(form){
-                hideElementById('nobreach');
-                hideElementById('breach');
-                hideElementById('missingkeyword3');
-                hideElementById('missingkeyword4');
-                hideElementById('backenderr');
-                document.getElementById('search').setAttribute('disabled', true);
-                grecaptcha.execute('<?=RECAPTCHA_SITE_KEY?>', {action: 'search'}).then(function(token) {
-                    fetch('/api/search.php?mode=recaptcha&hash=' + form.hash.value + '&token=' + token)
-                      .then(function(response){
-                        return response.json();
-                      })
-                      .then(function(res){
-                        document.getElementById('search').removeAttribute('disabled');
-                        if (res.status == 0){
-                            if (Object.size(res.result) > 0){
-                                document.getElementById('breach_list').innerHTML = '';
-                                for (source in res.result){
-                                    let breach_element = document.createElement('li');
-                                    breach_element.innerText = source + '：' + res.result[source].join('、');
-                                    document.getElementById('breach_list').appendChild(breach_element);
-                                }
-                                showElementById('breach');
-                            }else{
-                                showElementById('nobreach');
-                            }
-                        }else{
-                            document.getElementById('backenderr_text').innerText = res.error;
-                            showElementById('backenderr');
-                        }
-                    });
-                });
-            }
-        </script>
+        <script>const RECAPTCHA_SITE_KEY='<?= RECAPTCHA_SITE_KEY?>'</script>
+        <script src="/js/main.js"></script>
     </section>
 
     <?php require 'src/footer.php'; ?>

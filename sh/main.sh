@@ -65,5 +65,6 @@ do
 	do
 		sleep "$COOLDOWN"
 	done
+	echo -n '.'
 	$0 $hash $i $(($i + $CT - 1)) $DIFF $DIFF_STR &
 done

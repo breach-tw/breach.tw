@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/rexx0520/breach.tw#readme",
   "dependencies": {
+    "koa": "^2.8.2",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
     "promise-mysql": "^4.1.0"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "breach.tw",
+  "version": "1.0.0",
+  "description": "The backend of breach.tw",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rexx0520/breach.tw.git"
+  },
+  "keywords": [
+    "breach.tw"
+  ],
+  "author": "Leko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rexx0520/breach.tw/issues"
+  },
+  "homepage": "https://github.com/rexx0520/breach.tw#readme",
+  "dependencies": {
+    "koa": "^2.8.2",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "promise-mysql": "^4.1.0"
+  }
+}

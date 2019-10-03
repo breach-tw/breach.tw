@@ -9,7 +9,6 @@ const koaBody = require('koa-body')
 const router = new Router()
 
 const api = require("./api.js")
-const db = require("./db.js")
 
 const app = new Koa()
 
@@ -36,9 +35,8 @@ async function start() {
 
   app.use(koaBody());
 
-  api.init(router, db).then(() => {
-    app.use(router.routes());
-  })
+  router.use('/api', api.routes(), api.allowedMethods())
+  app.use(router.routes()).use(router.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

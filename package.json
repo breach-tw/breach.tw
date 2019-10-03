@@ -2,27 +2,28 @@
   "name": "breach.tw",
   "version": "1.0.0",
   "description": "The backend of breach.tw",
-  "main": "index.js",
+  "author": "gnehs, Leko",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rexx0520/breach.tw.git"
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
   },
   "keywords": [
     "breach.tw"
   ],
-  "author": "Leko",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rexx0520/breach.tw/issues"
-  },
-  "homepage": "https://github.com/rexx0520/breach.tw#readme",
   "dependencies": {
-    "koa": "^2.8.2",
+    "nuxt": "^2.0.0",
+    "cross-env": "^5.2.0",
+    "koa": "^2.6.2",
     "koa-body": "^4.1.1",
     "koa-router": "^7.4.0",
-    "promise-mysql": "^4.1.0"
+    "promise-mysql": "^4.1.0",
+    "ant-design-vue": "^1.1.10",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^3.0.0-0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

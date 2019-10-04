@@ -27,40 +27,31 @@
 			:confirmLoading="editItemDialogLoading"
 			@cancel="handleCancel"
 		>
-			<a-form :form="form">
+			<a-form>
 				<a-form-item label="name" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input v-decorator="['name', {rules: [{ required: true, message: 'Please input name!' }]}]" />
+					<a-input v-model="editItemContent.name" />
 				</a-form-item>
 				<a-form-item label="description" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-textarea
-						v-decorator="['description', {rules: [{ required: true, message: 'Please input description!' }]}]"
-					/>
+					<a-textarea v-model="editItemContent.description" />
 				</a-form-item>
 				<a-form-item label="round_k" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input-number
-						v-decorator="['round_k', {rules: [{ required: true, message: 'Please input round_k!' }]}]"
-					/>
+					<a-input-number v-model="editItemContent.round_k" />
 				</a-form-item>
 				<a-form-item label="comment" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-textarea />
-				</a-form-item>
-				<a-form-item label="major" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input-number
-						v-decorator="['major', {rules: [{ required: true, message: 'Please input major!' }]}]"
-					/>
+					<a-textarea v-model="editItemContent.comment" />
 				</a-form-item>
 				<a-form-item label="file" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input v-decorator="['file', {rules: [{ required: true, message: 'Please input file!' }]}]" />
+					<a-input v-model="editItemContent.file" />
 				</a-form-item>
 				<a-form-item label="time" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input v-decorator="['time', {rules: [{ required: true, message: 'Please input time!' }]}]" />
+					<a-input v-model="editItemContent.time" />
 				</a-form-item>
 				<a-form-item label="type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-radio-group name="type" :defaultValue="1">
-						<a-radio value="民間企業">民間企業</a-radio>
-						<a-radio value="政府單位">政府單位</a-radio>
-						<a-radio value="教育機構">教育機構</a-radio>
-						<a-radio value="其他">其他</a-radio>
+						<a-radio v-model="editItemContent.type" value="民間企業">民間企業</a-radio>
+						<a-radio v-model="editItemContent.type" value="政府單位">政府單位</a-radio>
+						<a-radio v-model="editItemContent.type" value="教育機構">教育機構</a-radio>
+						<a-radio v-model="editItemContent.type" value="其他">其他</a-radio>
 					</a-radio-group>
 				</a-form-item>
 			</a-form>
@@ -108,9 +99,6 @@ const columns = [
 	}
 ];
 export default {
-	beforeCreate() {
-		this.form = this.$form.createForm(this);
-	},
 	mounted() {
 		this.fetchData();
 	},
@@ -119,7 +107,16 @@ export default {
 		loading: false,
 		editItemDialog: false,
 		editItemDialogLoading: false,
-		editItemContent: null,
+		editItemContent: {
+			id: -1,
+			name: "",
+			description: "",
+			round_k: 0,
+			comment: "",
+			time: "",
+			file: 0,
+			type: ""
+		},
 		columns
 	}),
 	methods: {
@@ -136,18 +133,40 @@ export default {
 				this.loading = false;
 			}
 		},
-		showModal() {
+		showModal(x) {
+			if (x) this.editItemContent = this.deepCopy(x);
 			this.editItemDialog = true;
 		},
-		handleOk(e) {
+		async handleOk(e) {
 			this.editItemDialogLoading = true;
-			setTimeout(() => {
-				this.editItemDialog = false;
-				this.editItemDialogLoading = false;
-			}, 2000);
+			let data;
+			if (this.editItemContent.id > 0)
+				data = (await this.$axios.patch(
+					`/api/source?id=${this.editItemContent.id}`,
+					this.editItemContent
+				)).data;
+			else
+				data = (await this.$axios.post(
+					"/api/source",
+					this.editItemContent
+				)).data;
+			console.log(data);
+			this.editItemDialog = false;
+			this.editItemDialogLoading = false;
 		},
 		handleCancel(e) {
 			this.editItemDialog = false;
+			this.editItemContent = this.deepCopy({
+				id: -1,
+				name: "",
+				description: "",
+				round_k: 0,
+				comment: "",
+				time: "",
+				major: 0,
+				file: 0,
+				type: ""
+			});
 		}
 	}
 };

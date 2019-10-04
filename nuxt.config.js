@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'universal',
   server: {
-    port: 1069, // default: 3000
+    port: process.env.PORT || 3000,
   },
   /*
    ** Headers of the page

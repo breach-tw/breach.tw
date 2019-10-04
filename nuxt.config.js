@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'universal',
   server: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 1069,
   },
   /*
    ** Headers of the page
@@ -63,7 +63,9 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.NODE_ENV === 'production' ? "https://admin.breach.tw/" : "http://localhost:1069"
+  },
   /*
    ** Build configuration
    */

@@ -12,6 +12,11 @@
   "keywords": [
     "breach.tw"
   ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seadog007/breach.tw/issues"
+  },
+  "homepage": "https://github.com/seadog007/breach.tw#readme",
   "dependencies": {
     "nuxt": "^2.0.0",
     "cross-env": "^5.2.0",

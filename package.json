@@ -4,12 +4,11 @@
   "description": "The backend of breach.tw",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rexx0520/breach.tw.git"
+    "url": "git+https://github.com/seadog007/breach.tw.git"
   },
   "keywords": [
     "breach.tw"
@@ -17,9 +16,9 @@
   "author": "Leko",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rexx0520/breach.tw/issues"
+    "url": "https://github.com/seadog007/breach.tw/issues"
   },
-  "homepage": "https://github.com/rexx0520/breach.tw#readme",
+  "homepage": "https://github.com/seadog007/breach.tw#readme",
   "dependencies": {
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",

@@ -48,7 +48,9 @@ module.exports = {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/moment'
+  ],
   /*
    ** Nuxt.js modules
    */

@@ -41,17 +41,17 @@
 					<a-textarea v-model="editItemContent.comment" />
 				</a-form-item>
 				<a-form-item label="file" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input v-model="editItemContent.file" />
+					<a-input-number v-model="editItemContent.file" />
 				</a-form-item>
 				<a-form-item label="time" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input v-model="editItemContent.time" />
+					<a-date-picker v-model="editItemContent.time" />
 				</a-form-item>
 				<a-form-item label="type" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-radio-group name="type" :defaultValue="1">
-						<a-radio v-model="editItemContent.type" value="民間企業">民間企業</a-radio>
-						<a-radio v-model="editItemContent.type" value="政府單位">政府單位</a-radio>
-						<a-radio v-model="editItemContent.type" value="教育機構">教育機構</a-radio>
-						<a-radio v-model="editItemContent.type" value="其他">其他</a-radio>
+					<a-radio-group v-model="editItemContent.type" name="type" :defaultValue="1">
+						<a-radio value="民間企業">民間企業</a-radio>
+						<a-radio value="政府單位">政府單位</a-radio>
+						<a-radio value="教育機構">教育機構</a-radio>
+						<a-radio value="其他">其他</a-radio>
 					</a-radio-group>
 				</a-form-item>
 			</a-form>
@@ -62,6 +62,7 @@
 
 </style>
 <script>
+import moment from "moment";
 const columns = [
 	{
 		title: "id",
@@ -120,7 +121,7 @@ export default {
 		columns
 	}),
 	methods: {
-		deepCopy: x => JSON.parse(JSON.stringify(x)),
+		deepCopy: x => Object.assign({}, x),
 		async fetchData() {
 			this.loading = true;
 			try {
@@ -134,39 +135,49 @@ export default {
 			}
 		},
 		showModal(x) {
-			if (x) this.editItemContent = this.deepCopy(x);
+			if (x) {
+				this.editItemContent = this.deepCopy(x);
+				this.editItemContent.time = moment(
+					this.editItemContent.time,
+					"YYYY/MM/DD"
+				);
+			} else
+				this.editItemContent = this.deepCopy({
+					id: -1,
+					name: "",
+					description: "",
+					round_k: 0,
+					comment: "",
+					time: moment().format("YYYY/MM/DD"),
+					major: 0,
+					file: 0,
+					type: ""
+				});
 			this.editItemDialog = true;
 		},
 		async handleOk(e) {
 			this.editItemDialogLoading = true;
 			let data;
-			if (this.editItemContent.id > 0)
-				data = (await this.$axios.patch(
-					`/api/source?id=${this.editItemContent.id}`,
-					this.editItemContent
-				)).data;
-			else
-				data = (await this.$axios.post(
-					"/api/source",
-					this.editItemContent
-				)).data;
-			console.log(data);
-			this.editItemDialog = false;
+			let reqData = this.deepCopy(this.editItemContent);
+			delete reqData.isTrusted; //i dont know where it comes from
+			reqData.time = moment(reqData.time).format("YYYY-MM-DD HH:mm:ss");
+			try {
+				if (this.editItemContent.id > 0)
+					await this.$axios.patch(`/api/source`, {
+						update: reqData,
+						filter: { id: this.editItemContent.id }
+					});
+				else await this.$axios.post("/api/source", reqData);
+			} catch (error) {
+				this.editItemDialogLoading = false;
+				this.editItemDialog = false;
+			}
+			await this.fetchData();
 			this.editItemDialogLoading = false;
+			this.editItemDialog = false;
 		},
 		handleCancel(e) {
 			this.editItemDialog = false;
-			this.editItemContent = this.deepCopy({
-				id: -1,
-				name: "",
-				description: "",
-				round_k: 0,
-				comment: "",
-				time: "",
-				major: 0,
-				file: 0,
-				type: ""
-			});
 		}
 	}
 };

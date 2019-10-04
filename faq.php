@@ -27,7 +27,14 @@
         </div>
     </section>
 
-    <section class="ts narrow container" style="padding-bottom: 60px;" id="section4">
+    <section class="ts narrow container" id="section4">
+        <h3 class="ts left aligned header">通知會從哪個電子郵件地址寄送？</h3>
+        <div class="ts very padded segment">
+            <p>我們的電子郵件皆會從 mailer@brench.tw 所寄出</p>
+        </div>
+    </section>
+
+    <section class="ts narrow container" style="padding-bottom: 60px;" id="section5">
         <h3 class="ts left aligned header">API 要怎麼用？</h3>
         <div class="ts very padded segment">
             <p>我們目前還在撰寫 API 文件，若有急需請洽 <a href="https://t.me/seadog007">https://t.me/seadog007</a></p>

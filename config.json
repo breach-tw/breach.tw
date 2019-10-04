@@ -1,7 +1,7 @@
 {
     "db": {
         "host" : "localhost",
-        "account": "mysql",
+        "user": "mysql",
         "password": "mysql",
         "database": "database"
     },

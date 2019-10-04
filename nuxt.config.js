@@ -64,7 +64,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? "https://admin.breach.tw/" : "http://localhost:1069"
+    baseURL: null
   },
   /*
    ** Build configuration

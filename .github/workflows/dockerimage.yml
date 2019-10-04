@@ -1,0 +1,18 @@
+name: Automatically Build Breach.tw Admin Panel Docker Image 
+
+on:
+  push:
+    branches:
+      - admin_panel
+  pull_request:
+    branches: 
+      - admin_panel
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+ 
+    steps:
+    - uses: actions/checkout@admin_panel
+    - name: Build the Docker image for Breach.tw Admin Panel
+      run: docker build . --file dockerfile --tag breachtw_admin_panel:$(date +%s)

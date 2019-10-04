@@ -4,7 +4,7 @@
   "description": "The backend of breach.tw",
   "main": "index.js",
   "scripts": {
-    "start": "node.",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

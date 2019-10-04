@@ -1,5 +1,14 @@
 const mysql = require("promise-mysql");
-const config = require("./config.json")
+//const config = require("./config.json")
+const config = {
+    "db": {
+        "host" : process.env.DB_HOST,
+        "account": process.env.DB_USER,
+        "password": process.env.DB_PASS,
+        "database": process.env.DB_NAME
+    },
+    "debug": process.env.DEBUG
+}
 
 function debug(x){
     console.log("[DEBUG]", x);

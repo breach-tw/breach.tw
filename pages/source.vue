@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-			<a-button type="primary" icon="plus" @click="showModal">Add</a-button>
+			<a-button type="primary" icon="plus" @click="showModal()">Add</a-button>
 			<br />
 			<br />
 			<a-table :columns="columns" :dataSource="data" :loading="loading">
@@ -17,11 +17,14 @@
 				</div>
 				<template slot="edit" slot-scope="text, record, index">
 					<a-button icon="edit" @click="showModal(record)" />
+					<a-popconfirm title="確定要刪除嗎？" @confirm="delSource(record)" okText="Yes" cancelText="No">
+						<a-button icon="delete" />
+					</a-popconfirm>
 				</template>
 			</a-table>
 		</div>
 		<a-modal
-			title="編輯或新增"
+			:title="(editItemContent.id>0?'Edit':'Add')+' source'"
 			:visible="editItemDialog"
 			@ok="handleOk"
 			:confirmLoading="editItemDialogLoading"
@@ -67,11 +70,30 @@ const columns = [
 	{
 		title: "id",
 		dataIndex: "id",
-		sorter: true
+		sorter: (a, b) => a.id - b.id
 	},
 	{
 		title: "type",
-		dataIndex: "type"
+		dataIndex: "type",
+		filters: [
+			{
+				text: "民間企業",
+				value: "民間企業"
+			},
+			{
+				text: "政府單位",
+				value: "政府單位"
+			},
+			{
+				text: "教育機構",
+				value: "教育機構"
+			},
+			{
+				text: "其他",
+				value: "其他"
+			}
+		],
+		onFilter: (value, record) => record.type.indexOf(value) === 0
 	},
 	{
 		title: "name",
@@ -79,7 +101,8 @@ const columns = [
 	},
 	{
 		title: "round_k",
-		dataIndex: "round_k"
+		dataIndex: "round_k",
+		sorter: (a, b) => a.round_k - b.round_k
 	},
 	{
 		title: "time",
@@ -129,31 +152,46 @@ export default {
 				this.data = data;
 				this.loading = false;
 			} catch (err) {
-				this.$message.error("fetch error");
-				this.$message.error(err);
+				this.$notification.error({
+					message: `fetch error`,
+					description: err
+				});
 				this.loading = false;
 			}
 		},
-		showModal(x) {
-			if (x) {
-				this.editItemContent = this.deepCopy(x);
-				this.editItemContent.time = moment(
-					this.editItemContent.time,
-					"YYYY/MM/DD"
-				);
-			} else
-				this.editItemContent = this.deepCopy({
-					id: -1,
-					name: "",
-					description: "",
-					round_k: 0,
-					comment: "",
-					time: moment().format("YYYY/MM/DD"),
-					major: 0,
-					file: 0,
-					type: ""
-				});
+		showModal(
+			x = {
+				id: -1,
+				name: "",
+				description: "",
+				round_k: 0,
+				comment: "",
+				time: new Date(),
+				file: 0,
+				type: ""
+			}
+		) {
+			this.editItemContent = this.deepCopy(x);
+			this.editItemContent.time = moment(
+				this.editItemContent.time,
+				"YYYY/MM/DD"
+			);
+
 			this.editItemDialog = true;
+		},
+		async delSource(x) {
+			try {
+				await this.$axios.delete("/api/source", { data: { id: x.id } });
+				this.$message.success({
+					message: `刪除「${x.name}」成功`
+				});
+				await this.fetchData();
+			} catch (err) {
+				this.$notification.error({
+					message: `刪除「${x.name}」失敗`,
+					description: err
+				});
+			}
 		},
 		async handleOk(e) {
 			this.editItemDialogLoading = true;
@@ -168,9 +206,13 @@ export default {
 						filter: { id: this.editItemContent.id }
 					});
 				else await this.$axios.post("/api/source", reqData);
-			} catch (error) {
+			} catch (err) {
 				this.editItemDialogLoading = false;
 				this.editItemDialog = false;
+				this.$notification.error({
+					message: `編輯或新增失敗`,
+					description: err
+				});
 			}
 			await this.fetchData();
 			this.editItemDialogLoading = false;

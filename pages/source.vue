@@ -106,7 +106,8 @@ const columns = [
 	},
 	{
 		title: "time",
-		dataIndex: "time"
+		dataIndex: "time",
+		customRender: (text, record, index) => moment(text).format("YYYY-MM-DD")
 	},
 	{
 		title: "major",

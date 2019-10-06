@@ -201,6 +201,7 @@ export default {
 			this.editItemDialogLoading = true;
 			let data;
 			let reqData = this.deepCopy(this.editItemContent);
+			if (reqData.id == -1) delete reqData.id;
 			delete reqData.isTrusted; //i dont know where it comes from
 			reqData.time = moment(reqData.time).format("YYYY-MM-DD HH:mm:ss");
 			try {

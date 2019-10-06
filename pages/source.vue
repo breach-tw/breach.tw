@@ -176,6 +176,7 @@ export default {
 				this.editItemContent.time,
 				"YYYY/MM/DD"
 			);
+
 			this.editItemDialog = true;
 		},
 		async delSource(x) {

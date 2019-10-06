@@ -37,7 +37,7 @@
 				<a-form-item label="description" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-textarea v-model="editItemContent.description" />
 				</a-form-item>
-				<a-form-item label="round_k" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+				<a-form-item label="round_k" :min="0" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-input-number v-model="editItemContent.round_k" />
 				</a-form-item>
 				<a-form-item label="comment" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">

@@ -70,11 +70,30 @@ const columns = [
 	{
 		title: "id",
 		dataIndex: "id",
-		sorter: true
+		sorter: (a, b) => a.id - b.id
 	},
 	{
 		title: "type",
-		dataIndex: "type"
+		dataIndex: "type",
+		filters: [
+			{
+				text: "民間企業",
+				value: "民間企業"
+			},
+			{
+				text: "政府單位",
+				value: "政府單位"
+			},
+			{
+				text: "教育機構",
+				value: "教育機構"
+			},
+			{
+				text: "其他",
+				value: "其他"
+			}
+		],
+		onFilter: (value, record) => record.type.indexOf(value) === 0
 	},
 	{
 		title: "name",
@@ -82,7 +101,8 @@ const columns = [
 	},
 	{
 		title: "round_k",
-		dataIndex: "round_k"
+		dataIndex: "round_k",
+		sorter: (a, b) => a.round_k - b.round_k
 	},
 	{
 		title: "time",
@@ -132,8 +152,10 @@ export default {
 				this.data = data;
 				this.loading = false;
 			} catch (err) {
-				this.$message.error("fetch error");
-				this.$message.error(err);
+				this.$notification.error({
+					message: `fetch error`,
+					description: err
+				});
 				this.loading = false;
 			}
 		},
@@ -157,13 +179,17 @@ export default {
 			this.editItemDialog = true;
 		},
 		async delSource(x) {
-			console.log(x.id);
 			try {
 				await this.$axios.delete("/api/source", { data: { id: x.id } });
-				this.$message.success(`刪除「${x.name}」完成`);
+				this.$message.success({
+					message: `刪除「${x.name}」成功`
+				});
+				await this.fetchData();
 			} catch (err) {
-				this.$message.error(`刪除「${x.name}」失敗`);
-				this.$message.error(err);
+				this.$notification.error({
+					message: `刪除「${x.name}」失敗`,
+					description: err
+				});
 			}
 		},
 		async handleOk(e) {
@@ -179,9 +205,13 @@ export default {
 						filter: { id: this.editItemContent.id }
 					});
 				else await this.$axios.post("/api/source", reqData);
-			} catch (error) {
+			} catch (err) {
 				this.editItemDialogLoading = false;
 				this.editItemDialog = false;
+				this.$notification.error({
+					message: `編輯或新增失敗`,
+					description: err
+				});
 			}
 			await this.fetchData();
 			this.editItemDialogLoading = false;

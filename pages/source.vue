@@ -17,6 +17,9 @@
 				</div>
 				<template slot="edit" slot-scope="text, record, index">
 					<a-button icon="edit" @click="showModal(record)" />
+					<a-popconfirm title="確定要刪除嗎？" @confirm="delSource(record)" okText="Yes" cancelText="No">
+						<a-button icon="delete" />
+					</a-popconfirm>
 				</template>
 			</a-table>
 		</div>
@@ -152,6 +155,16 @@ export default {
 				"YYYY/MM/DD"
 			);
 			this.editItemDialog = true;
+		},
+		async delSource(x) {
+			console.log(x.id);
+			try {
+				await this.$axios.delete("/api/source", { data: { id: x.id } });
+				this.$message.success(`刪除「${x.name}」完成`);
+			} catch (err) {
+				this.$message.error(`刪除「${x.name}」失敗`);
+				this.$message.error(err);
+			}
 		},
 		async handleOk(e) {
 			this.editItemDialogLoading = true;

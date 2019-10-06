@@ -87,7 +87,7 @@ source.add = async function (newSource, con = null) {
         round_k: 0,
         comment: ""
     })
-    if (newSource.major === undefined && newSource.round_k > 5) {
+    if (newSource.major === undefined && newSource.round_k >= 5) {
         newSource.major = 1;
     }
 

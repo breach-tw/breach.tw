@@ -49,7 +49,7 @@ export default {
 			},
 			{
 				title: "Source",
-				icon: "profile",
+				icon: "database",
 				to: "/source"
 			},
 			{
@@ -61,6 +61,11 @@ export default {
 				title: "Log",
 				icon: "desktop",
 				to: "/log"
+			},
+			{
+				title: "Import",
+				icon: "cloud-upload",
+				to: "/import"
 			}
 		]
 	})

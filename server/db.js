@@ -90,6 +90,9 @@ source.add = async function (newSource, con = null) {
     if (newSource.major === undefined && newSource.round_k >= 5) {
         newSource.major = 1;
     }
+    if (newSource.id !== undefined) {
+        newSource.id = undefined;
+    }
 
     let insertId = await con.query("INSERT INTO breach_source SET ?", newSource)
         .then(data => {

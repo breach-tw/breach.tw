@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-			<a-button type="primary" icon="plus" @click="showModal">Add</a-button>
+			<a-button type="primary" icon="plus" @click="showModal()">Add</a-button>
 			<br />
 			<br />
 			<a-table :columns="columns" :dataSource="data" :loading="loading">
@@ -21,7 +21,7 @@
 			</a-table>
 		</div>
 		<a-modal
-			title="編輯或新增"
+			:title="(editItemContent.id>0?'Edit':'Add')+' source'"
 			:visible="editItemDialog"
 			@ok="handleOk"
 			:confirmLoading="editItemDialogLoading"
@@ -134,25 +134,23 @@ export default {
 				this.loading = false;
 			}
 		},
-		showModal(x) {
-			if (x) {
-				this.editItemContent = this.deepCopy(x);
-				this.editItemContent.time = moment(
-					this.editItemContent.time,
-					"YYYY/MM/DD"
-				);
-			} else
-				this.editItemContent = this.deepCopy({
-					id: -1,
-					name: "",
-					description: "",
-					round_k: 0,
-					comment: "",
-					time: moment().format("YYYY/MM/DD"),
-					major: 0,
-					file: 0,
-					type: ""
-				});
+		showModal(
+			x = {
+				id: -1,
+				name: "",
+				description: "",
+				round_k: 0,
+				comment: "",
+				time: new Date(),
+				file: 0,
+				type: ""
+			}
+		) {
+			this.editItemContent = this.deepCopy(x);
+			this.editItemContent.time = moment(
+				this.editItemContent.time,
+				"YYYY/MM/DD"
+			);
 			this.editItemDialog = true;
 		},
 		async handleOk(e) {

@@ -44,7 +44,10 @@
 					<a-textarea v-model="editItemContent.comment" />
 				</a-form-item>
 				<a-form-item label="file" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input-number v-model="editItemContent.file" />
+					<a-radio-group v-model="editItemContent.file" name="file" :defaultValue="1">
+						<a-radio :value="0">false</a-radio>
+						<a-radio :value="1">true</a-radio>
+					</a-radio-group>
 				</a-form-item>
 				<a-form-item label="time" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-date-picker v-model="editItemContent.time" />

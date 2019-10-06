@@ -1,15 +1,15 @@
 <template>
 	<a-layout id="layout">
-		<a-layout-sider
-			breakpoint="lg"
-			collapsedWidth="0"
-			@collapse="onCollapse"
-			@breakpoint="onBreakpoint"
-		>
+		<a-layout-sider breakpoint="lg" collapsedWidth="0">
 			<div class="logo">
 				<img src="/icon.svg" />
 			</div>
-			<a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']" @click="switchPage">
+			<a-menu
+				theme="dark"
+				mode="inline"
+				:defaultSelectedKeys="[$router.history.current.path]"
+				@click="switchPage"
+			>
 				<template v-for="item in nav">
 					<a-menu-item :key="item.to">
 						<a-icon :type="item.icon " />
@@ -36,12 +36,6 @@
 <script>
 export default {
 	methods: {
-		onCollapse(collapsed, type) {
-			console.log(collapsed, type);
-		},
-		onBreakpoint(broken) {
-			console.log(broken);
-		},
 		switchPage({ item, key, keyPath }) {
 			this.$router.push(key);
 		}

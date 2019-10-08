@@ -4,7 +4,7 @@
 			<a-button type="primary" icon="plus" @click="showModal()">Add</a-button>
 			<br />
 			<br />
-			<a-table :columns="columns" :dataSource="data" :loading="loading">
+			<a-table :columns="columns" :dataSource="data" :loading="loading" :scroll="{ x: 900 }">
 				<div slot="expandedRowRender" slot-scope="record" style="margin: 0">
 					<h6>description</h6>
 					{{record.description}}
@@ -121,7 +121,7 @@ const columns = [
 		dataIndex: "file"
 	},
 	{
-		title: "edit",
+		title: "action",
 		dataIndex: "edit",
 		scopedSlots: { customRender: "edit" }
 	}

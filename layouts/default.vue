@@ -67,8 +67,23 @@ export default {
 				icon: "cloud-upload",
 				to: "/import"
 			}
+		],
+		shotaImgs: [
+			"https://i.imgur.com/zR42RRS.png",
+			"https://i.imgur.com/yyrVPmy.png"
 		]
-	})
+	}),
+	created() {
+		let shotaDisplay = this.shotaImgs[
+			Math.floor(Math.random() * this.shotaImgs.length)
+		];
+		this.$nextTick(() => {
+			window.document.documentElement.style.setProperty(
+				"--shota-img",
+				`url('${shotaDisplay}')`
+			);
+		});
+	}
 };
 </script>
 <style lang="sass">
@@ -81,4 +96,27 @@ export default {
 	img
 		height: 64px
 		filter: invert(1)
+.ant-modal-mask
+	backdrop-filter: blur(1px)
+.ant-layout-sider-children 
+	height: 100vh
+body:before
+	background-image: var(--shota-img,'https://i.imgur.com/zR42RRS.png')
+	content: ''
+	pointer-events: none
+	position: fixed
+	z-index: 999
+	width: 200px
+	height: 380px
+	left: 10px
+	bottom: 5px
+	background-size: contain
+	background-position: 100% 100%
+	background-repeat: no-repeat
+	opacity: 0.9
+	transition: transform .4s ease
+	transform: translateX(0px) scaleX(-1)
+@media screen and (max-width:992px) 
+	body:before
+		transform: translateX(-200px) scaleX(-1)
 </style>

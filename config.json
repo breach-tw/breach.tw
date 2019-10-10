@@ -1,9 +1,10 @@
 {
     "db": {
         "host" : "localhost",
-        "user": "mysql",
-        "password": "mysql",
-        "database": "database"
+        "user": "user",
+        "password": "password",
+        "database": "db"
     },
+    "uploadDir": "./tmp",
     "debug": true
 }

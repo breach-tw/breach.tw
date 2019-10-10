@@ -4,8 +4,19 @@
     --bold: 500;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-size: 14px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
 }
 
 nav {

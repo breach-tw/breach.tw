@@ -4,7 +4,7 @@ require 'config.php';
 <!DOCTYPE HTML>
 <html>
 <head>
-<title><?= $title.' │ 台灣抓漏小天使'?></title>
+<title><?=isset($title) ? $title.' | ':''?>台灣抓漏小天使</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/styles/index.css">

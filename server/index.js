@@ -1,3 +1,5 @@
+const config = require("../config.json")
+
 const Koa = require('koa')
 const Router = require('koa-router')
 const consola = require('consola')
@@ -13,27 +15,30 @@ const api = require("./api.js")
 const app = new Koa()
 
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-config.dev = app.env !== 'production'
+const nuxtConfig = require('../nuxt.config.js')
+nuxtConfig.dev = app.env !== 'production'
 
 async function start() {
   // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
+  const nuxt = new Nuxt(nuxtConfig)
 
   const {
     host = process.env.HOST || '127.0.0.1',
-      port = process.env.PORT || 3000
+    port = process.env.PORT || 3000
   } = nuxt.options.server
 
   // Build in development
-  if (config.dev) {
+  if (nuxtConfig.dev) {
     const builder = new Builder(nuxt)
     await builder.build()
   } else {
     await nuxt.ready()
   }
 
-  app.use(koaBody());
+  app.use(koaBody({
+    formidable:{uploadDir: config.uploadDir},    //This is where the files would come
+    multipart: true
+  }));
 
   router.use('/api', api.routes(), api.allowedMethods())
   app.use(router.routes()).use(router.allowedMethods())

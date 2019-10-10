@@ -150,6 +150,22 @@ log.add = async function (hash, sourceId, con = null) {
 log.get = buildGet('breach_log')
 log.delete = buildDelete('breach_log')
 log.update = buildUpdate('breach_log')
+log.batch = {};
+log.batch.add = async function (datas, con = null) {
+    if (!con) {
+        con = await connect();
+    }
+    let SQL = "INSERT INTO breach_log (hash, source) VALUES ";
+    for (let i = 0; i < datas.length / 2; i++){
+        if (i != 0) SQL += ', '
+        SQL += "(?, ?)"
+    }
+    let insertId = await con.query(SQL, datas).then(data => {
+        if (config.debug) debug(data);
+        return data.insertId
+    })
+    return insertId;
+}
 
 module.exports = {
     connect,

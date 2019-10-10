@@ -33,6 +33,8 @@ adds2PP(require("./pre-processors/dummy-id.s2.js"))
 adds2PP(require("./pre-processors/question-mark.s2.js"))
 adds2PP(require("./pre-processors/10d26d.s2.js"))
 
+const s12s2 = require("./pre-processors/s12s2.js");
+
 const crypto = require("crypto");
 const hash = input => crypto.createHash("sha1").update(input, "utf8").digest("hex")
 
@@ -40,17 +42,28 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
     const liner = new lineByLine(path);
     let line;
     let count = 0;
-    let errors = 0;
+
+    const errors = {
+        s1: ({}),
+        s2: ({}),
+        s12s2: 0
+    };
+    let s1e = errors.s1;
+    let s2e = errors.s2;
+
     let result = [];
  
     while (line = liner.next()) {
         if (count < 100) {
             let processed = line.toString();
             for (const i of s1pp) {
-                processed = pps.s1.pps[i](processed);
+                if (!s1e[i]) s1e[i] = 0;
+                processed = pps.s1.pps[i](processed, () => s1e[i]++);
             }
+            processed = s12s2(processed)
             for (const i of s2pp) {
-                processed = pps.s2.pps[i](processed);
+                if (!s2e[i]) s2e[i] = 0;
+                processed = pps.s2.pps[i](processed, () => s2e[i]++);
             }
             if (processed) {
                 const [name, id] = processed;
@@ -58,7 +71,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
                 result.push(hash(name+id), source)
                 count++;
             } else {
-                errors++;
+                errors.s12s2++;
             }
         } else {
             yield result;

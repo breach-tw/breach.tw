@@ -1,6 +1,10 @@
-function filter(data) {
+function filter(data, errorcb) {
     if (data) {
         let [name, id] = data;
+        if (id.length < 6) {
+            errorcb()
+            return false;
+        }
         if (id.length > 6) {
             id = id.slice(id.length - 6);
         }

@@ -27,7 +27,7 @@
     "koa-router": "^7.4.0",
     "n-readlines": "^1.0.0",
     "nuxt": "^2.0.0",
-    "promise-mysql": "^4.1.0",
+    "promise-mysql": "^4.1.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {

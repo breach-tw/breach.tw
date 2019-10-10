@@ -7,31 +7,19 @@ const uuidv1 = require('uuid/v1');
 const tasks = {};
 
 function MakeQuerablePromise(promise) {
-    // Don't modify any promise that has been already modified.
+    // Don't create a wrapper for promises that can already be queried.
     if (promise.isResolved) return promise;
 
-    // Set initial state
-    var isPending = true;
+    var isResolved = false;
     var isRejected = false;
-    var isFulfilled = false;
 
     // Observe the promise, saving the fulfillment in a closure scope.
     var result = promise.then(
-        function(v) {
-            isFulfilled = true;
-            isPending = false;
-            return v; 
-        }, 
-        function(e) {
-            isRejected = true;
-            isPending = false;
-            throw e; 
-        }
-    );
-
-    result.isFulfilled = function() { return isFulfilled; };
-    result.isPending = function() { return isPending; };
-    result.isRejected = function() { return isRejected; };
+       function(v) { isResolved = true; return v; }, 
+       function(e) { isRejected = true; throw e; });
+    result.isFulfilled = function() { return isResolved || isRejected; };
+    result.isResolved = function() { return isResolved; }
+    result.isRejected = function() { return isRejected; }
     return result;
 }
 
@@ -177,8 +165,8 @@ async function start() {
             if (id in tasks) {
                 let count = 0;
                 if (tasks[id]["promises"]) {
-                    for (task in tasks[id]["promises"]) {
-                        if (task.isFulfilled()) {
+                    for (task of tasks[id]["promises"]) {
+                        if (task.isResolved()) {
                             count++;
                         }
                     }

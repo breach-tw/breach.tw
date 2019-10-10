@@ -1,8 +1,9 @@
-function filter(data) {
+function filter(data, errorcb) {
     if (!data) return false;
     let [name, id] = data;
 
     if (name.includes("?")) {
+        errorcb();
         return false;
     } else {
         return data;

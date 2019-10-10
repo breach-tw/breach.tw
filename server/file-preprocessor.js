@@ -33,7 +33,7 @@ adds2PP(require("./pre-processors/dummy-id.s2.js"))
 adds2PP(require("./pre-processors/question-mark.s2.js"))
 adds2PP(require("./pre-processors/10d26d.s2.js"))
 
-const s12s2 = require("./pre-processors/s12s2.js");
+const s1_to_s2 = require("./pre-processors/s1-to-s2.js");
 
 const crypto = require("crypto");
 const hash = input => crypto.createHash("sha1").update(input, "utf8").digest("hex")
@@ -46,7 +46,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
     const errors = {
         s1: ({}),
         s2: ({}),
-        s12s2: 0
+        s1_to_s2: 0
     };
     let s1e = errors.s1;
     let s2e = errors.s2;
@@ -60,7 +60,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
                 if (!s1e[i]) s1e[i] = 0;
                 processed = pps.s1.pps[i](processed, () => s1e[i]++);
             }
-            processed = s12s2(processed)
+            processed = s1_to_s2(processed)
             for (const i of s2pp) {
                 if (!s2e[i]) s2e[i] = 0;
                 processed = pps.s2.pps[i](processed, () => s2e[i]++);
@@ -71,7 +71,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
                 result.push(hash(name+id), source)
                 count++;
             } else {
-                errors.s12s2++;
+                errors.s1_to_s2++;
             }
         } else {
             yield result;

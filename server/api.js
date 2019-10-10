@@ -178,7 +178,7 @@ async function start() {
                 let count = 0;
                 if (tasks[id]["promises"]) {
                     for (task in tasks[id]["promises"]) {
-                        if (task.isFulfilled) {
+                        if (task.isFulfilled()) {
                             count++;
                         }
                     }

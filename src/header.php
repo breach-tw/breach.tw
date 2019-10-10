@@ -50,7 +50,9 @@ require 'config.php';
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0">
 					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/seadog007/breach.tw" target="_blank">GitHub</a>
+						<a class="nav-link" href="https://github.com/seadog007/breach.tw" target="_blank">
+							<img src="/images/github.svg" width="24" height="24" class="d-inline-block align-top" style="filter: invert(1)" alt="">
+						</a>
 					</li>
 				</ul>
 			</div>

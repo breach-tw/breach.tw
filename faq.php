@@ -20,7 +20,7 @@
     <p>雜湊是一種對資料的處理方法，可將任意資料轉換成固定長度的字串。將兩筆不同的資料雜湊後，得到相同結果的機率極低。而雜湊後的字串極難轉換回原本的資料。<br>透過這兩個特性，我們可以在不知道您的姓名及身分證字號的情況下，辨別資料庫內是否含有您的資料。</p>  
 
     <h3 class="breach-title" id="section4">通知會從哪個電子郵件地址寄送？</h3> 
-    <p>我們的電子郵件皆會從 <code>mailer@brench.tw</code> 寄出</p>
+    <p>我們的電子郵件皆會從 <code>mailer@breach.tw</code> 寄出</p>
 
     <h3 class="breach-title" id="section5"> API 要怎麼用？</h3> 
     <p>我們目前還在撰寫 API 文件，若有急需請洽 <a href="https://t.me/seadog007">https://t.me/seadog007</a></p>

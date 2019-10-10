@@ -10,5 +10,5 @@ function filter(line) {
 module.exports = {
     filter,
     name: "name10digit",
-    subscription: "Parse Name+10dID to s2 format"
+    description: "Parse Name+10dID to s2 format"
 }

@@ -12,5 +12,5 @@ function filter(data) {
 module.exports = {
     filter,
     name: "Question Mark Filter",
-    subscription: "Check if name contains '?'"
+    description: "Check if name contains '?'"
 }

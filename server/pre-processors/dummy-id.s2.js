@@ -12,5 +12,5 @@ function filter(data) {
 module.exports = {
     filter,
     name: "Dummy ID Filter",
-    subscription: "Check if ID is A123456789"
+    description: "Check if ID is A123456789"
 }

@@ -13,5 +13,5 @@ function filter(data) {
 module.exports = {
     filter,
     name: "10d26d",
-    subscription: "10 digit ID to 6 digit ID"
+    description: "10 digit ID to 6 digit ID"
 }

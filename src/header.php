@@ -32,6 +32,9 @@ require 'config.php';
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 					<?php $uri = $_SERVER['REQUEST_URI'];?>
+					<li class="nav-item <?= $uri=='/search.php'?'active':''?>">
+						<a class="nav-link" href="search.php">搜尋洩漏紀錄</a>
+					</li>
 					<li class="nav-item <?= $uri=='/subscribe.php'?'active':''?>">
 						<a class="nav-link" href="subscribe.php">訂閱外洩事件</a>
 					</li>

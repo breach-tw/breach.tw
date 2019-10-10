@@ -14,5 +14,5 @@ function filter(line, errorcb) {
 module.exports = {
     filter,
     name: "Question Mark Filter",
-    description: "Check if name contains '?'"
+    description: "Check if line contains '?'"
 }

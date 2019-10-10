@@ -24,6 +24,9 @@
 
     <h3 class="breach-title" id="section5"> API 要怎麼用？</h3> 
     <p>我們目前還在撰寫 API 文件，若有急需請洽 <a href="https://t.me/seadog007">https://t.me/seadog007</a></p>
+
+    <h3 class="breach-title" id="section6">網站架設在哪裡？</h3> 
+    <p>主資料庫存放在 Google Cloud SQL 上，網頁服務及資料庫備援由 <a href="https://cras.4202.tw">黃羿</a> 及 <a href="https://seadog007.work">尤理衡</a> 無償提供。</p>
 </div>
 
 <?php require 'src/footer.php'; ?>

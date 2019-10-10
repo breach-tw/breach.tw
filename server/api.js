@@ -194,8 +194,8 @@ async function start() {
         })
         .get('/import/pps', async ctx => {
             ctx.body = {
-                s1: pps.s1.desc,
-                s2: pps.s2.desc
+                s1: pps.s1.descs,
+                s2: pps.s2.descs
             }
         })
 }

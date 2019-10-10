@@ -3,18 +3,18 @@ const lineByLine = require('n-readlines');
 const pps = {
     s1: {
         pps: [], 
-        desc: []
+        descs: []
     },
     s2: {
         pps: [],
-        desc: []
+        descs: []
     }
 }
 
 // Init 
 function adds1PP(prep) {
     pps.s1.pps.push(prep.filter)
-    pps.s1.desc.push({
+    pps.s1.descs.push({
         name: prep.name,
         description: prep.description
     })
@@ -22,7 +22,7 @@ function adds1PP(prep) {
 
 function adds2PP(prep) {
     pps.s2.pps.push(prep.filter)
-    pps.s2.desc.push({
+    pps.s2.descs.push({
         name: prep.name,
         description: prep.description
     })

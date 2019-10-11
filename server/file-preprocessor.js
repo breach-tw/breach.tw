@@ -64,7 +64,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
                 if (!s1e[i]) s1e[i] = 0;
                 processed = pps.s1.pps[i](processed, () => s1e[i]++);
                 if (processed === false) {
-                    debug('[PP]', `Line ${tcount} was filtered by Stage 1 pp ${i}`)
+                    debug(['[PP]', `Line ${tcount} was filtered by Stage 1 pp ${i}`])
                     break;
                 }
             }
@@ -73,7 +73,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
                 if (!s2e[i]) s2e[i] = 0;
                 processed = pps.s2.pps[i](processed, () => s2e[i]++);
                 if (processed === false) {
-                    debug('[PP]', `Line ${tcount} was filtered by Stage 2 pp ${i}`)
+                    debug(['[PP]', `Line ${tcount} was filtered by Stage 2 pp ${i}`])
                     break;
                 }
             }

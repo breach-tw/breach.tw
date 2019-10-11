@@ -126,7 +126,7 @@ async function start() {
         })
     
     router
-        .post('/import/logs', async ctx => {
+        .post('/import/process', async ctx => {
             const { source, filePath, s1pps, s2pps } = ctx.request.body;
             let result;
 

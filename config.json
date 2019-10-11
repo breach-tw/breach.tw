@@ -5,6 +5,5 @@
         "password": "password",
         "database": "db"
     },
-    "uploadDir": "./tmp",
-    "debug": true
+    "uploadDir": "./tmp"
 }

@@ -6,6 +6,7 @@
 	<title>台灣抓漏小天使</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap&subset=chinese-traditional" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php include 'src/og.php'; ?>
 	<style>
@@ -14,6 +15,7 @@
 			height: 100%;
 			width: 100%;
 			color: #FFF;
+			font-family: 'Noto Sans TC', sans-serif;
 		}
 
 		body {

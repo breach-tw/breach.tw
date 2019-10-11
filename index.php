@@ -15,7 +15,7 @@
 			height: 100%;
 			width: 100%;
 			color: #FFF;
-			font-family: 'Noto Sans TC', sans-serif;
+			font-family: 'Open Sans', 'Noto Sans TC', sans-serif;
 		}
 
 		body {
@@ -38,11 +38,27 @@
 		}
 
 		h1 {
-			font-size: calc(1em + 5vw);
+			font-size: 70px;
+			font-weight: bold;
 		}
 
 		h3 {
-			font-size: calc(1em + 2vw);
+			font-size: 32px;
+		}
+
+		.btn {
+			border: 2px solid #f8f9fa;
+			font-weight: bold;
+		}
+
+		@media (max-width: 768px) {
+			h1 {
+				font-size: 28px;
+			}
+
+			h3 {
+				font-size: 16px;
+			}
 		}
 	</style>
 </head>

@@ -58,11 +58,6 @@ export default {
 				to: "/item"
 			},
 			{
-				title: "Log",
-				icon: "desktop",
-				to: "/log"
-			},
-			{
 				title: "Import",
 				icon: "cloud-upload",
 				to: "/import"

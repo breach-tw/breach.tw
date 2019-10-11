@@ -137,7 +137,7 @@ async function start() {
 
             tasks[uuid] = {promises: []};
             tasks[uuid]["main"] = MakeQuerablePromise(new Promise((resolve, reject) => {
-                const readline = readLog(filePath, source, JSON.parse(s1pps), JSON.parse(s2pps));
+                const readline = readLog(filePath, source, s1pps, s2pps);
                 let result;
                 while (result = readline.next()) {
                     if (!result.done) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap&subset=chinese-traditional');
+
 :root {
     --theme-color: #424242;
     --theme-color-darker: #1f1f1f;
@@ -13,6 +15,7 @@ body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
 .container {

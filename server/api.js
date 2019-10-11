@@ -156,7 +156,7 @@ async function start() {
 
             ctx.body = uuid;
         })
-        .post("/import/file", async ctx => {
+        .post("/import/upload", async ctx => {
             const filePath = ctx.request.files.file.path;
             ctx.body = filePath;
         })
@@ -177,7 +177,7 @@ async function start() {
                 }
             }
         })
-        .get("/import/task/list", async ctx => {
+        .get("/import/tasklist", async ctx => {
             ctx.body = Object.keys(tasks)
         })
         .get('/import/pps', async ctx => {

@@ -2,7 +2,7 @@ const mysql = require("promise-mysql");
 const config = require("../config.json")
 
 function debug(x) {
-    console.log("[DEBUG]", x);
+    if (process.env.debug) console.log("[DEBUG]", ...x);
 }
 
 function defObj(obj, def) {
@@ -23,7 +23,7 @@ const buildGet = tableName => async (filter = ({}), con = null) => {
 
     let data;
     let cb = data => {
-        if (process.env.debug) debug(data)
+        debug([`[GET ${tableName}]`, data])
         return data;
     }
 
@@ -43,7 +43,7 @@ const buildDelete = tableName => async (filter = ({}), con = null) => {
 
     let data;
     let cb = data => {
-        if (process.env.debug) debug(data)
+        debug([`[DELETE ${tableName}]`, data])
         return data;
     }
 
@@ -63,7 +63,7 @@ const buildUpdate = tableName => async (update, filter = ({}), con = null) => {
 
     let data;
     let cb = data => {
-        if (process.env.debug) debug(data)
+         debug([`[UPDATE ${tableName}]`, data])
         return data;
     }
 
@@ -96,7 +96,7 @@ source.add = async function (newSource, con = null) {
 
     let insertId = await con.query("INSERT INTO breach_source SET ?", newSource)
         .then(data => {
-            if (process.env.debug) debug(data)
+             debug(['[INSERT SOURCE]', data])
             return data.insertId
         });
     return insertId;
@@ -120,7 +120,7 @@ source.addItem = async function (sourceId, itemId, con = null) {
             item: itemId
         })
         .then(data => {
-            if (process.env.debug) debug(data)
+             debug(['[INSERT ITEM]', data])
             return data.insertId
         });
 
@@ -141,7 +141,7 @@ log.add = async function (hash, sourceId, con = null) {
         hash,
         source: sourceId
     }).then(data => {
-        if (process.env.debug) debug(data);
+         debug(['[INSERT LOG]', data]);
         return data.insertId
     })
     return insertId;
@@ -161,7 +161,7 @@ log.batch.add = async function (datas, con = null) {
         SQL += "(?, ?)"
     }
     let insertId = await con.query(SQL, datas).then(data => {
-        if (process.env.debug) debug(data);
+         debug(['[INSERT BATCH LOG]', data]);
         return data.insertId
     })
     return insertId;

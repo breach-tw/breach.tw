@@ -52,13 +52,13 @@ require 'config.php';
 					</li>
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0" style="flex-direction: row;">
-					<li class="nav-item" style="padding-right: .5rem;padding-left: .5rem;">
-						<a class="nav-link" href="https://www.facebook.com/breach.tw/" target="_blank">
+					<li class="nav-item">
+						<a class="nav-link" style="padding-right: .5rem;padding-left: .5rem;" href="https://www.facebook.com/breach.tw/" target="_blank">
 							<img src="/images/facebook.svg" width="24" height="24" class="d-inline-block align-top" style="filter: invert(1)" alt="">
 						</a>
 					</li>
-					<li class="nav-item" style="padding-right: .5rem;padding-left: .5rem;">
-						<a class="nav-link" href="https://github.com/seadog007/breach.tw" target="_blank">
+					<li class="nav-item">
+						<a class="nav-link" style="padding-right: .5rem;padding-left: .5rem;" href="https://github.com/seadog007/breach.tw" target="_blank" >
 							<img src="/images/github.svg" width="24" height="24" class="d-inline-block align-top" style="filter: invert(1)" alt="">
 						</a>
 					</li>

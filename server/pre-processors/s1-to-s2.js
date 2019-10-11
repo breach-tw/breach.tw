@@ -1,4 +1,4 @@
-function filter(line, errorcb) {
+function filter(line, errorcb = () => { }) {
     if (line) {
         const match = line.match(/(.+?)(([A-Z]\d{3})?\d{6})/)
         if (match) {

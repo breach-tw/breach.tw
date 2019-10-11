@@ -37,6 +37,10 @@ const s1_to_s2 = require("./pre-processors/s1-to-s2.js");
 const crypto = require("crypto");
 const hash = input => crypto.createHash("sha1").update(input, "utf8").digest("hex")
 
+function debug(x) {
+    if (process.env.debug) console.log("[DEBUG]", ...x);
+}
+
 function *readLog(path, source, s1pp = [], s2pp = []) {
     const liner = new lineByLine(path);
     let line;
@@ -51,6 +55,7 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
     let s2e = errors.s2;
 
     let result = [];
+    let tcount = 1; // Current Line count.
  
     while (line = liner.next()) {
         if (count < 100) {
@@ -58,25 +63,32 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
             for (const i of s1pp) {
                 if (!s1e[i]) s1e[i] = 0;
                 processed = pps.s1.pps[i](processed, () => s1e[i]++);
+                if (processed === false) {
+                    debug('[PP]', `Line ${tcount} was filtered by Stage 1 pp ${i}`)
+                    break;
+                }
             }
-            processed = s1_to_s2(processed)
-            for (const i of s2pp) {
+            if (processed) processed = s1_to_s2(processed, () => errors.s1_to_s2++)
+            if (processed) for (const i of s2pp) {
                 if (!s2e[i]) s2e[i] = 0;
                 processed = pps.s2.pps[i](processed, () => s2e[i]++);
+                if (processed === false) {
+                    debug('[PP]', `Line ${tcount} was filtered by Stage 2 pp ${i}`)
+                    break;
+                }
             }
             if (processed) {
                 const [name, id] = processed;
                 
                 result.push(hash(name+id), source)
                 count++;
-            } else {
-                errors.s1_to_s2++;
             }
         } else {
             yield result;
             count = 0;
             result = [];
         }
+        tcount++;
     }
     if (count) {
         yield result;

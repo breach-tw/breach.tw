@@ -58,13 +58,13 @@ async function start() {
         })
 
     router
-        .get('/item', async ctx => {
+        .get('/source_item', async ctx => {
             const filters = ctx.query;
             const data = await db.source.getItem(filters, pool)
 
             ctx.body = data;
         })
-        .post('/item', async ctx => {
+        .post('/source_item', async ctx => {
             const {
                 sourceId,
                 itemId
@@ -75,13 +75,13 @@ async function start() {
                 id: resultId
             }
         })
-        .delete('/item', async ctx => {
+        .delete('/source_item', async ctx => {
             const filter = ctx.request.body;
             const data = await db.source.deleteItem(filter, pool)
 
             ctx.body = data
         })
-        .patch('/item', async ctx => {
+        .patch('/source_item', async ctx => {
             const {
                 update,
                 filter
@@ -186,6 +186,41 @@ async function start() {
                 s2: pps.s2.descs
             }
         })
+        
+    router
+        .get('/item', async ctx => {
+            const filters = ctx.query;
+            const data = await db.item.get(filters, pool)
+
+            ctx.body = data;
+        })
+        .post('/item', async ctx => {
+            const {
+                id,
+                name,
+                abbr
+            } = ctx.request.body;
+            const resultId = await db.item.add( id, name, abbr, pool)
+            ctx.body = {
+                id: resultId
+            }
+        })
+        .delete('/item', async ctx => {
+            const filter = ctx.request.body;
+            const data = await db.item.delete(filter, pool)
+
+            ctx.body = data
+        })
+        .patch('/item', async ctx => {
+            const {
+                update,
+                filter
+            } = ctx.request.body;
+            const data = await db.item.update(update, filter, pool)
+
+            ctx.body = data
+        })
+        
 }
 start()
 module.exports = router

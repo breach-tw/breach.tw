@@ -48,7 +48,3 @@ class EmailString{
 }
 
 module.exports = { send, EmailString };
-
-
-  
-  

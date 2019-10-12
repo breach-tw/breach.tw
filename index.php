@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap&subset=chinese-traditional" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="/js/detectIE.js"></script>
 	<?php include 'src/og.php'; ?>
 	<style>
 		html,

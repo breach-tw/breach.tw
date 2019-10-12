@@ -190,5 +190,6 @@ item.add = async function (id, name, abbr, con = null) {
 module.exports = {
     connect,
     source,
+    item,
     log
 }

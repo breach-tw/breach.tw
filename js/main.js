@@ -116,7 +116,7 @@ function subscribe_func(form) {
             .then(function (res) {
                 dqs('#subscribe').removeAttribute('disabled');
                 if (res.status == 0) {
-                    if (res.result.length > 0) {
+                    if (Object.size(res.result) > 0) {
                         Swal.fire({
                             type: 'success',
                             title: '訂閱完成',

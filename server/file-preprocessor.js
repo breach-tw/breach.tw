@@ -31,6 +31,7 @@ function adds2PP(prep) {
 adds1PP(require("./pre-processors/question-mark.s1.js"))
 adds2PP(require("./pre-processors/dummy-id.s2.js"))
 adds2PP(require("./pre-processors/10d26d.s2.js"))
+adds2PP(require("./pre-processors/id-validate.s2.js"))
 
 const s1_to_s2 = require("./pre-processors/s1-to-s2.js");
 

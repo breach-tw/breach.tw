@@ -28,7 +28,16 @@ const buildGet = tableName => async (filter = ({}), con = null) => {
     }
 
     if (Object.keys(filter).length) {
-        data = await con.query(`SELECT * FROM ${tableName} WHERE ?`, filter).then(cb)
+        let filterDatas = [];
+        let sql = `SELECT * FROM ${tableName} WHERE `;
+
+        for (const [key, value] of Object.entries(filter)) {
+            sql += "? = ? AND "
+            datas.push(key)
+            datas.push(value);
+        }
+        sql = sql.slice(0, -4); 
+        data = await con.query(sql, filterDatas).then(cb)
     } else {
         data = await con.query(`SELECT * FROM ${tableName}`).then(cb)
     }
@@ -48,7 +57,16 @@ const buildDelete = tableName => async (filter = ({}), con = null) => {
     }
 
     if (Object.keys(filter).length) {
-        data = await con.query(`DELETE FROM ${tableName} WHERE ?`, filter).then(cb)
+        let filterDatas = [];
+        let sql = `DELETE FROM ${tableName} WHERE `;
+
+        for (const [key, value] of Object.entries(filter)) {
+            sql += "? = ? AND "
+            datas.push(key)
+            datas.push(value);
+        }
+        sql = sql.slice(0, -4); 
+        data = await con.query(sql, filterDatas).then(cb)
     } else {
         data = await con.query(`WAITFOR DELAY '00:00:00'`).then(cb)
     }
@@ -68,7 +86,16 @@ const buildUpdate = tableName => async (update, filter = ({}), con = null) => {
     }
 
     if (Object.keys(filter).length) {
-        data = await con.query(`UPDATE ${tableName} SET ? WHERE ?`, [update, filter]).then(cb)
+        let filterDatas = [update];
+        let sql = `UPDATE ${tableName} SET ? WHERE `;
+
+        for (const [key, value] of Object.entries(filter)) {
+            sql += "? = ? AND "
+            datas.push(key)
+            datas.push(value);
+        }
+        sql = sql.slice(0, -4); 
+        data = await con.query(sql, filterDatas).then(cb)
     } else {
         data = await con.query(`UPDATE ${tableName} SET ?`, update).then(cb)
     }

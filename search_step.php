@@ -8,12 +8,12 @@
         </div>
     </header>
 
-    <div class="container" style="max-width: 600px;margin: 10px auto;">
+    <div class="padded container">
         <h1 class="breach-title">雜湊產生器</h1> 
         <p>此方法可避免將個人資料直接回傳給我們<br>產生後請貼上到下方表單進行追蹤或搜尋<br>雜湊值產生方法為：<code>sha1(姓名+身分證後六碼)</code></p>
-        <form onsubmit="event.preventDefault(); gen_sha1(this);">
+        <form id="search_step_form">
             <div class="form-group">
-                <label  for="fullname">姓名</label> 
+                <label for="fullname">姓名</label> 
                 <input 
                     type="text" 
                     class="form-control" 
@@ -36,7 +36,7 @@
         <br/>
         <br/>
         <h1 class="breach-title">搜尋表單</h1> 
-        <form onsubmit="event.preventDefault(); search_func(this);">
+        <form id="search_hash_form">
             <div class="form-group">
                 <label for="hash" >雜湊代碼</label>
                 <input 
@@ -53,5 +53,19 @@
     <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
     <script>const RECAPTCHA_SITE_KEY='<?= RECAPTCHA_SITE_KEY?>'</script>
     <script src="/js/main.js"></script>
+
+    <script>
+        dqs('#search_step_form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            let el = e.target;
+            gen_sha1(el);
+        });
+
+        dqs('#search_hash_form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            let el = e.target;
+            search_func(el);
+        });
+    </script>
 
     <?php require 'src/footer.php'; ?>

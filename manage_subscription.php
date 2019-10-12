@@ -8,9 +8,9 @@
         </div>
     </header>
 
-    <div class="container" style="max-width: 600px;margin: 10px auto;">
+    <div class="padded container">
         <h1 class="breach-title">查詢訂閱紀錄</h1>
-        <form onsubmit="event.preventDefault(); subscription_status_func(this);">
+        <form id="subscription_status_form">
             <div class="form-group">
                 <label for="email" >E-mail</label>
                 <input
@@ -24,10 +24,10 @@
         </form>
     </div>
 
-    <div class="container" style="max-width: 600px;margin: 40px auto 10px;">
+    <div class="padded container" style="margin-top: 40px;">
         <h1 class="breach-title">取消訂閱外洩事件</h1>
         <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。</p>
-        <form onsubmit="event.preventDefault(); unsubscribe_func(this);">
+        <form id="unsubscribe_form">
         <div class="form-group">
                 <label for="fullname">姓名</label>
                 <input
@@ -62,5 +62,19 @@
     <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
     <script>const RECAPTCHA_SITE_KEY='<?= RECAPTCHA_SITE_KEY?>'</script>
     <script src="/js/main.js"></script>
+
+    <script>
+        dqs('#subscription_status_form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            let el = e.target;
+            subscription_status_func(el);
+        });
+
+        dqs('#unsubscribe_form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            let el = e.target;
+            unsubscribe_func(el);
+        });
+    </script>
 
     <?php require 'src/footer.php'; ?>

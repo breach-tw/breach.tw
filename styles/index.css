@@ -22,6 +22,11 @@ body {
     flex: 1;
 }
 
+.padded.container {
+    max-width: 600px;
+    margin: 10px auto;
+}
+
 nav {
     background: var(--theme-color-darker);
 }

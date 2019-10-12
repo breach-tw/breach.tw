@@ -68,7 +68,7 @@ function mail_verify($email, $name, $hash, $code){
 
 function is_account_verify($email){
     global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disable`=0 AND `email_verify`=1");
+    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0 AND `email_verify`=1");
 	$stmt->execute([
         'email' => $email
 	]);
@@ -82,7 +82,7 @@ function is_account_verify($email){
 
 function is_account_exist($email){
     global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disable`=0");
+    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0");
 	$stmt->execute([
         'email' => $email
 	]);
@@ -140,7 +140,7 @@ function search($hash){
 
 function get_account($email, $hash){
     global $db;
-    $stmt = $db->prepare("SELECT `name` FROM `subscribers` WHERE `email`=:email AND `hash`=:hash AND `disable`=0");
+    $stmt = $db->prepare("SELECT `name` FROM `subscribers` WHERE `email`=:email AND `hash`=:hash AND `disabled`=0");
 	$stmt->execute([
         'email' => $email,
         'hash' => $hash

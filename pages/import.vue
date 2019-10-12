@@ -2,24 +2,14 @@
 	<div :style="{ padding: '24px', background: '#fff' }">
 		<a-form layout="horizontal">
 			<a-form-item label="s1pps" v-if="pps" :label-col="{ span: 4 }" :wrapper-col=" { span: 14 }">
-				<a-checkbox-group v-model="form.s1pps">
-					<a-popover v-for="(item, index) in pps.s1" :key="index" :title="item.name">
-						<template slot="content">
-							<p>{{item.description}}</p>
-						</template>
-						<a-checkbox :value="index">{{item.name}}</a-checkbox>
-					</a-popover>
-				</a-checkbox-group>
+				<a-select mode="multiple" v-model="form.s1pps">
+					<a-select-option v-for="(item, index) in pps.s1" :key="index" :value="index">{{item.name}}</a-select-option>
+				</a-select>
 			</a-form-item>
 			<a-form-item label="s2pps" v-if="pps" :label-col="{ span: 4 }" :wrapper-col=" { span: 14 }">
-				<a-checkbox-group v-model="form.s2pps">
-					<a-popover v-for="(item, index) in pps.s2" :key="index" :title="item.name">
-						<template slot="content">
-							<p>{{item.description}}</p>
-						</template>
-						<a-checkbox :value="index">{{item.name}}</a-checkbox>
-					</a-popover>
-				</a-checkbox-group>
+				<a-select mode="multiple" v-model="form.s2pps">
+					<a-select-option v-for="(item, index) in pps.s2" :key="index" :value="index">{{item.name}}</a-select-option>
+				</a-select>
 			</a-form-item>
 			<a-form-item label="source" v-if="source" :label-col="{ span: 4 }" :wrapper-col=" { span: 14 }">
 				<a-select
@@ -83,8 +73,8 @@ export default {
 		pps: null,
 		source: null,
 		form: {
-			s1pps: null,
-			s2pps: null,
+			s1pps: [],
+			s2pps: [],
 			fileType: null,
 			text: null, //透過輸入框匯入
 			file: null,

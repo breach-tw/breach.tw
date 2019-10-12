@@ -33,8 +33,8 @@ const buildGet = tableName => async (filter = ({}), con = null) => {
 
         for (const [key, value] of Object.entries(filter)) {
             sql += "? = ? AND "
-            datas.push(key)
-            datas.push(value);
+            filterDatas.push(key)
+            filterDatas.push(value)
         }
         sql = sql.slice(0, -4); 
         data = await con.query(sql, filterDatas).then(cb)
@@ -62,8 +62,8 @@ const buildDelete = tableName => async (filter = ({}), con = null) => {
 
         for (const [key, value] of Object.entries(filter)) {
             sql += "? = ? AND "
-            datas.push(key)
-            datas.push(value);
+            filterDatas.push(key)
+            filterDatas.push(value)
         }
         sql = sql.slice(0, -4); 
         data = await con.query(sql, filterDatas).then(cb)
@@ -91,8 +91,8 @@ const buildUpdate = tableName => async (update, filter = ({}), con = null) => {
 
         for (const [key, value] of Object.entries(filter)) {
             sql += "? = ? AND "
-            datas.push(key)
-            datas.push(value);
+            filterDatas.push(key)
+            filterDatas.push(value)
         }
         sql = sql.slice(0, -4); 
         data = await con.query(sql, filterDatas).then(cb)

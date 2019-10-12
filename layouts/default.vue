@@ -58,6 +58,11 @@ export default {
 				to: "/item"
 			},
 			{
+				title: "Source Item",
+				icon: "table",
+				to: "/source_item"
+			},
+			{
 				title: "Import",
 				icon: "cloud-upload",
 				to: "/import"

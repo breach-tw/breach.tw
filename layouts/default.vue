@@ -53,11 +53,6 @@ export default {
 				to: "/source"
 			},
 			{
-				title: "Item",
-				icon: "table",
-				to: "/item"
-			},
-			{
 				title: "Source Item",
 				icon: "table",
 				to: "/source_item"

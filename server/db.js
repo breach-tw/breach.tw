@@ -50,7 +50,7 @@ const buildDelete = tableName => async (filter = ({}), con = null) => {
     if (Object.keys(filter).length) {
         data = await con.query(`DELETE FROM ${tableName} WHERE ?`, filter).then(cb)
     } else {
-        data = await con.query(`DELETE FROM ${tableName}`).then(cb)
+        data = await con.query(`WAITFOR DELAY '00:00:00'`).then(cb)
     }
 
     return data;

@@ -294,7 +294,7 @@ async function start() {
             const sourceId = ctx.query.source;
             const source = await db.source.get({ id: sourceId }, pool);
 
-            const mail = (await readFile('email.html')).replace(/\{\{source\}\}/g, source[0].name);
+            const mail = (await readFile('email.html')).replace(/§source§/g, source[0].name);
 
             const users = (await db.mail(sourceId, pool))
 
@@ -306,7 +306,7 @@ async function start() {
             mailtasks[uuid] = {promises: []};
             mailtasks[uuid]["main"] = MakeQuerablePromise(new Promise((resolve, reject) => {
                 for (const user of users) {
-                    const mail_inner = mail.replace(/\{\{user\}\}/g, user.name);
+                    const mail_inner = mail.replace(/§user§/g, user.name);
                     mailtasks[uuid]['promises'].push(MakeQuerablePromise(sendMail(user.email, mail_inner, user.name)));
                 }
 

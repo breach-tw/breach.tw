@@ -64,7 +64,6 @@
     <script src="/js/main.js"></script>
 
     <script>
-    <script>
         dqs('#subscription_status_form').addEventListener("submit", (e) => {
             e.preventDefault();
             let el = e.target;
@@ -76,7 +75,6 @@
             let el = e.target;
             unsubscribe_func(el);
         });
-    </script>
     </script>
 
     <?php require 'src/footer.php'; ?>

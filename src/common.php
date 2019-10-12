@@ -213,6 +213,47 @@ function verify_code($code){
     }
 }
 
+function get_subscription_status($email){
+    $res = [
+        'status' => '0'
+    ];
+
+    if (is_account_exist($email)){
+        if (is_account_verify($email)){
+            $res['result'] = 'subscribed';
+        }else{
+            $res['result'] = 'verification_pending';
+        }
+    }else{
+        $res['result'] = 'not_subscribed';
+    }
+    return $res;
+}
+
+function unsubscribe($email, $hash){
+    $res = [
+        'status' => '1'
+    ];
+
+    if (is_account_exist($email)){
+        $account = get_account($email, $hash);
+        if ($account['name']){
+            global $db;
+            $stmt = $db->prepare("UPDATE `subscribers` SET `disable`=1 WHERE `email`=:email AND `hash`=:hash");
+            $stmt->execute([
+                'email' => $email,
+                'hash' => $hash
+            ]);
+            $res['status'] = '0';
+        }else{
+            $res['error'] = "與本來資料不符";
+        }
+    }else{
+        $res['error'] = "此 E-mail 尚未訂閱洩漏訊息。";
+    }
+    return $res;
+}
+
 function is_sha1($str) {
     return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
 }

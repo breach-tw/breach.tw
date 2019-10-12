@@ -148,3 +148,72 @@ function subscribe_func(form) {
             });
     });
 }
+
+function subscription_status_func(form) {
+    document.getElementById('query').setAttribute('disabled', true);
+    grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+        action: 'query_subscription_status'
+    }).then(function (token) {
+        fetch('/api/subscription_status.php?email=' + form.email.value + '&token=' + token)
+            .then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                document.getElementById('query').removeAttribute('disabled');
+                if (res.status == 0) {
+                    if (res.result == 'not_subscribed') {
+                        Swal.fire({
+                            type: 'info',
+                            title: '查詢結果',
+                            html: '此 E-mail 尚未訂閱洩漏訊息。'
+                        });
+                    } else if (res.result == 'verification_pending') {
+                        Swal.fire({
+                            type: 'info',
+                            title: '查詢結果',
+                            html: '此 E-mail 已訂閱洩漏訊息，但尚未驗證 E-mail，請前往您的電子郵箱確認。'
+                        });
+                    } else if (res.result == 'subscribed') {
+                        Swal.fire({
+                            type: 'success',
+                            title: '查詢結果',
+                            html: '此 E-mail 已訂閱洩漏訊息。'
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        type: 'error',
+                        title: '發生錯誤',
+                        text: res.error
+                    });
+                }
+            });
+    });
+}
+
+function unsubscribe_func(form) {
+    document.getElementById('unsubscribe').setAttribute('disabled', true);
+    let hash = sha1(form.fullname.value + form.nid.value);
+    grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+        action: 'unsubscribe'
+    }).then(function (token) {
+        fetch('/api/unsubscribe.php?hash=' + hash + '&email=' + form.email.value + '&token=' + token)
+            .then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                document.getElementById('unsubscribe').removeAttribute('disabled');
+                if (res.status == 0) {
+                    Swal.fire({
+                        type: 'success',
+                        title: '取消訂閱成功',
+                        html: '已取消訂閱洩漏訊息。'
+                    });
+                } else {
+                    Swal.fire({
+                        type: 'error',
+                        title: '發生錯誤',
+                        text: res.error
+                    });
+                }
+            });
+    });
+}

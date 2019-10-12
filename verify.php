@@ -35,7 +35,7 @@
         ?>
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">未知錯誤，如持續發生請通知管理員。</h5>
+                <h5 class="card-title">訂閱可能已被取消，請<a href="/subscribe.php">重新訂閱</a>。如並未取消訂閱且此訊息重複出現，請通知管理員。</h5>
                 <a href="/" class="btn btn-dark">回首頁</a>
             </div>
         </div>

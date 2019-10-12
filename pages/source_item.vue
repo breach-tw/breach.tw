@@ -58,29 +58,6 @@ const columns = [
 		sorter: (a, b) => a.id - b.id
 	},
 	{
-		title: "type",
-		dataIndex: "type",
-		filters: [
-			{
-				text: "民間企業",
-				value: "民間企業"
-			},
-			{
-				text: "政府單位",
-				value: "政府單位"
-			},
-			{
-				text: "教育機構",
-				value: "教育機構"
-			},
-			{
-				text: "其他",
-				value: "其他"
-			}
-		],
-		onFilter: (value, record) => record.type.indexOf(value) === 0
-	},
-	{
 		title: "name",
 		dataIndex: "name"
 	},

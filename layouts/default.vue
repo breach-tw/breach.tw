@@ -68,7 +68,7 @@ export default {
 			"https://i.imgur.com/yyrVPmy.png"
 		]
 	}),
-	created() {
+	mounted() {
 		let shotaDisplay = this.shotaImgs[
 			Math.floor(Math.random() * this.shotaImgs.length)
 		];

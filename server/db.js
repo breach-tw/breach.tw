@@ -214,9 +214,23 @@ item.add = async function (id, name, abbr, con = null) {
     return insertId;
 }
 
+let mail = async function (source, con = null) {
+    if (!con) {
+        con = await connect();
+    }
+
+    let result = await con.query("SELECT `email` FROM `subscribers` WHERE `hash` IN (SELECT `hash` FROM `breach_log` WHERE `source` = ?) AND `email_verify` = 1 AND `disabled` = 0", source)
+        .then(data => {
+            debug(['[GET EMAIL]', data]);
+            return data;
+        })
+    return result; 
+}
+
 module.exports = {
     connect,
     source,
+    mail,
     item,
     log
 }

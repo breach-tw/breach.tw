@@ -4,8 +4,12 @@ const { readLog, pps } = require('./file-preprocessor.js')
 const uuidv1 = require('uuid/v1');
 const fs = require('fs')
 
+const sendMail = require('./email.js').send
+const EmailString = require('./email.js').EmailString
+
 // Import Task global var
 const tasks = {};
+const mailtasks = {};
 
 
 
@@ -21,6 +25,27 @@ function isFileExist(filePath) {
             }
         });
     })
+}
+
+function readFile(filePath) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filePath, (err, data) => {
+            if (err) reject(err);
+            resolve(data);
+          });
+    })
+    
+}
+
+async function wait(promises) {
+    for (const promise of promises) {
+        try {
+            await promise;
+        } catch (e) {
+
+        }
+    }
+    return;
 }
 
 function MakeQuerablePromise(promise) {
@@ -246,6 +271,56 @@ async function start() {
             const data = await db.item.update(update, filter, pool)
 
             ctx.body = data
+        })
+
+    router
+        .get('/mail', async ctx => {
+            const { id } = ctx.query
+            if (id in mailtasks) {
+                let count = 0;
+                if (mailtasks[id]["promises"]) {
+                    for (task of mailtasks[id]["promises"]) {
+                        if (task.isResolved()) {
+                            count++;
+                        }
+                    }
+                    ctx.body = `${count}/${mailtasks[id]["promises"].length}`
+                }
+                else {
+                    ctx.body = await mailtasks[id]["main"];
+                }
+            }
+        })
+        .post('/mail', async ctx => {
+            const sourceId = ctx.query.source;
+            const source = await db.source.get({ id: sourceId }, pool);
+
+            const mail = EmailString(await readFile('email.html')).fill({
+                source: source[0].name
+            })
+
+            const users = (await db.mail(sourceId, pool))
+
+            let uuid = uuidv1();
+            while (uuid in mailtasks) {
+                uuid = uuidv1();
+            }
+
+            mailtasks[uuid] = {promises: []};
+            mailtasks[uuid]["main"] = MakeQuerablePromise(new Promise((resolve, reject) => {
+                for (const user of users) {
+                    const mail_inner = mail.fill({user: user.name});
+                    mailtasks[uuid]['promises'].push(MakeQuerablePromise(sendMail(user.email, mail_inner.get(), user.name)));
+                }
+
+                wait(mailtasks[uuid]['promises']).then(() => {
+                    const error = mailtasks[uuid]["promises"].filter(x => x.isRejected()).length;
+                    delete mailtasks[uuid]["promises"]
+                    resolve(error)
+                })
+            }))
+
+            ctx.body = uuid;
         })
         
 }

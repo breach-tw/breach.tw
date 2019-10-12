@@ -8,10 +8,10 @@
         </div>
     </header>
 
-    <div class="container" style="max-width: 600px;margin: 10px auto;">
+    <div class="padded container">
         <h1 class="breach-title">訂閱表單</h1>
         <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。<br>訂閱後若發現大規模個資外洩時，且您在外洩清單內將會即時通知您。</p>
-        <form onsubmit="event.preventDefault(); subscribe_func(this);">
+        <form id="subscribe_form">
             <div class="form-group">
                 <label for="fullname">姓名</label> 
                 <input 
@@ -46,5 +46,13 @@
     <script src="https://www.google.com/recaptcha/api.js?render=<?=RECAPTCHA_SITE_KEY?>"></script>
     <script>const RECAPTCHA_SITE_KEY='<?= RECAPTCHA_SITE_KEY?>'</script>
     <script src="/js/main.js"></script>
+
+    <script>
+        dqs('#subscribe_form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            let el = e.target;
+            subscribe_func(el);
+        });
+    </script>
 
     <?php require 'src/footer.php'; ?>

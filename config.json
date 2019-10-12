@@ -5,5 +5,14 @@
         "password": "password",
         "database": "db"
     },
+    "mail": {
+        "host": "smtp-relay.gmail.com",
+        "port": 587,
+        "secureConnecton": true,
+        "auth": {
+          "user": "yourcompany@email",
+          "pass": "password"
+        }
+    },
     "uploadDir": "./tmp"
 }

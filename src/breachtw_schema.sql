@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 192.168.2.248
--- Generation Time: Aug 16, 2019 at 04:20 AM
--- Server version: 5.7.24
--- PHP Version: 7.2.14
+-- Host: 127.0.0.1
+-- Generation Time: Oct 12, 2019 at 08:01 AM
+-- Server version: 5.7.14-google-log
+-- PHP Version: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -142,7 +142,7 @@ CREATE TABLE `subscribers` (
   `email_verify_ip` text COLLATE utf8mb4_unicode_ci,
   `sub_time` timestamp NULL DEFAULT NULL,
   `sub_ip` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `disable` tinyint(1) DEFAULT '0'
+  `disabled` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -250,14 +250,14 @@ ALTER TABLE `subscribers`
 -- Constraints for table `breach_log`
 --
 ALTER TABLE `breach_log`
-  ADD CONSTRAINT `breach_log_ibfk_1` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`);
+  ADD CONSTRAINT `breach_log_ibfk_1` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `source_item`
 --
 ALTER TABLE `source_item`
-  ADD CONSTRAINT `source_item_ibfk_1` FOREIGN KEY (`item`) REFERENCES `breach_item` (`id`),
-  ADD CONSTRAINT `source_item_ibfk_2` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`);
+  ADD CONSTRAINT `source_item_ibfk_1` FOREIGN KEY (`item`) REFERENCES `breach_item` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `source_item_ibfk_2` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -4,7 +4,7 @@
 			<a-button type="primary" icon="plus" @click="showModal()">Add</a-button>
 			<br />
 			<br />
-			<a-table :columns="columns" :dataSource="data" :loading="loading">
+			<a-table :columns="columns" :dataSource="data" :loading="loading" :scroll="{ x: 900 }">
 				<div slot="expandedRowRender" slot-scope="record" style="margin: 0">
 					<h6>description</h6>
 					{{record.description}}
@@ -37,14 +37,17 @@
 				<a-form-item label="description" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-textarea v-model="editItemContent.description" />
 				</a-form-item>
-				<a-form-item label="round_k" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+				<a-form-item label="round_k" :min="0" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-input-number v-model="editItemContent.round_k" />
 				</a-form-item>
 				<a-form-item label="comment" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-textarea v-model="editItemContent.comment" />
 				</a-form-item>
 				<a-form-item label="file" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-					<a-input-number v-model="editItemContent.file" />
+					<a-radio-group v-model="editItemContent.file" name="file" :defaultValue="1">
+						<a-radio :value="0">false</a-radio>
+						<a-radio :value="1">true</a-radio>
+					</a-radio-group>
 				</a-form-item>
 				<a-form-item label="time" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
 					<a-date-picker v-model="editItemContent.time" />
@@ -106,7 +109,8 @@ const columns = [
 	},
 	{
 		title: "time",
-		dataIndex: "time"
+		dataIndex: "time",
+		customRender: (text, record, index) => moment(text).format("YYYY-MM-DD")
 	},
 	{
 		title: "major",
@@ -117,7 +121,7 @@ const columns = [
 		dataIndex: "file"
 	},
 	{
-		title: "edit",
+		title: "action",
 		dataIndex: "edit",
 		scopedSlots: { customRender: "edit" }
 	}
@@ -197,6 +201,7 @@ export default {
 			this.editItemDialogLoading = true;
 			let data;
 			let reqData = this.deepCopy(this.editItemContent);
+			if (reqData.id == -1) delete reqData.id;
 			delete reqData.isTrusted; //i dont know where it comes from
 			reqData.time = moment(reqData.time).format("YYYY-MM-DD HH:mm:ss");
 			try {

@@ -2,9 +2,26 @@ const router = require('koa-router')()
 const db = require("./db.js")
 const { readLog, pps } = require('./file-preprocessor.js')
 const uuidv1 = require('uuid/v1');
+const fs = require('fs')
 
 // Import Task global var
 const tasks = {};
+
+
+
+function isFileExist(filePath) {
+    return new Promise((resolve, reject) => {
+        fs.stat(filePath, function(err, stat) {
+            if(err == null) {
+                resolve(true);
+            } else if(err.code === 'ENOENT') {
+                resolve(false)
+            } else {
+                reject(err);
+            }
+        });
+    })
+}
 
 function MakeQuerablePromise(promise) {
     // Don't create a wrapper for promises that can already be queried.
@@ -129,6 +146,16 @@ async function start() {
         .post('/import/process', async ctx => {
             const { source, filePath, s1pps, s2pps } = ctx.request.body;
             let result;
+
+            if (filePath === undefined || source === undefined) {
+                ctx.status = 418;
+                return;
+            }
+
+            if (await isFileExist(filePath) === false) {
+                ctx.status = 404;
+                return;
+            }
 
             let uuid = uuidv1();
             while (uuid in tasks) {

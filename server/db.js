@@ -192,7 +192,7 @@ let mail = async function (source, con = null) {
         con = await connect();
     }
 
-    let result = await con.query("SELECT `email` FROM `subscribers` WHERE `hash` IN (SELECT `hash` FROM `breach_log` WHERE `source` = ?) AND email_verify = 1", source)
+    let result = await con.query("SELECT `email` FROM `subscribers` WHERE `hash` IN (SELECT `hash` FROM `breach_log` WHERE `source` = ?) AND `email_verify` = 1 AND `disabled` = 0", source)
         .then(data => {
             debug(['[GET EMAIL]', data]);
             return data;

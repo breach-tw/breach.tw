@@ -239,7 +239,7 @@ function unsubscribe($email, $hash){
         $account = get_account($email, $hash);
         if ($account['name']){
             global $db;
-            $stmt = $db->prepare("DELETE FROM `subscribers` WHERE `email`=:email AND `hash`=:hash");
+            $stmt = $db->prepare("UPDATE `subscribers` SET `disable`=1 WHERE `email`=:email AND `hash`=:hash");
             $stmt->execute([
                 'email' => $email,
                 'hash' => $hash

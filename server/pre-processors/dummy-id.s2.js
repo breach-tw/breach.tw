@@ -12,6 +12,6 @@ function filter(data, errorcb) {
 
 module.exports = {
     filter,
-    name: "Dummy ID Filter",
-    description: "Check if ID is A123456789"
+    name: "A123456789 Filter",
+    description: "Too many testing data using this...."
 }

@@ -16,6 +16,6 @@ function filter(data, errorcb) {
 
 module.exports = {
     filter,
-    name: "10d26d",
+    name: "10 Digit ID to 6 digit",
     description: "10 digit ID to 6 digit ID"
 }

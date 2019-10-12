@@ -37,7 +37,8 @@ async function start() {
 
   app.use(koaBody({
     formidable:{uploadDir: config.uploadDir},    //This is where the files would come
-    multipart: true
+    multipart: true,
+    parsedMethods: ['POST', 'DELETE', 'PATCH']
   }));
 
   router.use('/api', api.routes(), api.allowedMethods())

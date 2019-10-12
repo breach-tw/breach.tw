@@ -103,10 +103,10 @@ body:before
 	z-index: 999
 	width: 200px
 	height: 380px
-	left: 10px
+	left: 0
 	bottom: 5px
 	background-size: contain
-	background-position: 100% 100%
+	background-position: 50% 100%
 	background-repeat: no-repeat
 	opacity: 0.9
 	transition: transform .4s ease

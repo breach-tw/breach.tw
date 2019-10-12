@@ -120,7 +120,7 @@ source.addItem = async function (sourceId, itemId, con = null) {
             item: itemId
         })
         .then(data => {
-             debug(['[INSERT ITEM]', data])
+             debug(['[INSERT SOURCE ITEM]', data])
             return data.insertId
         });
 
@@ -162,6 +162,26 @@ log.batch.add = async function (datas, con = null) {
     }
     let insertId = await con.query(SQL, datas).then(data => {
          debug(['[INSERT BATCH LOG]', data]);
+        return data.insertId
+    })
+    return insertId;
+}
+
+let item = {};
+item.get = buildGet('breach_item')
+item.delete = buildDelete('breach_item')
+item.update = buildUpdate('breach_item')
+item.add = async function (id, name, abbr, con = null) {
+    if (!con) {
+        con = await connect();
+    }
+
+    let insertId = await con.query("INSERT INTO breach_item SET ?", {
+        id,
+        name,
+        abbr
+    }).then(data => {
+        debug(['[INSERT ITEM]', data]);
         return data.insertId
     })
     return insertId;

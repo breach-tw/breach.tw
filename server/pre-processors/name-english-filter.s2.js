@@ -1,7 +1,7 @@
 function filter(data, errorcb) {
     if (!data) return false;
     let [name, id] = data;
-    if (name.match(/^((?![A-Z|a-z|ü|é]).)*$/)) {  
+    if (name.match(/[A-Za-züé]/)) {  
         errorcb()
         return false;
     }

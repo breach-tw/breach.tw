@@ -4,7 +4,8 @@ const { readLog, pps } = require('./file-preprocessor.js')
 const uuidv1 = require('uuid/v1');
 const fs = require('fs')
 
-const sendMail = require('./email.js')
+const sendMail = require('./email.js').send
+const EmailString = require('./email.js').EmailString
 
 // Import Task global var
 const tasks = {};
@@ -294,7 +295,9 @@ async function start() {
             const sourceId = ctx.query.source;
             const source = await db.source.get({ id: sourceId }, pool);
 
-            const mail = (await readFile('email.html')).replace(/§source§/g, source[0].name);
+            const mail = EmailString(await readFile('email.html')).fill({
+                source: source[0].name
+            })
 
             const users = (await db.mail(sourceId, pool))
 
@@ -306,8 +309,8 @@ async function start() {
             mailtasks[uuid] = {promises: []};
             mailtasks[uuid]["main"] = MakeQuerablePromise(new Promise((resolve, reject) => {
                 for (const user of users) {
-                    const mail_inner = mail.replace(/§user§/g, user.name);
-                    mailtasks[uuid]['promises'].push(MakeQuerablePromise(sendMail(user.email, mail_inner, user.name)));
+                    const mail_inner = mail.fill({user: user.name});
+                    mailtasks[uuid]['promises'].push(MakeQuerablePromise(sendMail(user.email, mail_inner.get(), user.name)));
                 }
 
                 wait(mailtasks[uuid]['promises']).then(() => {

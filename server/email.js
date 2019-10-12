@@ -30,7 +30,24 @@ function send(email, content, username = null) {
     })
 }
 
-module.exports = send;
+class EmailString{
+    constructor(str) {
+        this.str = str
+    }
+    fill(obj) {
+        let tmp = this.str;
+        for (const [k, v] of obj) {
+            tmp = tmp.replace(new Regexp(`§${k}§`, 'g'), v);
+        }
+        return EmailString(tmp);
+    }
+    get() {
+        const tmp = this.str;
+        return tmp;
+    }
+}
+
+module.exports = { send, EmailString };
 
 
   

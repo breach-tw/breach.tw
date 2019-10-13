@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="nid">身分證字號後六碼</label>
-                <input type="password" class="form-control" id="unsubscribe_form_nid" maxlength="6" placeholder="身分證字號後六碼" required />
+                <input type="text" class="form-control" id="unsubscribe_form_nid" maxlength="6" placeholder="身分證字號後六碼" required />
             </div>
             <div class="form-group">
                 <label for="unsubscribe_form_email">E-mail</label>
@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
                 <label for="subscribe_form_nid">身分證字號後六碼</label>
-                <input type="password" class="form-control" id="subscribe_form_nid" maxlength="6" placeholder="身分證字號後六碼" required />
+                <input type="text" class="form-control" id="subscribe_form_nid" maxlength="6" placeholder="身分證字號後六碼" required />
             </div>
             <div class="form-group">
                 <label for="subscribe_form_email">E-mail</label>

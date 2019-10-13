@@ -25,7 +25,7 @@
             <div class="form-group ">
                 <label for="nid" >身分證字號後六碼</label>
                 <input 
-                    type="password" 
+                    type="text" 
                     class="form-control" 
                     id="nid" 
                     maxlength="6"  

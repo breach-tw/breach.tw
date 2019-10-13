@@ -55,13 +55,13 @@
     <script src="/js/main.js"></script>
 
     <script>
-        dqs('#search_step_form').addEventListener("submit", (e) => {
+        $('#search_step_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             gen_sha1(el);
         });
 
-        dqs('#search_hash_form').addEventListener("submit", (e) => {
+        $('#search_hash_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             search_func(el);

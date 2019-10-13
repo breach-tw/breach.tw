@@ -74,19 +74,19 @@
     <script src="/js/main.js"></script>
 
     <script>
-        dqs('#subscribe_form').addEventListener("submit", (e) => {
+        $('#subscribe_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             subscribe_func(el);
         });
 
-        dqs('#subscription_status_form').addEventListener("submit", (e) => {
+        $('#subscription_status_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             subscription_status_func(el);
         });
 
-        dqs('#unsubscribe_form').addEventListener("submit", (e) => {
+        $('#unsubscribe_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             unsubscribe_func(el);

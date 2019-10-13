@@ -1,7 +1,3 @@
-const dqs = selector => {
-    return document.querySelector(selector);
-}
-
 const delay = s => {
     return new Promise(function (resolve, reject) {
         setTimeout(resolve, s);
@@ -22,15 +18,13 @@ function one_step(form) {
 }
 
 async function gen_sha1(form) {
-    dqs('#hash').value = "";
-    dqs('#genhash').innerText = '正在計算雜湊值...';
-    dqs('#genhash').setAttribute('disabled', true);
+    $('#hash').val("");
+    $('#genhash').text('正在計算雜湊值...').attr('disabled', true);
     showToast('正在計算雜湊值...');
     await delay(1300);
     Swal.close();
-    dqs('#genhash').innerText = '產生';
-    dqs('#genhash').removeAttribute('disabled');
-    dqs('#hash').value = sha1(form.fullname.value + form.nid.value);
+    $('#genhash').text('產生').removeAttr('disabled');
+    $('#hash').val(sha1(form.fullname.value + form.nid.value));
 }
 
 function search_func(form) {
@@ -38,17 +32,17 @@ function search_func(form) {
 }
 
 async function search_by_hash(hash, hashed = false) {
-    dqs('#search').setAttribute('disabled', true);
+    $('#search').attr('disabled', true);
     if (!hashed) {
-        dqs('#search').blur();
-        dqs('#search').innerText = '正在計算雜湊值...';
+        $('#search')[0].blur(); // HTMLElement API
+        $('#search').text('正在計算雜湊值...')[0];
         showToast('正在計算雜湊值...');
         await delay(1300);
         Swal.close();
     }
 
     showToast('搜尋中...');
-    dqs('#search').innerText = '搜尋中...';
+    $('#search').text('搜尋中...');
 
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'search'
@@ -64,8 +58,7 @@ async function search_by_hash(hash, hashed = false) {
                 await delay(1000);
                 // 清除 swal
                 Swal.close();
-                dqs('#search').innerText = '送出';
-                dqs('#search').removeAttribute('disabled');
+                $('#search').text('送出').removeAttr('disabled');
                 await delay(100);
                 // 列出結果
                 if (res.status == 0) {
@@ -98,7 +91,7 @@ async function search_by_hash(hash, hashed = false) {
 }
 
 function subscribe_func(form) {
-    dqs('#subscribe').setAttribute('disabled', true);
+    $('#subscribe').attr('disabled', true);
     let hash = sha1(form.subscribe_form_fullname.value + form.subscribe_form_nid.value);
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'subscribe'
@@ -114,7 +107,7 @@ function subscribe_func(form) {
                 return response.json();
             })
             .then(function (res) {
-                dqs('#subscribe').removeAttribute('disabled');
+                $('#subscribe').removeAttr('disabled');
                 if (res.status == 0) {
                     if (Object.size(res.result) > 0) {
                         Swal.fire({
@@ -141,7 +134,7 @@ function subscribe_func(form) {
 }
 
 function subscription_status_func(form) {
-    dqs('#query').setAttribute('disabled', true);
+    $('#query').attr('disabled', true);
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'query_subscription_status'
     }).then(function (token) {
@@ -153,12 +146,12 @@ function subscription_status_func(form) {
             .then(function (res) {
                 return res.json();
             }).then(function (res) {
-                dqs('#query').removeAttribute('disabled');
+                $('#query').removeAttr('disabled');
                 if (res.status == 0) {
                     if (res.result == 'not_subscribed') {
                         $('.searchForm').hide();
                         $('.subForm').show();
-                        dqs('#subscribe_form_email').value = form.email.value;
+                        $('#subscribe_form_email').val(form.email.value);
                     } else if (res.result == 'verification_pending') {
                         Swal.fire({
                             type: 'info',
@@ -168,7 +161,7 @@ function subscription_status_func(form) {
                     } else if (res.result == 'subscribed') {
                         $('.searchForm').hide();
                         $('.unSubForm').show();
-                        dqs('#unsubscribe_form_email').value = form.email.value;
+                        $('#unsubscribe_form_email').val(form.email.value);
                     }
                 } else {
                     Swal.fire({
@@ -182,7 +175,7 @@ function subscription_status_func(form) {
 }
 
 function unsubscribe_func(form) {
-    dqs('#unsubscribe').setAttribute('disabled', true);
+    $('#unsubscribe').attr('disabled', true);
     let hash = sha1(form.unsubscribe_form_fullname.value + form.unsubscribe_form_nid.value);
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'unsubscribe'
@@ -196,7 +189,7 @@ function unsubscribe_func(form) {
             .then(function (res) {
                 return res.json();
             }).then(function (res) {
-                dqs('#unsubscribe').removeAttribute('disabled');
+                $('#unsubscribe').removeAttr('disabled');
                 if (res.status == 0) {
                     Swal.fire({
                         type: 'success',

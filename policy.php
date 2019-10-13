@@ -92,9 +92,9 @@ require 'src/header.php';
                     <p>數據類別</p>
                 </td>
                 <td>
-                    <p>政府單位/</p>
-                    <p>教育機構/</p>
-                    <p>民間企業/</p>
+                    <p>政府單位/<br />
+                    <p>教育機構/<br />
+                    <p>民間企業/<br />
                     <p>其他</p>
                 </td>
                 <td>&nbsp;</td>
@@ -104,10 +104,12 @@ require 'src/header.php';
                     <p>洩漏來源</p>
                 </td>
                 <td>
-                    <p>原站/論壇/暗網 網址</p>
+                    <p>原站/論壇/暗網<br />
+                    網址</p>
                 </td>
                 <td>
-                    <p>若為原網站直接洩漏，可直接填寫網站網址</p>
+                    <p>若為原網站直接洩漏，<br />
+                    可直接填寫網站網址</p>
                 </td>
             </tr>
             <tr>
@@ -127,7 +129,8 @@ require 'src/header.php';
                     <p>Your Name/Email</p>
                 </td>
                 <td>
-                    <p>將會公布在網站上，請自行評估後填寫</p>
+                    <p>將會公布在網站上，<br />
+                    請自行評估後填寫</p>
                 </td>
             </tr>
         </tbody>

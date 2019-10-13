@@ -7,7 +7,8 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: '',
+    titleTemplate: s => s ? `${s} | Admin Panel` : 'Admin Panel',
     meta: [{
         charset: 'utf-8'
       },

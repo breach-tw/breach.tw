@@ -127,6 +127,9 @@ const columns = [
 	}
 ];
 export default {
+	head: () => ({
+		title: "Source"
+	}),
 	mounted() {
 		this.fetchData();
 	},

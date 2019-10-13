@@ -197,7 +197,7 @@ async function start() {
                         tasks[uuid]['promises'].push(MakeQuerablePromise(db.log.batch.add(datas)));
                     } else {
                         let error = result.value;
-                        Promise.all(tasks[uuid]['promises']).then(() => {
+                        wait(tasks[uuid]['promises']).then(() => {
                             delete tasks[uuid]["promises"]
                             resolve(error)
                         })

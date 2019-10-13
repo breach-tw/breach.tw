@@ -95,6 +95,17 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
     if (count) {
         yield result;
     }
+
+    errors.icount = tcount;
+    errors.ocount = tcount;
+    for (const v of Object.values(s1e)) {
+        errors.ocount -= v;
+    }
+    for (const v of Object.values(s2e)) {
+        errors.ocount -= v;
+    }
+    errors.ocount -= errors.s1_to_s2;
+    
     return errors;
 }
 

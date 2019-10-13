@@ -5,6 +5,7 @@ require 'src/header.php';
 <header class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1><?= $title ?></h1>
+        <p class="lead">2019/10/13 定稿、2019/10/14公布</p>
     </div>
 </header>
 <div class="container">
@@ -18,10 +19,12 @@ require 'src/header.php';
         <li>不提供任何洩漏資料</li>
     </ul>
     <h1 class="breach-title">名詞定義</h1>
-    <p>SHA-1、sha1：Secure Hash Algorithm 1，為一種密碼雜湊函式，由美國國家安全局所設計</p>
-    <p>洩漏單位：係指洩漏資料之機構或組織</p>
-    <p>洩漏來源：係指實際可取得該資料之方法、位置等，如 Google Hacking 所得之檔案直接連結、論壇域名等</p>
-    <p>本網站、本站：Breach.tw 台灣抓漏小天使</p>
+    <ul>
+        <li>SHA-1、sha1：Secure Hash Algorithm 1，為一種密碼雜湊函式，由美國國家安全局所設計</li>
+        <li>洩漏單位：係指洩漏資料之機構或組織</li>
+        <li>洩漏來源：係指實際可取得該資料之方法、位置等，如 Google Hacking 所得之檔案直接連結、論壇域名等</li>
+        <li>本網站、本站：Breach.tw 台灣抓漏小天使</li>
+    </ul>
     <h1 class="breach-title">細項原則</h1>
     <ul>
         <li>洩漏資料處理政策</li>

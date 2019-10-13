@@ -128,13 +128,13 @@ export default {
 					message: "上傳完畢",
 					description: `您的檔案路徑是：${this.form.filePath}`
 				});
+				this.postPPS();
 			} catch (error) {
 				this.$notification.open({
 					message: "上傳失敗",
 					description: error
 				});
 			}
-			this.postPPS();
 		},
 		async postPPS() {
 			// source, filePath, s1pps, s2pps

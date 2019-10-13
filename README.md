@@ -23,7 +23,7 @@ A service that can track data breaches like "Have I Been Pwned", but it is speci
 本網站資料來源皆為匿名人士提供，且本網站並不保存其原始資料，只保存雜湊值以便查詢洩漏情況。
 攻擊本網站並無法獲得資料，且本網站保留法律追訴權。
 
-若想匿名提供資源，可聯絡 [admin@breach.tw](mailto:admin@breach.tw)，建議使用 PGP Key [C49D4040](https://pgp.key-server.io/pks/lookup?op=get&fingerprint=on&search=0xF85EC40BC49D4040) 加密。
+若想匿名提供資源，可聯絡 [admin@breach.tw](mailto:admin@breach.tw)，建議使用 PGP Key [C49D4040](https://pgp.key-server.io/pks/lookup?op=get&fingerprint=on&search=0xF85EC40BC49D4040) 進行加密。
 
 ## 其他連結
 [Facebook Page](https://www.facebook.com/breach.tw/)

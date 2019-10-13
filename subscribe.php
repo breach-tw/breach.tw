@@ -49,7 +49,7 @@
         <div class="alert alert-light text-center" role="alert">
             此 E-mail 尚未訂閱洩漏訊息，請輸入相關資訊來訂閱。
         </div>
-        <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。<br>訂閱後若發現大規模個資外洩時，且您在外洩清單內將會即時通知您。</p>
+        <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。<br/>訂閱後若發現大規模個資外洩時，且您在外洩清單內將會即時通知您。</p>
         <form id="subscribe_form">
             <div class="form-group">
                 <label for="subscribe_form_fullname">姓名</label>

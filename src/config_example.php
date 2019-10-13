@@ -17,9 +17,9 @@ define('RECAPTCHA_SITE_KEY', '');
 define('RECAPTCHA_SECRET_KEY', '');
 
 define('EMAIL_VERIFICATION_SUBJECT', '台灣抓漏小天使 E-mail 驗證');
-define('EMAIL_VERIFICATION_CONTENT', 'Hi, §name§<br><br>以下為您的驗證網址：<br><a href="https://breach.tw/verify.php?code=§code§">https://breach.tw/verify.php?code=§code§</a><br><br>感謝您的使用');
+define('EMAIL_VERIFICATION_CONTENT', 'Hi, §name§<br/><br/>以下為您的驗證網址：<br/><a href="https://breach.tw/verify.php?code=§code§">https://breach.tw/verify.php?code=§code§</a><br/><br/>感謝您的使用');
 define('EMAIL_TEST_SUBJECT', '台灣抓漏小天使 通知測試信');
-define('EMAIL_TEST_CONTENT', 'Hi, §name§<br><br>此為系統發出的測試信<br><br>感謝您的使用');
+define('EMAIL_TEST_CONTENT', 'Hi, §name§<br/><br/>此為系統發出的測試信<br/><br/>感謝您的使用');
 
 define('POW_DIFF', 5);
 

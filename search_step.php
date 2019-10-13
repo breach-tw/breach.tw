@@ -10,7 +10,7 @@
 
     <div class="padded container">
         <h1 class="breach-title">雜湊產生器</h1> 
-        <p>此方法可避免將個人資料直接回傳給我們<br>產生後請貼上到下方表單進行追蹤或搜尋<br>雜湊值產生方法為：<code>sha1(姓名+身分證後六碼)</code></p>
+        <p>此方法可避免將個人資料直接回傳給我們<br/>產生後請貼上到下方表單進行追蹤或搜尋<br/>雜湊值產生方法為：<code>sha1(姓名+身分證後六碼)</code></p>
         <form id="search_step_form">
             <div class="form-group">
                 <label for="fullname">姓名</label> 

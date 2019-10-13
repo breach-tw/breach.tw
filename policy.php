@@ -97,9 +97,9 @@ require 'src/header.php';
                     <p>數據類別</p>
                 </td>
                 <td>
-                    <p>政府單位/<br />
-                    <p>教育機構/<br />
-                    <p>民間企業/<br />
+                    <p>政府單位/<br/>
+                    <p>教育機構/<br/>
+                    <p>民間企業/<br/>
                     <p>其他</p>
                 </td>
                 <td>&nbsp;</td>
@@ -109,11 +109,11 @@ require 'src/header.php';
                     <p>洩漏來源</p>
                 </td>
                 <td>
-                    <p>原站/論壇/暗網<br />
+                    <p>原站/論壇/暗網<br/>
                     網址</p>
                 </td>
                 <td>
-                    <p>若為原網站直接洩漏，<br />
+                    <p>若為原網站直接洩漏，<br/>
                     可直接填寫網站網址</p>
                 </td>
             </tr>
@@ -134,12 +134,12 @@ require 'src/header.php';
                     <p>Your Name/Email</p>
                 </td>
                 <td>
-                    <p>將會公布在網站上，<br />
+                    <p>將會公布在網站上，<br/>
                     請自行評估後填寫</p>
                 </td>
             </tr>
         </tbody>
-    </table><br />
+    </table><br/>
     <h3 class="breach-title">個資保護 &amp; 隱私條款</h3>
     <p>感謝您使用「Breach.tw 台灣抓漏小天使」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：</p>
 

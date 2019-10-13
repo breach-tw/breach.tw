@@ -14,18 +14,18 @@
     <div class="container">
         <h3 class="breach-title">資料覆蓋率統計</h3> 
         <p>不重複洩漏數量：<?=$stat['unique_hash']?>
-        <br>台灣人口數量：<?=$stat['total_pop']?>
-        <br>估計數據覆蓋量：<?=intval($stat['cover_rate'] * 10000)/100?> %</p>
+        <br/>台灣人口數量：<?=$stat['total_pop']?>
+        <br/>估計數據覆蓋量：<?=intval($stat['cover_rate'] * 10000)/100?> %</p>
         <p>以上根據政府於 <?=intval($stat['total_pop_month'] / 100)?> 年 <?=$stat['total_pop_month'] % 100?> 月的人口統計數據</p>
 
 
         <h3 class="breach-title">搜尋統計</h3> 
         <p>有效搜尋總數：<?=$stat['total_unique_search']?>
-        <br>命中數量：<?=$stat['hit']?>
-        <br>未命中數量：<?=$stat['no_hit']?>
-        <br>命中率：<?=intval($stat['hit_rate'] * 10000)/100?> %</p>
+        <br/>命中數量：<?=$stat['hit']?>
+        <br/>未命中數量：<?=$stat['no_hit']?>
+        <br/>命中率：<?=intval($stat['hit_rate'] * 10000)/100?> %</p>
         <p>*有效搜尋總數：Unique hash in search log
-        <br>*命中率：（命中數量/有效搜尋總數）</p>
+        <br/>*命中率：（命中數量/有效搜尋總數）</p>
 
         <?php
             // Trash Code, Need someone to fix

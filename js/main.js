@@ -75,7 +75,7 @@ async function search_by_hash(hash, hashed = false) {
                         Swal.fire({
                             type: 'error',
                             title: '真是太糟糕了',
-                            html: `發現個資洩漏情形<br><br><h4>已發現項目</h4>${breach.join('<br/>')}`,
+                            html: `發現個資洩漏情形<br/><br/><h4>已發現項目</h4>${breach.join('<br/>')}`,
                             footer: '<a href="/subscribe.php">訂閱外洩事件</a>｜<a href="/breaches.php">外洩事件列表 & 解釋</a>｜<a href="/faq.php#section1">我應該怎麼做？</a>'
                         });
                     } else {

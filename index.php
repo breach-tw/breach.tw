@@ -67,7 +67,7 @@
 	<div id="container">
 		<h1>台灣抓漏小天使</h1>
 		<h3>個資外洩追蹤系統</h3>
-		<br />
+		<br/>
 		<div>
 			<a href="search.php" class="btn btn-outline-light">開始使用</a>
 			<a href="about.php" class="btn btn-outline-light">關於本服務</a>

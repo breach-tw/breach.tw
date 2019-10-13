@@ -54,8 +54,8 @@ require 'src/header.php';
             <li>若要提供洩漏資料，請依照底下表格並與洩漏資料一同傳至 <a href="mailto:admin@breach.tw">admin@breach.tw</a>，我們會以最快速度進行處理，並協助通報。</li>
         </ul>
     </ul>
-    <table class="table" style="max-width: 600px;margin: 0 auto;">
-        <tbody>
+    <table class="table table-bordered" style="max-width: 600px;margin: 0 auto;">
+        <thead>
             <tr>
                 <td>
                     <p>欄位</p>
@@ -67,6 +67,8 @@ require 'src/header.php';
                     <p>備註</p>
                 </td>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>
                     <p>洩漏單位</p>

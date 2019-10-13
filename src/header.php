@@ -53,10 +53,10 @@ require 'config.php';
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">關於</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="policy.php">網站營運原則</a>
-							<a class="dropdown-item" href="about.php">關於本服務</a>
+							<a class="dropdown-item <?= $uri == '/policy.php' ? 'active' : '' ?>" href="policy.php">網站營運原則</a>
+							<a class="dropdown-item <?= $uri == '/about.php' ? 'active' : '' ?>" href="about.php">關於本服務</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="stat.php">網站統計數據</a>
+							<a class="dropdown-item <?= $uri == '/stat.php' ? 'active' : '' ?>" href="stat.php">網站統計數據</a>
 						</div>
 					</li>
 				</ul>

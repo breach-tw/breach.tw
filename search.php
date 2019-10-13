@@ -40,7 +40,7 @@
     <script src="/js/main.js"></script>
 
     <script>
-        $('#search_form').on("submit", (e) => {
+        $('#search_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             one_step(el);

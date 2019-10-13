@@ -55,13 +55,13 @@
     <script src="/js/main.js"></script>
 
     <script>
-        $('#search_step_form').on("submit", (e) => {
+        $('#search_step_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             gen_sha1(el);
         });
 
-        $('#search_hash_form').on("submit", (e) => {
+        $('#search_hash_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             search_func(el);

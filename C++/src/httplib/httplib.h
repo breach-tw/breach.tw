@@ -8,6 +8,49 @@
 #ifndef CPPHTTPLIB_HTTPLIB_H
 #define CPPHTTPLIB_HTTPLIB_H
 
+/*
+ * Configuration
+ */
+#ifndef CPPHTTPLIB_KEEPALIVE_TIMEOUT_SECOND
+#define CPPHTTPLIB_KEEPALIVE_TIMEOUT_SECOND 5
+#endif
+
+#ifndef CPPHTTPLIB_KEEPALIVE_TIMEOUT_USECOND
+#define CPPHTTPLIB_KEEPALIVE_TIMEOUT_USECOND 0
+#endif
+
+#ifndef CPPHTTPLIB_KEEPALIVE_MAX_COUNT
+#define CPPHTTPLIB_KEEPALIVE_MAX_COUNT 5
+#endif
+
+#ifndef CPPHTTPLIB_READ_TIMEOUT_SECOND
+#define CPPHTTPLIB_READ_TIMEOUT_SECOND 5
+#endif
+
+#ifndef CPPHTTPLIB_READ_TIMEOUT_USECOND
+#define CPPHTTPLIB_READ_TIMEOUT_USECOND 0
+#endif
+
+#ifndef CPPHTTPLIB_REQUEST_URI_MAX_LENGTH
+#define CPPHTTPLIB_REQUEST_URI_MAX_LENGTH 8192
+#endif
+
+#ifndef CPPHTTPLIB_REDIRECT_MAX_COUNT
+#define CPPHTTPLIB_REDIRECT_MAX_COUNT 20
+#endif
+
+#ifndef CPPHTTPLIB_PAYLOAD_MAX_LENGTH
+#define CPPHTTPLIB_PAYLOAD_MAX_LENGTH (std::numeric_limits<size_t>::max)()
+#endif
+
+#ifndef CPPHTTPLIB_RECV_BUFSIZ
+#define CPPHTTPLIB_RECV_BUFSIZ size_t(4096u)
+#endif
+
+#ifndef CPPHTTPLIB_THREAD_POOL_COUNT
+#define CPPHTTPLIB_THREAD_POOL_COUNT 8
+#endif
+
 #ifdef _WIN32
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -45,18 +88,32 @@ typedef int ssize_t;
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
+#ifndef WSA_FLAG_NO_HANDLE_INHERIT
+#define WSA_FLAG_NO_HANDLE_INHERIT 0x80
+#endif
+
+#ifdef _MSC_VER
 #pragma comment(lib, "ws2_32.lib")
+#endif
 
 #ifndef strcasecmp
 #define strcasecmp _stricmp
 #endif // strcasecmp
 
 typedef SOCKET socket_t;
-#else
+#ifdef CPPHTTPLIB_USE_POLL
+#define poll(fds, nfds, timeout) WSAPoll(fds, nfds, timeout)
+#endif
+
+#else // not _WIN32
+
 #include <arpa/inet.h>
 #include <cstring>
 #include <netdb.h>
 #include <netinet/in.h>
+#ifdef CPPHTTPLIB_USE_POLL
+#include <poll.h>
+#endif
 #include <pthread.h>
 #include <signal.h>
 #include <sys/select.h>
@@ -70,6 +127,7 @@ typedef int socket_t;
 #include <assert.h>
 #include <atomic>
 #include <condition_variable>
+#include <errno.h>
 #include <fcntl.h>
 #include <fstream>
 #include <functional>
@@ -103,20 +161,6 @@ inline const unsigned char *ASN1_STRING_get0_data(const ASN1_STRING *asn1) {
 #ifdef CPPHTTPLIB_ZLIB_SUPPORT
 #include <zlib.h>
 #endif
-
-/*
- * Configuration
- */
-#define CPPHTTPLIB_KEEPALIVE_TIMEOUT_SECOND 5
-#define CPPHTTPLIB_KEEPALIVE_TIMEOUT_USECOND 0
-#define CPPHTTPLIB_KEEPALIVE_MAX_COUNT 5
-#define CPPHTTPLIB_READ_TIMEOUT_SECOND 5
-#define CPPHTTPLIB_READ_TIMEOUT_USECOND 0
-#define CPPHTTPLIB_REQUEST_URI_MAX_LENGTH 8192
-#define CPPHTTPLIB_REDIRECT_MAX_COUNT 20
-#define CPPHTTPLIB_PAYLOAD_MAX_LENGTH (std::numeric_limits<size_t>::max)()
-#define CPPHTTPLIB_RECV_BUFSIZ size_t(4096u)
-#define CPPHTTPLIB_THREAD_POOL_COUNT 8
 
 namespace httplib {
 
@@ -153,6 +197,9 @@ typedef std::function<bool(const char *data, size_t data_length, size_t offset,
 
 typedef std::function<bool(uint64_t current, uint64_t total)> Progress;
 
+struct Response;
+typedef std::function<bool(const Response &response)> ResponseHandler;
+
 struct MultipartFile {
   std::string filename;
   std::string content_type;
@@ -188,6 +235,7 @@ struct Request {
 
   // for client
   size_t redirect_count = CPPHTTPLIB_REDIRECT_MAX_COUNT;
+  ResponseHandler response_handler;
   ContentReceiver content_receiver;
   Progress progress;
 
@@ -354,7 +402,7 @@ private:
           pool_.jobs_.pop_front();
         }
 
-        assert(true == (bool)fn);
+        assert(true == static_cast<bool>(fn));
         fn();
       }
     }
@@ -515,6 +563,15 @@ public:
   Get(const char *path, ContentReceiver content_receiver, Progress progress);
 
   std::shared_ptr<Response> Get(const char *path, const Headers &headers,
+                                ContentReceiver content_receiver,
+                                Progress progress);
+
+  std::shared_ptr<Response> Get(const char *path, const Headers &headers,
+                                ResponseHandler response_handler,
+                                ContentReceiver content_receiver);
+
+  std::shared_ptr<Response> Get(const char *path, const Headers &headers,
+                                ResponseHandler response_handler,
                                 ContentReceiver content_receiver,
                                 Progress progress);
 
@@ -683,6 +740,8 @@ public:
   void enable_server_certificate_verification(bool enabled);
 
   long get_openssl_verify_result() const;
+
+  SSL_CTX* ssl_context() const noexcept;
 
 private:
   virtual bool process_and_close_socket(
@@ -973,6 +1032,15 @@ inline int close_socket(socket_t sock) {
 }
 
 inline int select_read(socket_t sock, time_t sec, time_t usec) {
+#ifdef CPPHTTPLIB_USE_POLL
+  struct pollfd pfd_read;
+  pfd_read.fd = sock;
+  pfd_read.events = POLLIN;
+
+  auto timeout = static_cast<int>(sec * 1000 + usec / 1000);
+
+  return poll(&pfd_read, 1, timeout);
+#else
   fd_set fds;
   FD_ZERO(&fds);
   FD_SET(sock, &fds);
@@ -982,9 +1050,26 @@ inline int select_read(socket_t sock, time_t sec, time_t usec) {
   tv.tv_usec = static_cast<long>(usec);
 
   return select(static_cast<int>(sock + 1), &fds, nullptr, nullptr, &tv);
+#endif
 }
 
 inline bool wait_until_socket_is_ready(socket_t sock, time_t sec, time_t usec) {
+#ifdef CPPHTTPLIB_USE_POLL
+  struct pollfd pfd_read;
+  pfd_read.fd = sock;
+  pfd_read.events = POLLIN | POLLOUT;
+
+  auto timeout = static_cast<int>(sec * 1000 + usec / 1000);
+
+  if (poll(&pfd_read, 1, timeout) > 0 &&
+      pfd_read.revents & (POLLIN | POLLOUT)) {
+    int error = 0;
+    socklen_t len = sizeof(error);
+    return getsockopt(sock, SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&error), &len) >= 0 &&
+           !error;
+  }
+  return false;
+#else
   fd_set fdsr;
   FD_ZERO(&fdsr);
   FD_SET(sock, &fdsr);
@@ -996,20 +1081,15 @@ inline bool wait_until_socket_is_ready(socket_t sock, time_t sec, time_t usec) {
   tv.tv_sec = static_cast<long>(sec);
   tv.tv_usec = static_cast<long>(usec);
 
-  if (select(static_cast<int>(sock + 1), &fdsr, &fdsw, &fdse, &tv) < 0) {
-    return false;
-  } else if (FD_ISSET(sock, &fdsr) || FD_ISSET(sock, &fdsw)) {
+  if (select(static_cast<int>(sock + 1), &fdsr, &fdsw, &fdse, &tv) > 0 &&
+      (FD_ISSET(sock, &fdsr) || FD_ISSET(sock, &fdsw))) {
     int error = 0;
     socklen_t len = sizeof(error);
-    if (getsockopt(sock, SOL_SOCKET, SO_ERROR, (char *)&error, &len) < 0 ||
-        error) {
-      return false;
-    }
-  } else {
-    return false;
+    return getsockopt(sock, SOL_SOCKET, SO_ERROR, (char *)&error, &len) >= 0 &&
+           !error;
   }
-
-  return true;
+  return false;
+#endif
 }
 
 template <typename T>
@@ -1096,9 +1176,9 @@ socket_t create_socket(const char *host, int port, Fn fn,
 
     // Make 'reuse address' option available
     int yes = 1;
-    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (char *)&yes, sizeof(yes));
+    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char*>(&yes), sizeof(yes));
 #ifdef SO_REUSEPORT
-    setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, (char *)&yes, sizeof(yes));
+    setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, reinterpret_cast<char*>(&yes), sizeof(yes));
 #endif
 
     // bind or connect
@@ -1137,10 +1217,10 @@ inline std::string get_remote_addr(socket_t sock) {
   struct sockaddr_storage addr;
   socklen_t len = sizeof(addr);
 
-  if (!getpeername(sock, (struct sockaddr *)&addr, &len)) {
+  if (!getpeername(sock, reinterpret_cast<struct sockaddr *>(&addr), &len)) {
     char ipstr[NI_MAXHOST];
 
-    if (!getnameinfo((struct sockaddr *)&addr, len, ipstr, sizeof(ipstr),
+    if (!getnameinfo(reinterpret_cast<struct sockaddr *>(&addr), len, ipstr, sizeof(ipstr),
                      nullptr, 0, NI_NUMERICHOST)) {
       return ipstr;
     }
@@ -1222,7 +1302,7 @@ inline bool compress(std::string &content) {
   if (ret != Z_OK) { return false; }
 
   strm.avail_in = content.size();
-  strm.next_in = (Bytef *)content.data();
+  strm.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(content.data()));
 
   std::string compressed;
 
@@ -1230,7 +1310,7 @@ inline bool compress(std::string &content) {
   char buff[bufsiz];
   do {
     strm.avail_out = bufsiz;
-    strm.next_out = (Bytef *)buff;
+    strm.next_out = reinterpret_cast<Bytef*>(buff);
     ret = deflate(&strm, Z_FINISH);
     assert(ret != Z_STREAM_ERROR);
     compressed.append(buff, bufsiz - strm.avail_out);
@@ -1267,13 +1347,13 @@ public:
     int ret = Z_OK;
 
     strm.avail_in = data_length;
-    strm.next_in = (Bytef *)data;
+    strm.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef *>(data));
 
     const auto bufsiz = 16384;
     char buff[bufsiz];
     do {
       strm.avail_out = bufsiz;
-      strm.next_out = (Bytef *)buff;
+      strm.next_out = reinterpret_cast<Bytef*>(buff);
 
       ret = inflate(&strm, Z_NO_FLUSH);
       assert(ret != Z_STREAM_ERROR);
@@ -1555,6 +1635,7 @@ inline bool redirect(T &cli, const Request &req, Response &res,
   new_req.headers = req.headers;
   new_req.body = req.body;
   new_req.redirect_count = req.redirect_count - 1;
+  new_req.response_handler = req.response_handler;
   new_req.content_receiver = req.content_receiver;
   new_req.progress = req.progress;
 
@@ -2241,7 +2322,7 @@ inline void Server::stop() {
 }
 
 inline bool Server::parse_request_line(const char *s, Request &req) {
-  static std::regex re("(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS) "
+  static std::regex re("(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH|PRI) "
                        "(([^?]+)(?:\\?(.+?))?) (HTTP/1\\.[01])\r\n");
 
   std::cmatch m;
@@ -2499,6 +2580,12 @@ inline bool Server::listen_internal() {
       socket_t sock = accept(svr_sock_, nullptr, nullptr);
 
       if (sock == INVALID_SOCKET) {
+        if (errno == EMFILE) {
+          // The per-process limit of open file descriptors has been reached.
+          // Try to accept new connections after a short sleep.
+          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          continue;
+        }
         if (svr_sock_ != INVALID_SOCKET) {
           detail::close_socket(svr_sock_);
           ret = false;
@@ -2527,13 +2614,15 @@ inline bool Server::routing(Request &req, Response &res) {
     return dispatch_request(req, res, post_handlers_);
   } else if (req.method == "PUT") {
     return dispatch_request(req, res, put_handlers_);
-  } else if (req.method == "PATCH") {
-    return dispatch_request(req, res, patch_handlers_);
   } else if (req.method == "DELETE") {
     return dispatch_request(req, res, delete_handlers_);
   } else if (req.method == "OPTIONS") {
     return dispatch_request(req, res, options_handlers_);
+  } else if (req.method == "PATCH") {
+    return dispatch_request(req, res, patch_handlers_);
   }
+
+  res.status = 400;
   return false;
 }
 
@@ -2595,7 +2684,7 @@ Server::process_request(Stream &strm, bool last_connection,
   req.set_header("REMOTE_ADDR", strm.get_remote_addr());
 
   // Body
-  if (req.method == "POST" || req.method == "PUT" || req.method == "PATCH") {
+  if (req.method == "POST" || req.method == "PUT" || req.method == "PATCH" || req.method == "PRI") {
     if (!detail::read_content(strm, req, payload_max_length_, res.status,
                               Progress(), [&](const char *buf, size_t n) {
                                 if (req.body.size() + n > req.body.max_size()) {
@@ -2633,7 +2722,7 @@ Server::process_request(Stream &strm, bool last_connection,
   if (routing(req, res)) {
     if (res.status == -1) { res.status = req.ranges.empty() ? 200 : 206; }
   } else {
-    res.status = 404;
+    if (res.status == -1) { res.status = 404; }
   }
 
   return write_response(strm, last_connection, req, res);
@@ -2727,7 +2816,7 @@ inline bool Client::send(const std::vector<Request> &requests,
 
     if (!process_and_close_socket(
             sock, requests.size() - i,
-            [&](Stream &strm, bool last_connection, bool &connection_close) {
+            [&](Stream &strm, bool last_connection, bool &connection_close) -> bool {
               auto &req = requests[i];
               auto res = Response();
               i++;
@@ -2869,6 +2958,10 @@ inline bool Client::process_request(Stream &strm, const Request &req,
     connection_close = true;
   }
 
+  if (req.response_handler) {
+    if (!req.response_handler(res)) { return false; }
+  }
+
   // Body
   if (req.method != "HEAD") {
     detail::ContentReceiverCore out = [&](const char *buf, size_t n) {
@@ -2940,30 +3033,47 @@ Client::Get(const char *path, const Headers &headers, Progress progress) {
 inline std::shared_ptr<Response> Client::Get(const char *path,
                                              ContentReceiver content_receiver) {
   Progress dummy;
-  return Get(path, Headers(), content_receiver, dummy);
+  return Get(path, Headers(), nullptr, content_receiver, dummy);
 }
 
 inline std::shared_ptr<Response> Client::Get(const char *path,
                                              ContentReceiver content_receiver,
                                              Progress progress) {
-  return Get(path, Headers(), content_receiver, progress);
+  return Get(path, Headers(), nullptr, content_receiver, progress);
 }
 
 inline std::shared_ptr<Response> Client::Get(const char *path,
                                              const Headers &headers,
                                              ContentReceiver content_receiver) {
   Progress dummy;
-  return Get(path, headers, content_receiver, dummy);
+  return Get(path, headers, nullptr, content_receiver, dummy);
 }
 
 inline std::shared_ptr<Response> Client::Get(const char *path,
                                              const Headers &headers,
                                              ContentReceiver content_receiver,
                                              Progress progress) {
+  return Get(path, headers, nullptr, content_receiver, progress);
+}
+
+inline std::shared_ptr<Response> Client::Get(const char *path,
+                                             const Headers &headers,
+                                             ResponseHandler response_handler,
+                                             ContentReceiver content_receiver) {
+  Progress dummy;
+  return Get(path, headers, response_handler, content_receiver, dummy);
+}
+
+inline std::shared_ptr<Response> Client::Get(const char *path,
+                                             const Headers &headers,
+                                             ResponseHandler response_handler,
+                                             ContentReceiver content_receiver,
+                                             Progress progress) {
   Request req;
   req.method = "GET";
   req.path = path;
   req.headers = headers;
+  req.response_handler = response_handler;
   req.content_receiver = content_receiver;
   req.progress = progress;
 
@@ -3192,7 +3302,7 @@ inline bool process_and_close_socket_ssl(bool is_client_request, socket_t sock,
     return false;
   }
 
-  auto bio = BIO_new_socket(sock, BIO_NOCLOSE);
+  auto bio = BIO_new_socket(static_cast<int>(sock), BIO_NOCLOSE);
   SSL_set_bio(ssl, bio, bio);
 
   if (!setup(ssl)) {
@@ -3298,13 +3408,13 @@ inline int SSLSocketStream::read(char *ptr, size_t size) {
   if (SSL_pending(ssl_) > 0 ||
       detail::select_read(sock_, CPPHTTPLIB_READ_TIMEOUT_SECOND,
                           CPPHTTPLIB_READ_TIMEOUT_USECOND) > 0) {
-    return SSL_read(ssl_, ptr, size);
+    return SSL_read(ssl_, ptr, static_cast<int>(size));
   }
   return -1;
 }
 
 inline int SSLSocketStream::write(const char *ptr, size_t size) {
-  return SSL_write(ssl_, ptr, size);
+  return SSL_write(ssl_, ptr, static_cast<int>(size));
 }
 
 inline int SSLSocketStream::write(const char *ptr) {
@@ -3415,6 +3525,10 @@ inline void SSLClient::enable_server_certificate_verification(bool enabled) {
 
 inline long SSLClient::get_openssl_verify_result() const {
   return verify_result_;
+}
+
+inline SSL_CTX* SSLClient::ssl_context() const noexcept {
+	return ctx_;
 }
 
 inline bool SSLClient::process_and_close_socket(

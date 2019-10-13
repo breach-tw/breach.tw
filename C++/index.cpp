@@ -1,8 +1,11 @@
+#define CPPHTTPLIB_OPENSSL_SUPPORT
+
 #include <iostream>
 #include <string>
 #include <clocale>
 #include "src/sha1/sha1.h"
 #include "src/httplib/httplib.h"
+
 
 class PoW{
     private:
@@ -64,7 +67,7 @@ int main(){
               << "hash: " << test.resultHash() << '\n'
               << std::endl;
 
-    httplib::Client cli("breach.tw");
+    httplib::SSLClient cli("breach.tw");
 
     auto res = cli.Get(
             (

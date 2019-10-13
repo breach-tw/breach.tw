@@ -24,7 +24,7 @@
     <div class="padded container unSubForm" style="display:none">
         <h1 class="breach-title">取消訂閱表單</h1>
         <div class="alert alert-light text-center" role="alert">
-            此 E-mail 已訂閱洩漏訊息，請輸入相關資訊來取消訂閱。
+            此 E-mail <span style="color: green;">已訂閱</span> 洩漏訊息，請輸入相關資訊來取消訂閱。
         </div>
         <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。</p>
         <form id="unsubscribe_form">
@@ -41,13 +41,13 @@
                 <input type="email" class="form-control" id="unsubscribe_form_email" placeholder="name@example.com" required disabled />
                 <button type="button" class="btn btn-link" onclick="location.reload()">重新輸入 E-mail</button>
             </div>
-            <button class="btn btn-outline-dark btn-block" type="submit" id="unsubscribe">取消訂閱</button>
+            <button class="btn btn-outline-danger btn-block" type="submit" id="unsubscribe">取消訂閱</button>
         </form>
     </div>
     <div class="padded container subForm" style="display:none">
         <h1 class="breach-title">訂閱表單</h1>
         <div class="alert alert-light text-center" role="alert">
-            此 E-mail 尚未訂閱洩漏訊息，請輸入相關資訊來訂閱。
+            此 E-mail <span style="color: red;">尚未訂閱</span> 洩漏訊息，請輸入相關資訊來訂閱。
         </div>
         <p>身分證字號會做去識別化後回傳，不會將資料本身傳送給我們。<br/>訂閱後若發現大規模個資外洩時，且您在外洩清單內將會即時通知您。</p>
         <form id="subscribe_form">
@@ -64,7 +64,7 @@
                 <input type="email" class="form-control" id="subscribe_form_email" placeholder="name@example.com" required disabled />
                 <button type="button" class="btn btn-link" onclick="location.reload()">重新輸入 E-mail</button>
             </div>
-            <button class="btn btn-outline-dark btn-block" type="submit" id="subscribe">訂閱</button>
+            <button class="btn btn-outline-primary btn-block" type="submit" id="subscribe">訂閱</button>
         </form>
     </div>
     <script src="https://www.google.com/recaptcha/api.js?render=<?= RECAPTCHA_SITE_KEY ?>"></script>
@@ -74,19 +74,19 @@
     <script src="/js/main.js"></script>
 
     <script>
-        dqs('#subscribe_form').addEventListener("submit", (e) => {
+        $('#subscribe_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             subscribe_func(el);
         });
 
-        dqs('#subscription_status_form').addEventListener("submit", (e) => {
+        $('#subscription_status_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             subscription_status_func(el);
         });
 
-        dqs('#unsubscribe_form').addEventListener("submit", (e) => {
+        $('#unsubscribe_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             unsubscribe_func(el);

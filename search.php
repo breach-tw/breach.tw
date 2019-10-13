@@ -40,7 +40,7 @@
     <script src="/js/main.js"></script>
 
     <script>
-        dqs('#search_form').addEventListener("submit", (e) => {
+        $('#search_form').on("submit", (e) => {
             e.preventDefault();
             let el = e.target;
             one_step(el);

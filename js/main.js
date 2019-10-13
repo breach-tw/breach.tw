@@ -99,14 +99,14 @@ async function search_by_hash(hash, hashed = false) {
 
 function subscribe_func(form) {
     dqs('#subscribe').setAttribute('disabled', true);
-    let hash = sha1(form.fullname.value + form.nid.value);
+    let hash = sha1(form.subscribe_form_fullname.value + form.subscribe_form_nid.value);
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'subscribe'
     }).then(function (token) {
         let param = new URLSearchParams({
             "hash": hash,
-            "email": form.email.value,
-            "name": form.fullname.value,
+            "email": form.subscribe_form_email.value,
+            "name": form.subscribe_form_fullname.value,
             "token": token
         });
         fetch('/api/subscribe.php?' + param.toString())
@@ -156,11 +156,9 @@ function subscription_status_func(form) {
                 dqs('#query').removeAttribute('disabled');
                 if (res.status == 0) {
                     if (res.result == 'not_subscribed') {
-                        Swal.fire({
-                            type: 'info',
-                            title: '查詢結果',
-                            html: '此 E-mail 尚未訂閱洩漏訊息。'
-                        });
+                        $('.searchForm').hide()
+                        dqs('.subForm').removeAttribute("style")
+                        dqs('#subscribe_form_email').value = form.email.value;
                     } else if (res.result == 'verification_pending') {
                         Swal.fire({
                             type: 'info',
@@ -168,11 +166,9 @@ function subscription_status_func(form) {
                             html: '此 E-mail 已訂閱洩漏訊息，但尚未驗證 E-mail，請前往您的電子郵箱確認。'
                         });
                     } else if (res.result == 'subscribed') {
-                        Swal.fire({
-                            type: 'success',
-                            title: '查詢結果',
-                            html: '此 E-mail 已訂閱洩漏訊息。'
-                        });
+                        $('.searchForm').hide()
+                        dqs('.unSubForm').removeAttribute("style")
+                        dqs('#unsubscribe_form_email').value = form.email.value;
                     }
                 } else {
                     Swal.fire({
@@ -187,13 +183,13 @@ function subscription_status_func(form) {
 
 function unsubscribe_func(form) {
     dqs('#unsubscribe').setAttribute('disabled', true);
-    let hash = sha1(form.fullname.value + form.nid.value);
+    let hash = sha1(form.unsubscribe_form_fullname.value + form.unsubscribe_form_nid.value);
     grecaptcha.execute(RECAPTCHA_SITE_KEY, {
         action: 'unsubscribe'
     }).then(function (token) {
         let param = new URLSearchParams({
             "hash": hash,
-            "email": form.email.value,
+            "email": form.unsubscribe_form_email.value,
             "token": token
         });
         fetch('/api/unsubscribe.php?' + param.toString())
@@ -218,7 +214,7 @@ function unsubscribe_func(form) {
     });
 }
 
-function showToast(title, type="info") {
+function showToast(title, type = "info") {
     Swal.fire({
         type: type,
         title: title,

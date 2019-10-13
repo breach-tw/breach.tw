@@ -41,9 +41,6 @@ require 'config.php';
 					<li class="nav-item <?= $uri == '/subscribe.php' ? 'active' : '' ?>">
 						<a class="nav-link" href="subscribe.php">訂閱外洩事件</a>
 					</li>
-					<li class="nav-item <?= $uri == '/manage_subscription.php' ? 'active' : '' ?>">
-						<a class="nav-link" href="manage_subscription.php">查詢或取消訂閱</a>
-					</li>
 					<li class="nav-item <?= $uri == '/breaches.php' ? 'active' : '' ?>">
 						<a class="nav-link" href="breaches.php">重大外洩事件</a>
 					</li>

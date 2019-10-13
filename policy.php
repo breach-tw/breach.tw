@@ -5,7 +5,7 @@ require 'src/header.php';
 <header class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1><?= $title ?></h1>
-        <p class="lead">2019/10/13 定稿、2019/10/14公布</p>
+        <p class="lead">2019/10/12 定稿、2019/10/13公布</p>
     </div>
 </header>
 <div class="container">

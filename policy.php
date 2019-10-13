@@ -54,7 +54,7 @@ require 'src/header.php';
             <li>若要提供洩漏資料，請依照底下表格並與洩漏資料一同傳至 <a href="mailto:admin@breach.tw">admin@breach.tw</a>，我們會以最快速度進行處理，並協助通報。</li>
         </ul>
     </ul>
-    <table class="table">
+    <table class="table" style="max-width: 600px;margin: 0 auto;">
         <tbody>
             <tr>
                 <td>
@@ -170,7 +170,7 @@ require 'src/header.php';
 
     <h6 class="breach-title">相關法律條文及參考</h6>
     <p>本站依據個資法第三章第 19 條之六、七，即「非公務機關對個人資料之蒐集或處理，除第六條第一項所規定資料外，應有特定目的，並符合下列情形之一者：」中之「為增進公共利益所必要」及「個人資料取自於一般可得之來源。但當事人對該資料之禁止處理或利用，顯有更值得保護之重大利益者，不在此限。」設立。</p>
-    <h6 class="breach-title" id="tos">服務條款（Terms of Service）</h6>
+    <h3 class="breach-title" id="tos">服務條款（Terms of Service）</h3>
     <ol>
         <li>程式碼 <p>本站為開放原始碼專案之實例，所運行之程式碼除設定檔外本站保證與開源倉庫版本相同而未經其他更改。程式碼貢獻、合併與其他相關操作準用開源社群習慣，其審核皆經嚴格審視。</p>
         </li>

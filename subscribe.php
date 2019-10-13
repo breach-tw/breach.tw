@@ -1,10 +1,11 @@
-    <?php $title = '訂閱外洩事件';
+    <?php $title = '外洩事件訂閱';
     require 'src/header.php';
     ?>
 
     <header class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1><?= $title ?></h1>
+            <p class="lead">在此檢視、更改或取消訂閱外洩事件</p>
         </div>
     </header>
 

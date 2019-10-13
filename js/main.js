@@ -76,7 +76,7 @@ async function search_by_hash(hash, hashed = false) {
                             type: 'error',
                             title: '真是太糟糕了',
                             html: `發現個資洩漏情形<br/><br/><h4>已發現項目</h4>${breach.join('<br/>')}`,
-                            footer: '<a href="/subscribe.php">訂閱外洩事件</a>｜<a href="/breaches.php">外洩事件列表 & 解釋</a>｜<a href="/faq.php#section1">我應該怎麼做？</a>'
+                            footer: '<a href="/subscribe.php">訂閱外洩事件</a>｜<a href="/breaches.php">外洩事件列表 & 解釋</a>｜<a href="/faq.php#what-should-i-do-if-leaked">我應該怎麼做？</a>'
                         });
                     } else {
                         Swal.fire({
@@ -156,8 +156,8 @@ function subscription_status_func(form) {
                 dqs('#query').removeAttribute('disabled');
                 if (res.status == 0) {
                     if (res.result == 'not_subscribed') {
-                        $('.searchForm').hide()
-                        dqs('.subForm').removeAttribute("style")
+                        $('.searchForm').hide();
+                        $('.subForm').show();
                         dqs('#subscribe_form_email').value = form.email.value;
                     } else if (res.result == 'verification_pending') {
                         Swal.fire({
@@ -166,8 +166,8 @@ function subscription_status_func(form) {
                             html: '此 E-mail 已訂閱洩漏訊息，但尚未驗證 E-mail，請前往您的電子郵箱確認。'
                         });
                     } else if (res.result == 'subscribed') {
-                        $('.searchForm').hide()
-                        dqs('.unSubForm').removeAttribute("style")
+                        $('.searchForm').hide();
+                        $('.unSubForm').show();
                         dqs('#unsubscribe_form_email').value = form.email.value;
                     }
                 } else {

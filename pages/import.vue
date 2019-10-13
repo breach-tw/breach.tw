@@ -69,6 +69,9 @@
 </style>
 <script>
 export default {
+	head: () => ({
+		title: "Import"
+	}),
 	data: () => ({
 		pps: null,
 		source: null,

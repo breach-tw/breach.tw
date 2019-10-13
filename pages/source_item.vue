@@ -77,6 +77,9 @@ const columns = [
 	}
 ];
 export default {
+	head: () => ({
+		title: "Source Item"
+	}),
 	mounted() {
 		this.fetchData();
 	},

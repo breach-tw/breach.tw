@@ -74,19 +74,19 @@
     <script src="/js/main.js"></script>
 
     <script>
-        $('#subscribe_form').on("submit", (e) => {
+        $('#subscribe_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             subscribe_func(el);
         });
 
-        $('#subscription_status_form').on("submit", (e) => {
+        $('#subscription_status_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             subscription_status_func(el);
         });
 
-        $('#unsubscribe_form').on("submit", (e) => {
+        $('#unsubscribe_form').on("submit", function(e) {
             e.preventDefault();
             let el = e.target;
             unsubscribe_func(el);

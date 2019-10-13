@@ -17,7 +17,7 @@
                 <input type="email" class="form-control" id="email" placeholder="name@example.com" required />
             </div>
             <button class="btn btn-outline-dark btn-block" type="submit" id="query">送出</button>
-            <p>按下送出按鈕即代表您已閱讀並同意 <a href="/policy.php#tos">服務條款</a></p>
+            <p>按下送出按鈕即代表您已閱讀並同意 <a href="/policy.php">網站營運原則</a></p>
         </form>
     </div>
 
@@ -79,6 +79,7 @@
             let el = e.target;
             subscribe_func(el);
         });
+
         dqs('#subscription_status_form').addEventListener("submit", (e) => {
             e.preventDefault();
             let el = e.target;

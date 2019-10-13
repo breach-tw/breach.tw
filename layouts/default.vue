@@ -65,6 +65,7 @@ export default {
 		],
 		shotaImgs: [
 			"https://i.imgur.com/zR42RRS.png",
+			"https://i.imgur.com/NLWsNHn.png",
 			"https://i.imgur.com/yyrVPmy.png"
 		]
 	}),

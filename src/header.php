@@ -47,14 +47,17 @@ require 'config.php';
 					<li class="nav-item <?= $uri == '/breaches.php' ? 'active' : '' ?>">
 						<a class="nav-link" href="breaches.php">重大外洩事件</a>
 					</li>
-					<li class="nav-item <?= $uri == '/stat.php' ? 'active' : '' ?>">
-						<a class="nav-link" href="stat.php">網站統計數據</a>
-					</li>
 					<li class="nav-item <?= $uri == '/faq.php' ? 'active' : '' ?>">
 						<a class="nav-link" href="faq.php">常見問題</a>
 					</li>
-					<li class="nav-item <?= $uri == '/about.php' ? 'active' : '' ?>">
-						<a class="nav-link" href="about.php">關於本服務</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">關於</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item <?= $uri == '/policy.php' ? 'active' : '' ?>" href="policy.php">網站營運原則</a>
+							<a class="dropdown-item <?= $uri == '/about.php' ? 'active' : '' ?>" href="about.php">關於本服務</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item <?= $uri == '/stat.php' ? 'active' : '' ?>" href="stat.php">網站統計數據</a>
+						</div>
 					</li>
 				</ul>
 				<ul class="navbar-nav my-2 my-lg-0" style="flex-direction: row;">

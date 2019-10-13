@@ -31,6 +31,10 @@ nav {
     background: var(--theme-color-darker);
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--theme-color-darker);
+}
 
 /* 按鈕 */
 .btn-outline-dark:hover {
@@ -159,5 +163,5 @@ p+h3.breach-title {
 }
 
 .breach .content a {
-    color: #fffbe6;
+    color: #64adff;
 }

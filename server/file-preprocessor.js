@@ -63,8 +63,11 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
         if (count < 100) {
             let processed = line.toString();
             for (const i of s1pp) {
-                if (!s1e[i]) s1e[i] = 0;
-                processed = pps.s1.pps[i](processed, () => s1e[i]++);
+                if (!s1e[i]) s1e[i] = {
+                    name: pps.s1.descs[i].name,
+                    filtered: 0
+                };
+                processed = pps.s1.pps[i](processed, () => s1e[i].filtered++);
                 if (processed === false) {
                     debug(['[PP]', `Line ${tcount} was filtered by Stage 1 pp ${i}`])
                     break;
@@ -72,8 +75,11 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
             }
             if (processed) processed = s1_to_s2(processed, () => errors.s1_to_s2++)
             if (processed) for (const i of s2pp) {
-                if (!s2e[i]) s2e[i] = 0;
-                processed = pps.s2.pps[i](processed, () => s2e[i]++);
+                if (!s2e[i]) s2e[i] = {
+                    name: pps.s2.descs[i].name,
+                    filtered: 0
+                };
+                processed = pps.s2.pps[i](processed, () => s2e[i].filtered++);
                 if (processed === false) {
                     debug(['[PP]', `Line ${tcount} was filtered by Stage 2 pp ${i}`])
                     break;
@@ -96,17 +102,20 @@ function *readLog(path, source, s1pp = [], s2pp = []) {
         yield result;
     }
 
-    errors.icount = tcount;
-    errors.ocount = tcount;
+    result = {};
+
+    result.icount = tcount;
+    result.ocount = tcount;
     for (const v of Object.values(s1e)) {
-        errors.ocount -= v;
+        result.ocount -= v;
     }
     for (const v of Object.values(s2e)) {
-        errors.ocount -= v;
+        result.ocount -= v;
     }
-    errors.ocount -= errors.s1_to_s2;
+    result.ocount -= errors.s1_to_s2;
+    result.pps = errors;
     
-    return errors;
+    return result;
 }
 
 module.exports = {

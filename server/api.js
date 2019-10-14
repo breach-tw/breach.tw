@@ -188,18 +188,25 @@ async function start() {
             }
 
             tasks[uuid] = {promises: []};
+            tasks[uuid]["time"] = Date.now()
             tasks[uuid]["main"] = MakeQuerablePromise(new Promise((resolve, reject) => {
                 const readline = readLog(filePath, source, s1pps, s2pps);
-                let result;
-                while (result = readline.next()) {
-                    if (!result.done) {
-                        let datas = result.value;
+                let rl;
+                while (rl = readline.next()) {
+                    if (!rl.done) {
+                        let datas = rl.value;
                         tasks[uuid]['promises'].push(MakeQuerablePromise(db.log.batch.add(datas)));
                     } else {
-                        let error = result.value;
+                        let endTime = Date.now();
+                        let result = rl.value;
                         wait(tasks[uuid]['promises']).then(() => {
                             delete tasks[uuid]["promises"]
-                            resolve(error)
+                            result.start_time = tasks[uuid].time
+                            result.end_time = endTime
+                            result.duration = result.end_time - result.start_time;
+                            result.status = "done"
+                            delete tasks[uuid]["time"];
+                            resolve(result)
                         })
                         break;
                     }
@@ -225,7 +232,8 @@ async function start() {
                     ctx.body = `${count}/${tasks[id]["promises"].length}`
                 }
                 else {
-                    ctx.body = await tasks[id]["main"];
+                    const result = await tasks[id]["main"];
+                    ctx.body = result;
                 }
             }
         })

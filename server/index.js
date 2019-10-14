@@ -36,7 +36,10 @@ async function start() {
   }
 
   app.use(koaBody({
-    formidable:{uploadDir: config.uploadDir},    //This is where the files would come
+    formidable:{
+      uploadDir: config.uploadDir,
+      maxFileSize: 10*1024*1024*1024 // 10G
+    },
     multipart: true,
     parsedMethods: ['POST', 'DELETE', 'PATCH']
   }));

@@ -90,6 +90,7 @@ const buildUpdate = tableName => async (update, filter = ({}), con = null) => {
         let sql = `UPDATE ${tableName} SET ? WHERE `;
 
         for (const [key, value] of Object.entries(filter)) {
+            if (key === 'id') continue;
             sql += "? = ? AND "
             filterDatas.push(key)
             filterDatas.push(value)

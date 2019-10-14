@@ -58,6 +58,11 @@ export default {
 				to: "/source_item"
 			},
 			{
+				title: "Task",
+				icon: "code",
+				to: "/task"
+			},
+			{
 				title: "Import",
 				icon: "cloud-upload",
 				to: "/import"

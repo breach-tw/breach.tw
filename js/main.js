@@ -21,7 +21,7 @@ async function gen_sha1(form) {
     $('#hash').val("");
     $('#genhash').text('正在計算雜湊值...').attr('disabled', true);
     showToast('正在計算雜湊值...');
-    await delay(1300);
+    await delay(700);
     Swal.close();
     $('#genhash').text('產生').removeAttr('disabled');
     $('#hash').val(sha1(form.fullname.value + form.nid.value));
@@ -37,7 +37,7 @@ async function search_by_hash(hash, hashed = false) {
         $('#search')[0].blur(); // HTMLElement API
         $('#search').text('正在計算雜湊值...')[0];
         showToast('正在計算雜湊值...');
-        await delay(1300);
+        await delay(700);
         Swal.close();
     }
 
@@ -55,7 +55,7 @@ async function search_by_hash(hash, hashed = false) {
         fetch('/api/search.php?' + param.toString())
             .then(res => res.json())
             .then(async res => {
-                await delay(1000);
+                await delay(700);
                 // 清除 swal
                 Swal.close();
                 $('#search').text('送出').removeAttr('disabled');

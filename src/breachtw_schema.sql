@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2019 at 08:01 AM
+-- Generation Time: Oct 16, 2019 at 08:07 AM
 -- Server version: 5.7.14-google-log
 -- PHP Version: 7.2.22
 
@@ -75,7 +75,7 @@ CREATE TABLE `breach_source` (
   `id` int(11) NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `round_k` int(11) NOT NULL,
+  `round_k` int(11) UNSIGNED NOT NULL,
   `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `time` date NOT NULL,
   `major` tinyint(1) NOT NULL DEFAULT '0',
@@ -112,6 +112,18 @@ CREATE TABLE `source_item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `source_tag`
+--
+
+CREATE TABLE `source_tag` (
+  `id` int(11) NOT NULL,
+  `source` int(11) NOT NULL,
+  `tag` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stat`
 --
 
@@ -144,6 +156,18 @@ CREATE TABLE `subscribers` (
   `sub_ip` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `disabled` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag`
+--
+
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL,
+  `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -184,6 +208,14 @@ ALTER TABLE `source_item`
   ADD KEY `source` (`source`);
 
 --
+-- Indexes for table `source_tag`
+--
+ALTER TABLE `source_tag`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `source_tag_ibfk_1` (`source`),
+  ADD KEY `source_tag_ibfk_2` (`tag`);
+
+--
 -- Indexes for table `stat`
 --
 ALTER TABLE `stat`
@@ -195,6 +227,12 @@ ALTER TABLE `stat`
 ALTER TABLE `subscribers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `hash` (`hash`);
+
+--
+-- Indexes for table `tag`
+--
+ALTER TABLE `tag`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -231,6 +269,12 @@ ALTER TABLE `source_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `source_tag`
+--
+ALTER TABLE `source_tag`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `stat`
 --
 ALTER TABLE `stat`
@@ -240,6 +284,12 @@ ALTER TABLE `stat`
 -- AUTO_INCREMENT for table `subscribers`
 --
 ALTER TABLE `subscribers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tag`
+--
+ALTER TABLE `tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -258,6 +308,13 @@ ALTER TABLE `breach_log`
 ALTER TABLE `source_item`
   ADD CONSTRAINT `source_item_ibfk_1` FOREIGN KEY (`item`) REFERENCES `breach_item` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `source_item_ibfk_2` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `source_tag`
+--
+ALTER TABLE `source_tag`
+  ADD CONSTRAINT `source_tag_ibfk_1` FOREIGN KEY (`source`) REFERENCES `breach_source` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `source_tag_ibfk_2` FOREIGN KEY (`tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -35,7 +35,7 @@
 							<?php
 								foreach(get_tags($val['id']) as $_ => $tag){
 							?>
-								<button class="btn btn-sm <?=$tag['class']?>"><?=$tag['name']?></button>
+								<button onclick="javascript:aaaaa(<?=$tag['id']?>)" class="btn btn-sm <?=$tag['class']?>"><?=$tag['name']?></button>
 							<?php
 								}
 							?>

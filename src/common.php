@@ -25,7 +25,7 @@ function get_major_breaches(){
 
 function get_tag_details(){
     global $db;
-    $stmt = $db->prepare("SELECT `name`,`description` FROM `tag`");
+    $stmt = $db->prepare("SELECT `id`,`name`,`description` FROM `tag`");
 	$stmt->execute();
     $res = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $res;
@@ -44,7 +44,7 @@ function get_leaked_items($source){
 
 function get_tags($source){
     global $db;
-    $stmt = $db->prepare("SELECT `name`,`class` FROM `source_tag` INNER JOIN `tag` `s` on `s`.`id` = `source_tag`.`tag` WHERE `source`=:source_id");
+    $stmt = $db->prepare("SELECT `id`,`name`,`class` FROM `source_tag` INNER JOIN `tag` `s` on `s`.`id` = `source_tag`.`tag` WHERE `source`=:source_id");
     $stmt->execute([
         'source_id' => $source
     ]);

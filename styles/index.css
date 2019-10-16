@@ -123,8 +123,17 @@ p+h3.breach-title {
     color: #FFF;
 }
 
+.breach .tags:not(:empty) {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 5px 9px;
+}
+
+.breach .tags .btn {
+    border-radius: 4px;
+}
+
 .breach .header {
-    background: var(--theme-color);
+    background: rgba(255, 255, 255, 0.1);
     padding: 5px 9px;
     border-radius: 4px 4px 0 0;
     display: grid;

@@ -31,6 +31,15 @@
 							<div>外洩數量級</div>
 							<div><?=number_format($val['round_k']*1000)?></div>
 						</div>
+						<div>
+							<?php
+								foreach(get_tags($val['id']) as $_ => $tag){
+							?>
+								<button class="btn btn-sm <?=$tag['class']?>"><?=$tag['name']?></button>
+							<?php
+								}
+							?>
+					</div>
 					</div>
 					<div class="content">
 						<h4>洩漏項目</h4>

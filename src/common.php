@@ -34,6 +34,16 @@ function get_leaked_items($source){
     return $items;
 }
 
+function get_tags($source){
+    global $db;
+    $stmt = $db->prepare("SELECT `name`,`class` FROM `source_tag` INNER JOIN `tag` `s` on `s`.`id` = `source_tag`.`tag` WHERE `source`=:source_id");
+    $stmt->execute([
+        'source_id' => $source
+    ]);
+    $tags = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $tags;
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

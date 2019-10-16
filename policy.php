@@ -97,10 +97,7 @@ require 'src/header.php';
                     <p>數據類別</p>
                 </td>
                 <td>
-                    <p>政府單位/<br />
-                        <p>教育機構/<br />
-                            <p>民間企業/<br />
-                                <p>其他</p>
+                    <p>政府單位 / 教育機構 / 民間企業 / 其他</p>
                 </td>
                 <td>&nbsp;</td>
             </tr>

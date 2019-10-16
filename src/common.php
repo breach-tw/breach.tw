@@ -23,6 +23,14 @@ function get_major_breaches(){
     return $res;
 }
 
+function get_tag_details(){
+    global $db;
+    $stmt = $db->prepare("SELECT `name`,`description` FROM `tag`");
+	$stmt->execute();
+    $res = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $res;
+}
+
 function get_leaked_items($source){
     global $db;
     $stmt = $db->prepare("SELECT `name` FROM `source_item` INNER JOIN `breach_item` `s` on `s`.`id` = `source_item`.`item` WHERE `source`=:source_id");

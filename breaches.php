@@ -33,7 +33,7 @@
 					<?php if (get_tags($val['id'])) { ?>
 						<div class="tags">
 							<?php foreach (get_tags($val['id']) as $_ => $tag) { ?>
-								<button data-tag-id="<?= $tag['tag'] ?>" class="btn btn-sm <?= $tag['class'] ?>">#<?= $tag['name'] ?></button>
+								<button data-tag-id="<?= $tag['tag'] ?>" class="btn btn-sm <?= $tag['class'] ?>"><?= $tag['name'] ?></button>
 							<?php } ?>
 						</div>
 					<?php } ?>
@@ -55,7 +55,7 @@
 			let tag_detail = tag_details.filter(x => x.id == tagId)[0];
 			Swal.fire({
 				type: 'info',
-				title: `#${tag_detail.name}`,
+				title: `${tag_detail.name}`,
 				text: tag_detail.description,
 				confirmButtonText: '了解！'
 			});

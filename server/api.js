@@ -134,6 +134,40 @@ async function start() {
         })
 
     router
+        .get('/source_tag', async ctx => {
+            const filters = ctx.query;
+            const data = await db.source.getTag(filters, pool)
+
+            ctx.body = data;
+        })
+        .post('/source_tag', async ctx => {
+            const {
+                sourceId,
+                tagId
+            } = ctx.request.body;
+            const resultId = await db.source.addTag(sourceId, tagId, pool)
+
+            ctx.body = {
+                id: resultId
+            }
+        })
+        .delete('/source_tag', async ctx => {
+            const filter = ctx.request.body;
+            const data = await db.source.deleteTag(filter, pool)
+
+            ctx.body = data
+        })
+        .patch('/source_tag', async ctx => {
+            const {
+                update,
+                filter
+            } = ctx.request.body;
+            const data = await db.source.updateTag(update, filter, pool)
+
+            ctx.body = data
+        })
+
+    router
         .get('/log', async ctx => {
             const filters = ctx.query;
             const data = await db.log.get(filters, pool)
@@ -277,6 +311,41 @@ async function start() {
                 filter
             } = ctx.request.body;
             const data = await db.item.update(update, filter, pool)
+
+            ctx.body = data
+        })
+
+    router
+        .get('/tag', async ctx => {
+            const filters = ctx.query;
+            const data = await db.tag.get(filters, pool)
+
+            ctx.body = data;
+        })
+        .post('/tag', async ctx => {
+            const {
+                id,
+                name,
+                description
+            } = ctx.request.body;
+            const resultId = await db.tag.add(id, name, description, pool)
+
+            ctx.body = {
+                id: resultId
+            }
+        })
+        .delete('/tag', async ctx => {
+            const filter = ctx.request.body;
+            const data = await db.tag.delete(filter, pool)
+
+            ctx.body = data
+        })
+        .patch('/tag', async ctx => {
+            const {
+                update,
+                filter
+            } = ctx.request.body;
+            const data = await db.tag.update(update, filter, pool)
 
             ctx.body = data
         })

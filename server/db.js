@@ -159,6 +159,27 @@ source.getItem = buildGet('source_item')
 source.deleteItem = buildDelete('source_item')
 source.updateItem = buildUpdate('source_item')
 
+source.addTag = async function (sourceId, tagId, con = null) {
+    if (!con) {
+        con = await connect();
+    }
+
+    if (Array.isArray(tagId)) {
+        return await Promise.all(tagId.map(x => source.addTag(sourceId, x, con)))
+    }
+
+    let result = await con.query('INSERT INTO source_tag SET ?', {
+        source: sourceId,
+        tag: tagId
+    })
+
+    return result.insertId
+}
+
+source.getTag = buildGet('source_tag')
+source.deleteTag = buildDelete('source_tag')
+source.updateTag = buildUpdate('source_tag')
+
 let log = {};
 log.add = async function (hash, sourceId, con = null) {
     if (!con) {
@@ -215,6 +236,24 @@ item.add = async function (id, name, abbr, con = null) {
     return insertId;
 }
 
+let tag = {};
+tag.get = buildGet('tag')
+tag.delete = buildDelete('tag')
+tag.update = buildUpdate('tag')
+tag.add = async function (id, name, description, con = null) {
+    if (!con) {
+        con = await connect();
+    }
+
+    let result = await con.query('INSERT INTO tag SET ?', {
+        id,
+        name,
+        description
+    })
+
+    return result.insertId
+}
+
 let mail = async function (source, con = null) {
     if (!con) {
         con = await connect();
@@ -233,5 +272,6 @@ module.exports = {
     source,
     mail,
     item,
+    tag,
     log
 }

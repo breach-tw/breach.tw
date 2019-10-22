@@ -1,3 +1,12 @@
+if (!sessionStorage.popup) {
+    sessionStorage.popup = true
+    Swal.fire({
+        type: 'info',
+        title: '哈囉哈囉',
+        html: '偶ㄇ搬家了捏<br/>🎉拍拍手放煙火'
+    });
+}
+
 const delay = s => {
     return new Promise(function (resolve, reject) {
         setTimeout(resolve, s);

@@ -6,6 +6,42 @@
 #include "src/sha1/sha1.h"
 #include "src/httplib/httplib.h"
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#define MAX_INPUT_LENGTH 255
+
+void init_locale(){
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+}
+
+std::string input(){
+    wchar_t wstr[MAX_INPUT_LENGTH];
+    char mb_str[MAX_INPUT_LENGTH * 3 + 1];
+
+    unsigned long read;
+    void *con = GetStdHandle(STD_INPUT_HANDLE);
+
+    ReadConsoleW(con, wstr, MAX_INPUT_LENGTH, &read, NULL);
+
+    int size = WideCharToMultiByte(CP_UTF8, 0, wstr, read, mb_str, sizeof(mb_str), NULL, NULL);
+    mb_str[size] = 0;
+
+    std::string result(mb_str);
+    result.resize(size - 2);
+    return result;
+}
+#else
+void init_locale(){
+    std::setlocale(LC_ALL, "C.UTF-8");
+}
+
+std::string input(){
+    std::string in;
+    std::cin >> in;
+    return in;
+}
+#endif
+
 
 class PoW{
     private:
@@ -47,15 +83,14 @@ class PoW{
 };
 
 int main(){
-    std::setlocale(LC_ALL, "C.UTF-8");
+    init_locale();
 
-    std::string name, id;
     std::cout << "Please input your name: ";
     std::flush(std::cout);
-    std::cin >> name;
+    std::string name = input();
     std::cout << "Please input your National ID: ";
     std::flush(std::cout);
-    std::cin >> id;
+    std::string id = input();
 
     std::string orgInput = name + id;
     std::string orgInputHash = sha1(orgInput);

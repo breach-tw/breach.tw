@@ -32,7 +32,7 @@ const buildGet = tableName => async (filter = ({}), con = null) => {
         let sql = `SELECT * FROM ${tableName} WHERE `;
 
         for (const [key, value] of Object.entries(filter)) {
-            sql += "? = ? AND "
+            sql += "?? = ? AND "
             filterDatas.push(key)
             filterDatas.push(value)
         }
@@ -61,7 +61,7 @@ const buildDelete = tableName => async (filter = ({}), con = null) => {
         let sql = `DELETE FROM ${tableName} WHERE `;
 
         for (const [key, value] of Object.entries(filter)) {
-            sql += "? = ? AND "
+            sql += "?? = ? AND "
             filterDatas.push(key)
             filterDatas.push(value)
         }
@@ -91,7 +91,7 @@ const buildUpdate = tableName => async (update, filter = ({}), con = null) => {
 
         for (const [key, value] of Object.entries(filter)) {
             if (key === 'id') continue;
-            sql += "? = ? AND "
+            sql += "?? = ? AND "
             filterDatas.push(key)
             filterDatas.push(value)
         }

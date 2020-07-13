@@ -26,7 +26,7 @@
     <p>我們目前還在撰寫 API 文件，相關文件可於 <a href="https://github.com/breach-tw/breach.tw/tree/example_api_clients">GitHub 專案找到</a></p>
 
     <h3 class="breach-title" id="where-is-the-site-running">網站架設在哪裡？</h3> 
-    <p>網頁服務及查詢資料庫存放於香港商 Starlight Systems Company 之主機，訂閱通知所用資料庫由 台灣數位串流有限公司 提供。</p>
+    <p>網頁服務及查詢資料庫存放於香港商 Eons Data Communications Limited 之主機，訂閱通知所用資料庫由 台灣數位串流有限公司 提供。</p>
 </div>
 
 <?php require 'src/footer.php'; ?>

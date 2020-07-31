@@ -85,8 +85,8 @@ function mail_verify($email, $name, $hash, $code){
 }
 
 function is_account_verify($email){
-    global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0 AND `email_verify`=1");
+    global $db2;
+    $stmt = $db2->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0 AND `email_verify`=1");
 	$stmt->execute([
         'email' => $email
 	]);
@@ -99,8 +99,8 @@ function is_account_verify($email){
 }
 
 function is_account_exist($email){
-    global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0");
+    global $db2;
+    $stmt = $db2->prepare("SELECT `id` FROM `subscribers` WHERE email=:email AND `disabled`=0");
 	$stmt->execute([
         'email' => $email
 	]);
@@ -157,8 +157,8 @@ function search($hash){
 }
 
 function get_account($email, $hash){
-    global $db;
-    $stmt = $db->prepare("SELECT `name` FROM `subscribers` WHERE `email`=:email AND `hash`=:hash AND `disabled`=0");
+    global $db2;
+    $stmt = $db2->prepare("SELECT `name` FROM `subscribers` WHERE `email`=:email AND `hash`=:hash AND `disabled`=0");
 	$stmt->execute([
         'email' => $email,
         'hash' => $hash
@@ -188,8 +188,8 @@ function subscribe($name, $email, $hash){
     }else{
         $code = sha1(sprintf("%10d", mt_rand(1, 9999999999)) . $hash);
         if(mail_verify($email, $name, $hash, $code)){
-            global $db;
-            $stmt = $db->prepare("INSERT INTO `subscribers`(`name`, `email`, `hash`, `email_verify_code`, `sub_ip`, `sub_time`) VALUES (:name, :email, :hash, :code, :ip, NOW())");
+            global $db2;
+            $stmt = $db2->prepare("INSERT INTO `subscribers`(`name`, `email`, `hash`, `email_verify_code`, `sub_ip`, `sub_time`) VALUES (:name, :email, :hash, :code, :ip, NOW())");
             $stmt->execute([
                 'name' => $name,
                 'email' => $email,
@@ -208,8 +208,8 @@ function subscribe($name, $email, $hash){
 }
 
 function verify_code($code){    
-    global $db;
-    $stmt = $db->prepare("SELECT `id`,`email_verify` FROM `subscribers` WHERE `email_verify_code`=:code");
+    global $db2;
+    $stmt = $db2->prepare("SELECT `id`,`email_verify` FROM `subscribers` WHERE `email_verify_code`=:code");
     $stmt->execute([
         'code' => $code
     ]);
@@ -217,7 +217,7 @@ function verify_code($code){
     $id = $data['id'];
     if ($id != ''){;
         if ($data['email_verify'] != "1"){
-            $stmt = $db->prepare("UPDATE `subscribers` SET `email_verify`=1, `email_verify_time`=NOW(),`email_verify_ip`=:ip WHERE `id`=:id");
+            $stmt = $db2->prepare("UPDATE `subscribers` SET `email_verify`=1, `email_verify_time`=NOW(),`email_verify_ip`=:ip WHERE `id`=:id");
             $stmt->execute([
                 'id' => $id,
                 'ip' => get_ip()
@@ -256,8 +256,8 @@ function unsubscribe($email, $hash){
     if (is_account_exist($email)){
         $account = get_account($email, $hash);
         if ($account['name']){
-            global $db;
-            $stmt = $db->prepare("UPDATE `subscribers` SET `disabled`=1 WHERE `email`=:email AND `hash`=:hash AND `disabled`=0");
+            global $db2;
+            $stmt = $db2->prepare("UPDATE `subscribers` SET `disabled`=1 WHERE `email`=:email AND `hash`=:hash AND `disabled`=0");
             $stmt->execute([
                 'email' => $email,
                 'hash' => $hash

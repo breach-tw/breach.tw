@@ -4,6 +4,11 @@ define('DB_NAME', 'breachtw');
 define('DB_USER', 'breachtw');
 define('DB_PASS', 'breachtw');
 define('DB_TIMEZONE', 'Asia/Taipei');
+define('DB2_HOST', 'localhost');
+define('DB2_NAME', 'breachtw');
+define('DB2_USER', 'breachtw');
+define('DB2_PASS', 'breachtw');
+define('DB2_TIMEZONE', 'Asia/Taipei');
 
 define('SMTP_HOST', 'smtp-relay.gmail.com');
 define('SMTP_PORT', 587);
@@ -25,3 +30,5 @@ define('POW_DIFF', 5);
 
 $connection_string = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', DB_HOST, DB_NAME);
 $db = new PDO($connection_string, DB_USER, DB_PASS);
+$connection_string2 = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', DB2_HOST, DB2_NAME);
+$db2 = new PDO($connection_string2, DB2_USER, DB2_PASS);

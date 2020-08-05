@@ -29,6 +29,7 @@
                     id="nid" 
                     maxlength="6"  
                     placeholder="身分證字號後六碼" 
+                    autocomplete="off" 
                     required />
             </div>
             <button type="submit" id="genhash" class="btn btn-outline-dark btn-block">產生</button>
